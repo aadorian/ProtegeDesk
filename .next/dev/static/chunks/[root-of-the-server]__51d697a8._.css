@@ -192,18 +192,18 @@
 
   @supports (color: lab(0% 0 0)) {
     :root, :host {
-      --color-red-50: lab(96.5005% 4.18508 1.52328);
-      --color-red-300: lab(76.5514% 36.422 15.5335);
-      --color-red-400: lab(63.7053% 60.745 31.3109);
+      --color-red-50: lab(96.5005% 4.18511 1.52329);
+      --color-red-300: lab(76.5514% 36.4219 15.5335);
+      --color-red-400: lab(63.7053% 60.7449 31.3109);
       --color-red-500: lab(55.4814% 75.0732 48.8528);
       --color-red-600: lab(48.4493% 77.4328 61.5452);
       --color-orange-500: lab(64.272% 57.1788 90.3583);
       --color-yellow-400: lab(83.2664% 8.65132 106.895);
       --color-yellow-500: lab(76.3898% 14.5258 98.4589);
-      --color-yellow-600: lab(62.7799% 22.4197 86.1544);
-      --color-green-500: lab(70.5521% -66.5147 45.8073);
-      --color-blue-400: lab(65.0361% -1.42065 -56.9802);
-      --color-gray-100: lab(96.1596% -.0823438 -1.13575);
+      --color-yellow-600: lab(62.7799% 22.4198 86.1544);
+      --color-green-500: lab(70.5521% -66.5147 45.8072);
+      --color-blue-400: lab(65.0361% -1.42062 -56.9803);
+      --color-gray-100: lab(96.1596% -.082314 -1.13575);
       --color-gray-800: lab(16.1051% -1.18239 -11.7533);
     }
   }
@@ -602,12 +602,20 @@
     margin-inline: calc(var(--spacing) * 4);
   }
 
+  .mx-auto {
+    margin-inline: auto;
+  }
+
   .my-1 {
     margin-block: calc(var(--spacing) * 1);
   }
 
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
+  }
+
+  .mt-1 {
+    margin-top: calc(var(--spacing) * 1);
   }
 
   .mt-2 {
@@ -1060,6 +1068,11 @@
     border-width: 1px;
   }
 
+  .border-2 {
+    border-style: var(--tw-border-style);
+    border-width: 2px;
+  }
+
   .border-t {
     border-top-style: var(--tw-border-style);
     border-top-width: 1px;
@@ -1080,6 +1093,11 @@
     border-left-width: 1px;
   }
 
+  .border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
+
   .border-border {
     border-color: var(--border);
   }
@@ -1092,6 +1110,16 @@
     border-color: var(--input);
   }
 
+  .border-muted-foreground\/25 {
+    border-color: var(--muted-foreground);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-muted-foreground\/25 {
+      border-color: color-mix(in oklab, var(--muted-foreground) 25%, transparent);
+    }
+  }
+
   .border-orange-500\/50 {
     border-color: #fe6e0080;
   }
@@ -1100,6 +1128,10 @@
     .border-orange-500\/50 {
       border-color: color-mix(in oklab, var(--color-orange-500) 50%, transparent);
     }
+  }
+
+  .border-primary {
+    border-color: var(--primary);
   }
 
   .border-red-500\/50 {
@@ -1198,6 +1230,16 @@
 
   .bg-primary {
     background-color: var(--primary);
+  }
+
+  .bg-primary\/10 {
+    background-color: var(--primary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-primary\/10 {
+      background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    }
   }
 
   .bg-primary\/20 {
@@ -1705,6 +1747,18 @@
 
   .placeholder\:text-muted-foreground::placeholder {
     color: var(--muted-foreground);
+  }
+
+  @media (hover: hover) {
+    .hover\:border-primary\/50:hover {
+      border-color: var(--primary);
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:border-primary\/50:hover {
+        border-color: color-mix(in oklab, var(--primary) 50%, transparent);
+      }
+    }
   }
 
   @media (hover: hover) {
@@ -2504,7 +2558,7 @@
     --card-foreground: lab(97.68% -.0000298023 .0000119209);
     --popover: lab(.462488% 0 0);
     --popover-foreground: lab(97.68% -.0000298023 .0000119209);
-    --primary: lab(52.2464% 8.4396 -53.3822);
+    --primary: lab(52.2464% 8.43963 -53.3822);
     --primary-foreground: lab(97.68% -.0000298023 .0000119209);
     --secondary: lab(3.04863% 0 0);
     --secondary-foreground: lab(97.68% -.0000298023 .0000119209);
@@ -2516,20 +2570,20 @@
     --destructive-foreground: lab(97.68% -.0000298023 .0000119209);
     --border: lab(7.22637% -.0000149012 0);
     --input: lab(7.22637% -.0000149012 0);
-    --ring: lab(52.2464% 8.4396 -53.3822);
-    --chart-1: lab(52.2464% 8.4396 -53.3822);
-    --chart-2: lab(61.2815% -53.312 -.356901);
-    --chart-3: lab(65.5026% 7.67806 74.2538);
-    --chart-4: lab(45.5526% 32.3631 -46.5159);
+    --ring: lab(52.2464% 8.43963 -53.3822);
+    --chart-1: lab(52.2464% 8.43963 -53.3822);
+    --chart-2: lab(61.2815% -53.312 -.356889);
+    --chart-3: lab(65.5025% 7.67812 74.2538);
+    --chart-4: lab(45.5527% 32.3631 -46.5158);
     --chart-5: lab(69.9918% 39.7716 46.6465);
     --sidebar: lab(.462488% 0 0);
     --sidebar-foreground: lab(97.68% -.0000298023 .0000119209);
-    --sidebar-primary: lab(52.2464% 8.4396 -53.3822);
+    --sidebar-primary: lab(52.2464% 8.43963 -53.3822);
     --sidebar-primary-foreground: lab(97.68% -.0000298023 .0000119209);
     --sidebar-accent: lab(3.04863% 0 0);
     --sidebar-accent-foreground: lab(97.68% -.0000298023 .0000119209);
     --sidebar-border: lab(7.22637% -.0000149012 0);
-    --sidebar-ring: lab(52.2464% 8.4396 -53.3822);
+    --sidebar-ring: lab(52.2464% 8.43963 -53.3822);
   }
 }
 
@@ -2576,7 +2630,7 @@
     --card-foreground: lab(97.68% -.0000298023 .0000119209);
     --popover: lab(.462488% 0 0);
     --popover-foreground: lab(97.68% -.0000298023 .0000119209);
-    --primary: lab(52.2464% 8.4396 -53.3822);
+    --primary: lab(52.2464% 8.43963 -53.3822);
     --primary-foreground: lab(97.68% -.0000298023 .0000119209);
     --secondary: lab(3.04863% 0 0);
     --secondary-foreground: lab(97.68% -.0000298023 .0000119209);
@@ -2588,20 +2642,20 @@
     --destructive-foreground: lab(97.68% -.0000298023 .0000119209);
     --border: lab(7.22637% -.0000149012 0);
     --input: lab(7.22637% -.0000149012 0);
-    --ring: lab(52.2464% 8.4396 -53.3822);
-    --chart-1: lab(52.2464% 8.4396 -53.3822);
-    --chart-2: lab(61.2815% -53.312 -.356901);
-    --chart-3: lab(65.5026% 7.67806 74.2538);
-    --chart-4: lab(45.5526% 32.3631 -46.5159);
+    --ring: lab(52.2464% 8.43963 -53.3822);
+    --chart-1: lab(52.2464% 8.43963 -53.3822);
+    --chart-2: lab(61.2815% -53.312 -.356889);
+    --chart-3: lab(65.5025% 7.67812 74.2538);
+    --chart-4: lab(45.5527% 32.3631 -46.5158);
     --chart-5: lab(69.9918% 39.7716 46.6465);
     --sidebar: lab(.462488% 0 0);
     --sidebar-foreground: lab(97.68% -.0000298023 .0000119209);
-    --sidebar-primary: lab(52.2464% 8.4396 -53.3822);
+    --sidebar-primary: lab(52.2464% 8.43963 -53.3822);
     --sidebar-primary-foreground: lab(97.68% -.0000298023 .0000119209);
     --sidebar-accent: lab(3.04863% 0 0);
     --sidebar-accent-foreground: lab(97.68% -.0000298023 .0000119209);
     --sidebar-border: lab(7.22637% -.0000149012 0);
-    --sidebar-ring: lab(52.2464% 8.4396 -53.3822);
+    --sidebar-ring: lab(52.2464% 8.43963 -53.3822);
   }
 }
 

@@ -1293,6 +1293,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/input.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/dialog.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-client] (ecmascript)");
@@ -1320,6 +1321,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 function ImportExportDialog() {
     _s();
     const { ontology, setOntology } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ontology$2f$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOntology"])();
@@ -1328,6 +1330,7 @@ function ImportExportDialog() {
     const [importData, setImportData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [importFormat, setImportFormat] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("auto");
     const [open, setOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isDragging, setIsDragging] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const handleExport = ()=>{
         if (!ontology) return;
         let content = "";
@@ -1403,9 +1406,7 @@ function ImportExportDialog() {
             });
         }
     };
-    const handleFileUpload = (e)=>{
-        const file = e.target.files?.[0];
-        if (!file) return;
+    const processFile = (file)=>{
         const extension = file.name.split(".").pop()?.toLowerCase();
         if (extension === "owl" || extension === "rdf" || extension === "xml") {
             setImportFormat("owlxml");
@@ -1413,13 +1414,56 @@ function ImportExportDialog() {
             setImportFormat("turtle");
         } else if (extension === "jsonld" || extension === "json") {
             setImportFormat("jsonld");
+        } else {
+            toast({
+                title: "Invalid file type",
+                description: "Please upload a .ttl, .owl, or .jsonld file.",
+                variant: "destructive"
+            });
+            return;
         }
         const reader = new FileReader();
         reader.onload = (event)=>{
             const content = event.target?.result;
             setImportData(content);
+            toast({
+                title: "File loaded",
+                description: `${file.name} ready for import`
+            });
+        };
+        reader.onerror = ()=>{
+            toast({
+                title: "Error reading file",
+                description: "There was an error reading the file content.",
+                variant: "destructive"
+            });
         };
         reader.readAsText(file);
+    };
+    const handleFileUpload = (e)=>{
+        const file = e.target.files?.[0];
+        if (file) {
+            processFile(file);
+        }
+    };
+    const handleDragOver = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+    };
+    const handleDragLeave = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    };
+    const handleDrop = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        const file = e.dataTransfer.files?.[0];
+        if (file) {
+            processFile(file);
+        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Dialog"], {
         open: open,
@@ -1435,19 +1479,19 @@ function ImportExportDialog() {
                             className: "h-4 w-4 mr-2"
                         }, void 0, false, {
                             fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                            lineNumber: 144,
+                            lineNumber: 206,
                             columnNumber: 11
                         }, this),
                         "Import/Export"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                    lineNumber: 143,
+                    lineNumber: 205,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                lineNumber: 142,
+                lineNumber: 204,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogContent"], {
@@ -1459,20 +1503,20 @@ function ImportExportDialog() {
                                 children: "Import/Export Ontology"
                             }, void 0, false, {
                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                lineNumber: 150,
+                                lineNumber: 212,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                                 children: "Import or export your ontology in various formats"
                             }, void 0, false, {
                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                lineNumber: 151,
+                                lineNumber: 213,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                        lineNumber: 149,
+                        lineNumber: 211,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tabs"], {
@@ -1487,7 +1531,7 @@ function ImportExportDialog() {
                                         children: "Export"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 156,
+                                        lineNumber: 220,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -1495,13 +1539,13 @@ function ImportExportDialog() {
                                         children: "Import"
                                     }, void 0, false, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 157,
+                                        lineNumber: 221,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                lineNumber: 155,
+                                lineNumber: 219,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -1515,7 +1559,7 @@ function ImportExportDialog() {
                                                 children: "Export Format"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 162,
+                                                lineNumber: 226,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1525,12 +1569,12 @@ function ImportExportDialog() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectTrigger"], {
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectValue"], {}, void 0, false, {
                                                             fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                            lineNumber: 165,
+                                                            lineNumber: 232,
                                                             columnNumber: 19
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                        lineNumber: 164,
+                                                        lineNumber: 231,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1540,7 +1584,7 @@ function ImportExportDialog() {
                                                                 children: "JSON-LD"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 168,
+                                                                lineNumber: 235,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1548,7 +1592,7 @@ function ImportExportDialog() {
                                                                 children: "Turtle (TTL)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 169,
+                                                                lineNumber: 236,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1556,25 +1600,25 @@ function ImportExportDialog() {
                                                                 children: "OWL/XML"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 170,
+                                                                lineNumber: 237,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                        lineNumber: 167,
+                                                        lineNumber: 234,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 163,
+                                                lineNumber: 227,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 225,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1584,7 +1628,7 @@ function ImportExportDialog() {
                                                 children: "Preview"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 176,
+                                                lineNumber: 243,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -1593,13 +1637,13 @@ function ImportExportDialog() {
                                                 className: "font-mono text-xs h-64"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 177,
+                                                lineNumber: 244,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 175,
+                                        lineNumber: 242,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1610,20 +1654,20 @@ function ImportExportDialog() {
                                                 className: "h-4 w-4 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 193,
+                                                lineNumber: 260,
                                                 columnNumber: 15
                                             }, this),
                                             "Download Ontology"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 192,
+                                        lineNumber: 259,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                lineNumber: 160,
+                                lineNumber: 224,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -1637,23 +1681,60 @@ function ImportExportDialog() {
                                                 children: "Upload File"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 200,
+                                                lineNumber: 267,
                                                 columnNumber: 15
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
-                                                type: "file",
-                                                accept: ".jsonld,.json,.ttl,.turtle,.owl,.rdf,.xml",
-                                                onChange: handleFileUpload,
-                                                className: "text-xs"
-                                            }, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                onDragOver: handleDragOver,
+                                                onDragLeave: handleDragLeave,
+                                                onDrop: handleDrop,
+                                                onClick: ()=>document.getElementById("file-upload")?.click(),
+                                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("border-2 border-dashed rounded-lg p-6 text-center transition-colors cursor-pointer", isDragging ? "border-primary bg-primary/10" : "border-muted-foreground/25 hover:border-primary/50"),
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
+                                                        className: "h-8 w-8 mx-auto mb-2 text-muted-foreground"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/ontology/import-export-dialog.tsx",
+                                                        lineNumber: 280,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-sm font-medium",
+                                                        children: "Click or drag & drop to upload"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/ontology/import-export-dialog.tsx",
+                                                        lineNumber: 281,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: "text-xs text-muted-foreground mt-1",
+                                                        children: "Accepts .ttl, .owl, .jsonld, .rdf, .xml"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/ontology/import-export-dialog.tsx",
+                                                        lineNumber: 284,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
+                                                        id: "file-upload",
+                                                        type: "file",
+                                                        accept: ".jsonld,.json,.ttl,.turtle,.owl,.rdf,.xml",
+                                                        onChange: handleFileUpload,
+                                                        className: "hidden"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/components/ontology/import-export-dialog.tsx",
+                                                        lineNumber: 287,
+                                                        columnNumber: 17
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 201,
+                                                lineNumber: 268,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 199,
+                                        lineNumber: 266,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1663,7 +1744,7 @@ function ImportExportDialog() {
                                                 children: "Import Format"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 210,
+                                                lineNumber: 298,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1673,12 +1754,12 @@ function ImportExportDialog() {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectTrigger"], {
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectValue"], {}, void 0, false, {
                                                             fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                            lineNumber: 213,
+                                                            lineNumber: 304,
                                                             columnNumber: 19
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 303,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1688,7 +1769,7 @@ function ImportExportDialog() {
                                                                 children: "Auto-detect"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 216,
+                                                                lineNumber: 307,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1696,7 +1777,7 @@ function ImportExportDialog() {
                                                                 children: "JSON-LD"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 217,
+                                                                lineNumber: 308,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1704,7 +1785,7 @@ function ImportExportDialog() {
                                                                 children: "Turtle (TTL)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 309,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1712,25 +1793,25 @@ function ImportExportDialog() {
                                                                 children: "OWL/XML or RDF/XML"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                                lineNumber: 219,
+                                                                lineNumber: 310,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                        lineNumber: 215,
+                                                        lineNumber: 306,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 299,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 209,
+                                        lineNumber: 297,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1740,7 +1821,7 @@ function ImportExportDialog() {
                                                 children: "Or Paste Ontology Data"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 225,
+                                                lineNumber: 316,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
@@ -1750,13 +1831,13 @@ function ImportExportDialog() {
                                                 className: "font-mono text-xs h-64"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 317,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 315,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1768,42 +1849,42 @@ function ImportExportDialog() {
                                                 className: "h-4 w-4 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                                lineNumber: 235,
+                                                lineNumber: 330,
                                                 columnNumber: 15
                                             }, this),
                                             "Import Ontology"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                        lineNumber: 234,
+                                        lineNumber: 325,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                                lineNumber: 198,
+                                lineNumber: 265,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                        lineNumber: 154,
+                        lineNumber: 218,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/ontology/import-export-dialog.tsx",
-                lineNumber: 148,
+                lineNumber: 210,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/ontology/import-export-dialog.tsx",
-        lineNumber: 141,
+        lineNumber: 203,
         columnNumber: 5
     }, this);
 }
-_s(ImportExportDialog, "5pQYvVhFHISHhv4RmJwSV2Fk5Zs=", false, function() {
+_s(ImportExportDialog, "CmmUdEeT6qlD8uc6NlJt/ubSaGA=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$ontology$2f$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useOntology"],
         __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useToast"]
