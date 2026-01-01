@@ -517,3 +517,899 @@
 [02:17:12.071] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
 [02:17:12.071] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
 [02:17:12.071] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:02.624] Server  LOG      ✓ Compiled in 313ms
+[02:26:35.114] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:35.114] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:35.114] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Class selected {"classId":"no name","className":"humnan"}
+[02:26:38.787] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:38.787] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:38.787] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:26:40.311] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:40.311] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:40.311] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Class selected {"classId":"no name","className":"humnan"}
+[02:26:41.160] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:41.160] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:41.160] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     HomePage: View mode changed to graph
+[02:26:42.880] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:42.880] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":4,"rootClasses":["Thing","Person","Organization","humnan"],"totalClasses":5}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering humnan at level 1 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:26:42.880] Browser LOG     ClassTreeNode: Rendering humnan at level 0 {"classId":"no name","hasChildren":false,"isExpanded":true}
+[02:27:10.127] Server  LOG     ClassTree: Rendering with root classes {}
+[02:27:10.376] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:27:10.710] Browser LOG     HomePage: Loading sample ontology
+[02:27:10.710] Browser LOG     HomePage: Sample ontology loaded
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:10.710] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:10.710] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:27:10.710] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:27:10.710] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1767273844261}
+[02:27:39.138] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:39.138] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:39.138] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:27:40.536] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:40.536] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:40.536] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:27:41.004] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:41.004] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.004] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:27:41.408] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:41.408] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:41.408] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:27:42.505] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:42.505] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:42.505] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     HomePage: View mode changed to graph
+[02:27:46.386] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:46.386] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:46.386] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     HomePage: View mode changed to details
+[02:27:47.501] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:47.501] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:27:47.501] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.343] Server  LOG     ClassTree: Rendering with root classes {}
+[02:28:13.604] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:28:13.931] Browser LOG     HomePage: Loading sample ontology
+[02:28:13.931] Browser LOG     HomePage: Sample ontology loaded
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:13.931] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:13.931] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:28:13.931] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:28:13.931] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1767273907488}
+[02:28:26.829] Browser LOG     ClassTreeNode: Class selected {"classId":"owl:Thing","className":"Thing"}
+[02:28:26.829] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:26.829] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:26.829] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:28.395] Browser LOG     ClassTreeNode: Class selected {"classId":"owl:Thing","className":"Thing"}
+[02:28:28.844] Browser LOG     ClassTreeNode: Class selected {"classId":"owl:Thing","className":"Thing"}
+[02:28:31.595] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:28:31.595] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:31.595] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:31.595] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:28:33.816] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:28:34.852] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:29:00.798] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:00.798] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:00.798] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:29:14.837] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:14.837] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:14.837] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:29:17.373] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:17.373] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:17.373] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:29:18.189] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:18.189] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.189] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:29:18.585] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:18.585] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:18.585] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Class selected {"classId":"owl:Thing","className":"Thing"}
+[02:29:19.167] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.167] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.167] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.168] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:29:19.606] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.606] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.606] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:29:19.940] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.940] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:19.940] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:29:20.238] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:20.238] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:20.238] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:29:24.544] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:24.544] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:24.544] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:59.820] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:29:59.820] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:30:01.533] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:01.533] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.533] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:30:01.944] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:01.944] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:01.944] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:04.398] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:30:04.696] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:30:04.696] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:04.696] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:04.696] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:30:05.014] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:05.014] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:05.014] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:05.314] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:30:06.390] Server  LOG     ClassTree: Rendering with root classes {}
+[02:30:06.708] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":0,"rootClasses":[],"totalClasses":0}
+[02:30:07.044] Browser LOG     HomePage: Loading sample ontology
+[02:30:07.044] Browser LOG     HomePage: Sample ontology loaded
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.044] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.044] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:30:07.044] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:30:07.044] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1767274020595}
+[02:30:07.810] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:30:07.810] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.810] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:07.810] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:30:19.819] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:19.819] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:19.819] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:30:21.014] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:21.014] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:21.014] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:58.132] Browser LOG     HomePage: View mode changed to graph
+[02:30:58.132] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:58.132] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:58.132] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:30:58.133] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:04.597] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:04.597] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:04.597] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:31:05.641] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:05.641] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:05.641] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:06.326] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:06.326] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:06.326] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:07.343] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:07.559] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:09.306] Browser LOG     ClassTreeNode: Class selected {"classId":"Organization","className":"Organization"}
+[02:31:09.306] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:09.306] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:09.306] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     HomePage: View mode changed to details
+[02:31:23.064] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:23.064] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:23.064] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:27.473] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:27.473] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:27.473] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:31:29.307] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:29.307] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:29.307] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:29.308] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:29.308] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:29.308] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:29.308] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:29.308] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:30.154] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:30.154] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:30.154] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:31:33.920] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:33.920] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:33.920] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Class selected {"classId":"Employee","className":"Employee"}
+[02:31:35.583] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:35.583] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:35.583] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Class selected {"classId":"Person","className":"Person"}
+[02:31:37.048] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:37.048] Browser LOG     ClassTree: Rendering with root classes {"rootClassCount":3,"rootClasses":["Thing","Person","Organization"],"totalClasses":4}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Thing at level 0 {"classId":"owl:Thing","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Person at level 1 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Employee at level 2 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Organization at level 1 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Person at level 0 {"classId":"Person","hasChildren":true,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Employee at level 1 {"classId":"Employee","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
+[02:31:37.048] Browser LOG     ClassTreeNode: Rendering Organization at level 0 {"classId":"Organization","hasChildren":false,"isExpanded":true}
