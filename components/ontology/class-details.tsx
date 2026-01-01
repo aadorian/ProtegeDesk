@@ -8,12 +8,36 @@ import { Badge } from "@/components/ui/badge";
 import { useOntology } from "@/lib/ontology/context";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, ChevronRight, Home } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useMemo } from "react";
+import { cn } from "@/lib/utils";
 
 export function ClassDetails() {
-  const { selectedClass, ontology } = useOntology();
+  const { selectedClass, ontology, selectClass } = useOntology();
   const { toast } = useToast();
+
+  const breadcrumbs = useMemo(() => {
+    if (!selectedClass || !ontology) return [];
+
+    const path: { id: string; label: string }[] = [];
+    let currentId = selectedClass.id;
+    const visited = new Set<string>();
+
+    while (currentId && currentId !== "owl:Thing" && !visited.has(currentId)) {
+      visited.add(currentId);
+      const cls = ontology.classes.get(currentId);
+      if (cls) {
+        path.unshift({ id: cls.id, label: cls.label || cls.name });
+        currentId = cls.superClasses[0]; // Follow first parent for breadcrumb
+      } else {
+        break;
+      }
+    }
+
+    path.unshift({ id: "owl:Thing", label: "owl:Thing" });
+    return path;
+  }, [selectedClass, ontology]);
 
   if (!selectedClass) {
     return (
@@ -30,6 +54,29 @@ export function ClassDetails() {
   return (
     <ScrollArea className="h-full">
       <div className="p-4 space-y-4">
+        <div className="flex items-center flex-wrap gap-1 text-xs text-muted-foreground bg-muted/30 p-2 rounded-md border border-border/50">
+          <Home className="h-3 w-3 mr-1" />
+          {breadcrumbs.map((crumb, index) => (
+            <div key={crumb.id} className="flex items-center">
+              {index > 0 && <ChevronRight className="h-3 w-3 mx-0.5" />}
+              <button
+                onClick={() =>
+                  crumb.id !== "owl:Thing" && selectClass(crumb.id)
+                }
+                className={cn(
+                  "hover:text-primary transition-colors hover:underline underline-offset-2 decoration-primary/30",
+                  crumb.id === selectedClass.id &&
+                    "text-foreground font-semibold",
+                  crumb.id === "owl:Thing" &&
+                    "cursor-default hover:no-underline"
+                )}
+              >
+                {crumb.label}
+              </button>
+            </div>
+          ))}
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Class Information</CardTitle>
