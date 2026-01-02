@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev:stop": "lsof -ti:3000 | xargs kill -9 2>/dev/null || echo 'No process running on port 3000'",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
@@ -12,6 +13,7 @@
     "type-check": "tsc --noEmit",
     "validate": "npm run type-check && npm run lint && npm run format:check && npm test",
     "start": "next start",
+    "start:stop": "lsof -ti:3000 | xargs kill -9 2>/dev/null || echo 'No process running on port 3000'",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

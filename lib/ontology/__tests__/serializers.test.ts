@@ -1,4 +1,12 @@
-import { serializeToJSONLD, serializeToTurtle, serializeToOWLXML } from '../serializers'
+import {
+  serializeToJSONLD,
+  serializeToTurtle,
+  serializeToOWLXML,
+  parseFromJSONLD,
+  parseFromOWLXML,
+  parseFromTurtle,
+  validateOntology,
+} from '../serializers'
 import type { Ontology, OntologyClass, OntologyProperty, Individual } from '../types'
 
 describe('Ontology Serializers', () => {
@@ -384,7 +392,7 @@ describe('Ontology Serializers', () => {
       const ontology = createMockOntology()
       const result = serializeToOWLXML(ontology)
 
-      expect(result).toContain('<?xml version="1.0"?>')
+      expect(result).toContain('<?xml version="1.0" encoding="UTF-8"?>')
       expect(result).toContain('<rdf:RDF')
       expect(result).toContain('xmlns:owl="http://www.w3.org/2002/07/owl#"')
       expect(result).toContain('xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"')
@@ -468,6 +476,298 @@ describe('Ontology Serializers', () => {
 
       expect(result).toContain('</rdf:RDF>')
       expect(result.trim().endsWith('</rdf:RDF>')).toBe(true)
+    })
+
+    it('should include xml:base attribute per W3C RDF spec', () => {
+      const ontology = createMockOntology()
+      ontology.id = 'http://example.org/myontology#'
+
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain('xml:base="http://example.org/myontology#"')
+    })
+
+    it('should include encoding declaration per W3C XML spec', () => {
+      const ontology = createMockOntology()
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain('<?xml version="1.0" encoding="UTF-8"?>')
+    })
+
+    it('should serialize owl:imports per W3C OWL specification', () => {
+      const ontology = createMockOntology()
+      ontology.imports = ['http://example.org/imported1', 'http://example.org/imported2']
+
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain('<owl:imports rdf:resource="http://example.org/imported1"/>')
+      expect(result).toContain('<owl:imports rdf:resource="http://example.org/imported2"/>')
+    })
+
+    it('should escape special XML characters', () => {
+      const ontology = createMockOntology()
+      const testClass = createMockClass('http://example.org/Test', 'Test')
+      testClass.label = 'Test & <Special> "Characters"'
+      testClass.description = "Description with 'quotes' & <tags>"
+
+      ontology.classes.set(testClass.id, testClass)
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain('&amp;')
+      expect(result).toContain('&lt;')
+      expect(result).toContain('&gt;')
+      expect(result).toContain('&quot;')
+      expect(result).not.toContain('Test & <Special>')
+    })
+
+    it('should use rdf:about for subjects per RDF/XML spec', () => {
+      const ontology = createMockOntology()
+      const testClass = createMockClass('http://example.org/Person', 'Person')
+      ontology.classes.set(testClass.id, testClass)
+
+      const result = serializeToOWLXML(ontology)
+
+      // Subject identification uses rdf:about
+      expect(result).toContain('rdf:about="http://example.org/Person"')
+    })
+
+    it('should use rdf:resource for object references per RDF/XML spec', () => {
+      const ontology = createMockOntology()
+      const personClass = createMockClass('http://example.org/Person', 'Person')
+      const studentClass = createMockClass('http://example.org/Student', 'Student')
+      studentClass.superClasses = ['http://example.org/Person']
+
+      ontology.classes.set(personClass.id, personClass)
+      ontology.classes.set(studentClass.id, studentClass)
+
+      const result = serializeToOWLXML(ontology)
+
+      // Object identification uses rdf:resource
+      expect(result).toContain('rdf:resource="http://example.org/Person"')
+    })
+
+    it('should serialize disjointWith and equivalentClass', () => {
+      const ontology = createMockOntology()
+      const animalClass = createMockClass('http://example.org/Animal', 'Animal')
+      const plantClass = createMockClass('http://example.org/Plant', 'Plant')
+      animalClass.disjointWith = ['http://example.org/Plant']
+      animalClass.equivalentTo = ['http://example.org/LivingThing']
+
+      ontology.classes.set(animalClass.id, animalClass)
+      ontology.classes.set(plantClass.id, plantClass)
+
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain('<owl:disjointWith rdf:resource="http://example.org/Plant"/>')
+      expect(result).toContain(
+        '<owl:equivalentClass rdf:resource="http://example.org/LivingThing"/>'
+      )
+    })
+
+    it('should serialize subPropertyOf relationships', () => {
+      const ontology = createMockOntology()
+      const prop = createMockProperty('http://example.org/hasParent', 'hasParent')
+      prop.superProperties = ['http://example.org/hasAncestor']
+
+      ontology.properties.set(prop.id, prop)
+      const result = serializeToOWLXML(ontology)
+
+      expect(result).toContain(
+        '<rdfs:subPropertyOf rdf:resource="http://example.org/hasAncestor"/>'
+      )
+    })
+  })
+
+  describe('W3C RDF/XML Parsing Tests', () => {
+    it('should parse valid RDF/XML with xml:base', () => {
+      const rdfxml = `<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://example.org/ontology#"
+     xml:base="http://example.org/test#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://example.org/test">
+        <owl:versionInfo>1.0</owl:versionInfo>
+    </owl:Ontology>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.id).toBe('http://example.org/test')
+      expect(ontology.version).toBe('1.0')
+    })
+
+    it('should parse owl:imports from RDF/XML', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://example.org/test">
+        <owl:imports rdf:resource="http://example.org/imported1"/>
+        <owl:imports rdf:resource="http://example.org/imported2"/>
+    </owl:Ontology>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.imports).toEqual([
+        'http://example.org/imported1',
+        'http://example.org/imported2',
+      ])
+    })
+
+    it('should handle namespace variations in parsing', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <Ontology about="http://example.org/test"/>
+    <Class about="http://example.org/Person">
+        <label>Person</label>
+    </Class>
+</RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.id).toBe('http://example.org/test')
+      expect(ontology.classes.size).toBe(1)
+      expect(ontology.classes.get('http://example.org/Person')?.label).toBe('Person')
+    })
+
+    it('should parse class relationships from RDF/XML', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Class rdf:about="http://example.org/Student">
+        <rdfs:label>Student</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://example.org/Person"/>
+        <owl:disjointWith rdf:resource="http://example.org/Teacher"/>
+    </owl:Class>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+      const student = ontology.classes.get('http://example.org/Student')
+
+      expect(student).toBeDefined()
+      expect(student!.superClasses).toEqual(['http://example.org/Person'])
+      expect(student!.disjointWith).toEqual(['http://example.org/Teacher'])
+    })
+
+    it('should throw error on invalid XML', () => {
+      const invalidXML = '<invalid xml'
+
+      expect(() => parseFromOWLXML(invalidXML)).toThrow('Invalid XML')
+    })
+
+    it('should parse individuals with sameAs and differentFrom', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:NamedIndividual rdf:about="http://example.org/john">
+        <rdf:type rdf:resource="http://example.org/Person"/>
+        <owl:sameAs rdf:resource="http://example.org/johnDoe"/>
+        <owl:differentFrom rdf:resource="http://example.org/jane"/>
+    </owl:NamedIndividual>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+      const john = ontology.individuals.get('http://example.org/john')
+
+      expect(john).toBeDefined()
+      expect(john!.types).toEqual(['http://example.org/Person'])
+      expect(john!.sameAs).toEqual(['http://example.org/johnDoe'])
+      expect(john!.differentFrom).toEqual(['http://example.org/jane'])
+    })
+  })
+
+  describe('Round-trip serialization tests', () => {
+    it('should preserve ontology through OWL/XML round-trip', () => {
+      const original = createMockOntology()
+      original.version = '1.5.0'
+      original.imports = ['http://example.org/imported']
+
+      const personClass = createMockClass('http://example.org/Person', 'Person')
+      personClass.superClasses = ['http://example.org/Agent']
+      original.classes.set(personClass.id, personClass)
+
+      const serialized = serializeToOWLXML(original)
+      const parsed = parseFromOWLXML(serialized)
+
+      expect(parsed.id).toBe(original.id)
+      expect(parsed.version).toBe(original.version)
+      expect(parsed.imports).toEqual(original.imports)
+      expect(parsed.classes.size).toBe(1)
+      expect(parsed.classes.get('http://example.org/Person')?.name).toBe('Person')
+    })
+
+    it('should preserve ontology through JSON-LD round-trip', () => {
+      const original = createMockOntology()
+      original.imports = ['http://example.org/imported']
+
+      const personClass = createMockClass('http://example.org/Person', 'Person')
+      original.classes.set(personClass.id, personClass)
+
+      const serialized = serializeToJSONLD(original)
+      const parsed = parseFromJSONLD(serialized)
+
+      expect(parsed.id).toBe(original.id)
+      expect(parsed.imports).toEqual(original.imports)
+      expect(parsed.classes.size).toBe(1)
+    })
+  })
+
+  describe('validateOntology', () => {
+    it('should validate ontology with valid IRIs', () => {
+      const ontology = createMockOntology()
+      const errors = validateOntology(ontology)
+
+      expect(errors).toEqual([])
+    })
+
+    it('should detect invalid ontology IRI', () => {
+      const ontology = createMockOntology()
+      ontology.id = 'invalid-iri'
+
+      const errors = validateOntology(ontology)
+
+      expect(errors.length).toBeGreaterThan(0)
+      expect(errors[0]).toContain('Ontology IRI must be a valid HTTP(S) URI')
+    })
+
+    it('should detect invalid class IRIs', () => {
+      const ontology = createMockOntology()
+      const testClass = createMockClass('invalid:class', 'Test')
+      ontology.classes.set(testClass.id, testClass)
+
+      const errors = validateOntology(ontology)
+
+      expect(errors.length).toBeGreaterThan(0)
+      expect(errors.some(e => e.includes('invalid IRI'))).toBe(true)
+    })
+
+    it('should detect invalid import IRIs', () => {
+      const ontology = createMockOntology()
+      ontology.imports = ['invalid-import']
+
+      const errors = validateOntology(ontology)
+
+      expect(errors.length).toBeGreaterThan(0)
+      expect(errors[0]).toContain('Invalid import IRI')
+    })
+
+    it('should allow standard namespace prefixes', () => {
+      const ontology = createMockOntology()
+      const testClass = createMockClass('http://example.org/Test', 'Test')
+      testClass.superClasses = ['owl:Thing', 'rdfs:Resource']
+      ontology.classes.set(testClass.id, testClass)
+
+      const errors = validateOntology(ontology)
+
+      // Should not report errors for standard prefixes
+      expect(errors.filter(e => e.includes('owl:Thing') || e.includes('rdfs:Resource'))).toEqual(
+        []
+      )
     })
   })
 })

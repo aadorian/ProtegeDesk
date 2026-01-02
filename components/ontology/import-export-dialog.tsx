@@ -33,6 +33,7 @@ import {
   parseFromJSONLD,
   parseFromOWLXML,
   parseFromTurtle,
+  validateOntology,
 } from '@/lib/ontology/serializers'
 import { Download, Upload } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
@@ -94,7 +95,7 @@ export function ImportExportDialog() {
         const trimmed = importData.trim()
         if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
           imported = parseFromJSONLD(importData)
-        } else if (trimmed.startsWith('<?xml') || trimmed.startsWith('<rdf:RDF')) {
+        } else if (trimmed.startsWith('<?xml') || trimmed.startsWith('<rdf:RDF') || trimmed.startsWith('<RDF') || trimmed.startsWith('<Ontology')) {
           imported = parseFromOWLXML(importData)
         } else if (trimmed.includes('@prefix') || trimmed.includes('@base')) {
           imported = parseFromTurtle(importData)
@@ -109,18 +110,29 @@ export function ImportExportDialog() {
         imported = parseFromJSONLD(importData)
       }
 
+      // Validate the imported ontology per W3C RDF/OWL standards
+      const validationErrors = validateOntology(imported)
+      if (validationErrors.length > 0) {
+        console.warn('[Import] Validation warnings:', validationErrors)
+        toast({
+          title: 'Import successful with warnings',
+          description: `Loaded ontology: ${imported.name}. Check console for ${validationErrors.length} validation warnings.`,
+        })
+      } else {
+        toast({
+          title: 'Import successful',
+          description: `Loaded ontology: ${imported.name}`,
+        })
+      }
+
       setOntology(imported)
       setImportData('')
       setOpen(false)
-      toast({
-        title: 'Import successful',
-        description: `Loaded ontology: ${imported.name}`,
-      })
     } catch (error) {
-      console.error('[v0] Import error:', error)
+      console.error('[Import] Error:', error)
       toast({
         title: 'Import failed',
-        description: error instanceof Error ? error.message : 'Invalid format',
+        description: error instanceof Error ? error.message : 'Invalid format or non-compliant RDF/XML',
         variant: 'destructive',
       })
     }
