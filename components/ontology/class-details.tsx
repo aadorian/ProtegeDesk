@@ -47,8 +47,8 @@ export function ClassDetails() {
     );
   }
 
-  const subclasses = Array.from(ontology?.classes.values() || []).filter((c) =>
-    c.superClasses.includes(selectedClass.id)
+  const subclasses = Array.from(ontology?.classes.values() || []).filter((ontologyClass) =>
+    ontologyClass.superClasses.includes(selectedClass.id),
   );
 
   return (
@@ -175,13 +175,9 @@ export function ClassDetails() {
               </Label>
               <div className="flex flex-wrap gap-2">
                 {subclasses.length > 0 ? (
-                  subclasses.map((subClass) => (
-                    <Badge
-                      key={subClass.id}
-                      variant="outline"
-                      className="text-xs font-mono"
-                    >
-                      {subClass.name}
+                  subclasses.map((subclass) => (
+                    <Badge key={subclass.id} variant="outline" className="text-xs font-mono">
+                      {subclass.name}
                     </Badge>
                   ))
                 ) : (

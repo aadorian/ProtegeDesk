@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { OntologyClass } from "@/lib/ontology/types";
 import debug from "debug";
 
-const log = debug("app:class-tree");
+const logger = debug("app:class-tree");
 
 
 type ClassTreeNodeProps = {
@@ -22,11 +22,9 @@ function ClassTreeNode({ classId, owlClass, level }: ClassTreeNodeProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   // Find subclasses
-  const subclasses = Array.from(ontology?.classes.values() || []).filter((c) =>
-    c.superClasses.includes(classId)
-  );
+  const subclasses = Array.from(ontology?.classes.values() || []).filter((ontologyClass) => ontologyClass.superClasses.includes(classId));
 
-  log("Rendering class node", {
+  logger("Rendering class node", {
     classId,
     label: owlClass.label || owlClass.name,
     level,
@@ -46,23 +44,18 @@ function ClassTreeNode({ classId, owlClass, level }: ClassTreeNodeProps) {
         )}
         style={{ paddingLeft: `${level * 16 + 8}px` }}
         onClick={() => {
-          console.log("ClassTreeNode: Class selected", {
+          logger("Class selected", {
             classId,
             className: owlClass.label || owlClass.name,
           });
           selectClass(classId);
-          log("Class selected", {
-            classId,
-            className: owlClass.label || owlClass.name,
-          })
-          selectClass(classId)
         }}
       >
         {hasChildren ? (
           <button
             onClick={(e) => {
               e.stopPropagation();
-              log("Toggle expand/collapse", {
+              logger("Toggle expand/collapse", {
                 className: owlClass.label || owlClass.name,
                 wasExpanded: isExpanded,
                 willBeExpanded: !isExpanded,
@@ -113,15 +106,13 @@ export function ClassTree() {
 
   // Find root classes (those with no superclasses or only owl:Thing)
   const rootClasses = Array.from(ontology?.classes.values() || []).filter(
-    (c) =>
-      c.superClasses.length === 0 ||
-      (c.superClasses.length === 1 && c.superClasses[0] === "owl:Thing")
+    (ontologyClass) => ontologyClass.superClasses.length === 0 || (ontologyClass.superClasses.length === 1 && ontologyClass.superClasses[0] === "owl:Thing"),
   );
 
-  log("Rendering with class tree", {
+  logger("Rendering with class tree", {
     totalClasses: ontology?.classes.size || 0,
     rootClassCount: rootClasses.length,
-    rootClasses: rootClasses.map((c) => c.label || c.name),
+    rootClasses: rootClasses.map((rootClass) => rootClass.label || rootClass.name),
   });
 
   return (
