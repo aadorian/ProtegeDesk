@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Testing
+coverage/
+.nyc_output/
+*.log
+jest-cache/
+
+# Environment
+.env
+.env*.local
+.env.development
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.pem
+
+# Package managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Documentation (keep project docs but exclude generated)
+*.md.backup
+docs/_build/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Large binary files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Lock files (keep one, ignore others for context)
+# Note: We keep package-lock.json in git but exclude from Cursor context to reduce noise
+
