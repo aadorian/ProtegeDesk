@@ -436,6 +436,10 @@ export function parseOWLXML(content: string): Ontology {
   })
 
   // Parse individuals with improved namespace handling
+  // Individuals can be represented in multiple ways in RDF/XML:
+  // 1. <owl:NamedIndividual rdf:about="...">
+  // 2. <ClassName rdf:about="..."> where ClassName is a class IRI
+  // 3. Elements with rdf:type pointing to a class
   const individualNodes = xmlDoc.querySelectorAll('NamedIndividual, owl\\:NamedIndividual')
   individualNodes.forEach(node => {
     const id = getAttributeNS(node, 'about', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
@@ -474,6 +478,60 @@ export function parseOWLXML(content: string): Ontology {
       sameAs,
       differentFrom,
     })
+  })
+
+  // Also parse individuals that are represented as typed elements
+  // This handles cases where individuals are declared as <ClassName rdf:about="...">
+  const allElements = xmlDoc.querySelectorAll('[rdf\\:about], [about]')
+  allElements.forEach(node => {
+    const id = getAttributeNS(node, 'about', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
+    if (!id) return
+
+    // Skip if already processed
+    if (individuals.has(id) || classes.has(id) || properties.has(id)) return
+
+    // Check if this element has rdf:type or is a typed node
+    const tagName = node.tagName
+    const typeNodes = node.querySelectorAll('type, rdf\\:type')
+    const types = Array.from(typeNodes)
+      .map(n => getAttributeNS(n as Element, 'resource', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
+      .filter((t): t is string => t !== null)
+
+    // If element has types or is not a known ontology construct, treat as individual
+    const isOntologyConstruct = tagName.includes('Ontology') ||
+                                 tagName.includes('Class') ||
+                                 tagName.includes('Property') ||
+                                 tagName === 'RDF' ||
+                                 tagName === 'rdf:RDF'
+
+    if (types.length > 0 || (!isOntologyConstruct && id)) {
+      const label =
+        node.querySelector('label, rdfs\\:label')?.textContent ||
+        id.split('#').pop() ||
+        id.split('/').pop() ||
+        id
+
+      const sameAsNodes = node.querySelectorAll('sameAs, owl\\:sameAs')
+      const sameAs = Array.from(sameAsNodes)
+        .map(n => getAttributeNS(n as Element, 'resource', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
+        .filter((sa): sa is string => sa !== null)
+
+      const differentFromNodes = node.querySelectorAll('differentFrom, owl\\:differentFrom')
+      const differentFrom = Array.from(differentFromNodes)
+        .map(n => getAttributeNS(n as Element, 'resource', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'))
+        .filter((df): df is string => df !== null)
+
+      individuals.set(id, {
+        id,
+        name: label,
+        label,
+        types,
+        propertyAssertions: [],
+        annotations: [],
+        sameAs,
+        differentFrom,
+      })
+    }
   })
 
   return {

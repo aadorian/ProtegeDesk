@@ -679,6 +679,90 @@ describe('Ontology Serializers', () => {
       expect(john!.sameAs).toEqual(['http://example.org/johnDoe'])
       expect(john!.differentFrom).toEqual(['http://example.org/jane'])
     })
+
+    it('should parse individuals declared as typed elements', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:ex="http://example.org/">
+    <ex:Person rdf:about="http://example.org/john">
+        <rdfs:label>John Doe</rdfs:label>
+    </ex:Person>
+    <ex:Organization rdf:about="http://example.org/acme">
+        <rdfs:label>ACME Corporation</rdfs:label>
+    </ex:Organization>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.individuals.size).toBe(2)
+      expect(ontology.individuals.has('http://example.org/john')).toBe(true)
+      expect(ontology.individuals.has('http://example.org/acme')).toBe(true)
+
+      const john = ontology.individuals.get('http://example.org/john')
+      expect(john?.label).toBe('John Doe')
+
+      const acme = ontology.individuals.get('http://example.org/acme')
+      expect(acme?.label).toBe('ACME Corporation')
+    })
+
+    it('should parse individuals with explicit rdf:type', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:ex="http://example.org/">
+    <rdf:Description rdf:about="http://example.org/john">
+        <rdf:type rdf:resource="http://example.org/Person"/>
+        <rdf:type rdf:resource="http://example.org/Employee"/>
+        <rdfs:label>John Doe</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.individuals.size).toBe(1)
+      const john = ontology.individuals.get('http://example.org/john')
+
+      expect(john).toBeDefined()
+      expect(john!.types).toEqual([
+        'http://example.org/Person',
+        'http://example.org/Employee',
+      ])
+      expect(john!.label).toBe('John Doe')
+    })
+
+    it('should not confuse individuals with classes and properties', () => {
+      const rdfxml = `<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Class rdf:about="http://example.org/Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:about="http://example.org/knows">
+        <rdfs:label>knows</rdfs:label>
+    </owl:ObjectProperty>
+    <owl:NamedIndividual rdf:about="http://example.org/john">
+        <rdf:type rdf:resource="http://example.org/Person"/>
+        <rdfs:label>John</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>`
+
+      const ontology = parseFromOWLXML(rdfxml)
+
+      expect(ontology.classes.size).toBe(1)
+      expect(ontology.properties.size).toBe(1)
+      expect(ontology.individuals.size).toBe(1)
+
+      expect(ontology.classes.has('http://example.org/Person')).toBe(true)
+      expect(ontology.properties.has('http://example.org/knows')).toBe(true)
+      expect(ontology.individuals.has('http://example.org/john')).toBe(true)
+
+      // Ensure the individual is not incorrectly added to classes
+      expect(ontology.classes.has('http://example.org/john')).toBe(false)
+    })
   })
 
   describe('Round-trip serialization tests', () => {
