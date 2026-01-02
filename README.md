@@ -263,12 +263,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-**Development Team**:
-- Developer 1: Frontend Lead (UI/UX)
-- Developer 2: Backend/Integration Lead
-- Developer 3: AI/Reasoning Specialist
+**Project Lead**: Ale ([@aadorian](https://github.com/aadorian))
 
-**Contributors**: See [CONTRIBUTORS.md](CONTRIBUTORS.md)
+**Contributors**:
+- **SIVA** ([@NANI-31](https://github.com/NANI-31)) - Graph visualization enhancements
+- **charulata871** ([@charulata871](https://github.com/charulata871)) - Code refactoring & quality improvements
+- **Nachu** - Bug fixes & integration
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and contribution details.
 
 ---
 
