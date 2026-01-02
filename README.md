@@ -323,16 +323,38 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👥 Team
+## 👥 Team & Contributors
+
+### Core Team
 
 **Project Lead**: Ale ([@aadorian](https://github.com/aadorian))
+- Project architecture and leadership
+- Cursor AI development environment configuration
+- Comprehensive development guidelines documentation
+- Hydration error fixes and core improvements
 
-**Contributors**:
-- **SIVA** ([@NANI-31](https://github.com/NANI-31)) - Graph visualization enhancements
-- **charulata871** ([@charulata871](https://github.com/charulata871)) - Code refactoring & quality improvements
-- **Nachu** - Bug fixes & integration
+### Contributors
 
-See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and contribution details.
+- **SIVA** ([@NANI-31](https://github.com/NANI-31))
+  - Enhanced graph visualization with zoom controls
+  - Breadcrumb navigation implementation
+  - Copy IRI button for entity cards
+
+- **charulata871** ([@charulata871](https://github.com/charulata871))
+  - Code refactoring and improved variable naming
+  - ClassDetails component refactoring
+  - Enhanced code quality and maintainability
+
+- **ParthP511** ([@ParthP511](https://github.com/ParthP511))
+  - Comprehensive inline documentation comments
+  - Documented reasoning logic in core modules
+
+- **Nachu**
+  - Professional ESLint and Prettier configuration setup
+  - Comprehensive logic-focused unit testing infrastructure (130 tests)
+  - Bug fixes and repository maintenance
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and detailed contribution information.
 
 ---
 
