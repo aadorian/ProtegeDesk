@@ -1,6 +1,17 @@
 import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
 
+/**
+ * Serialize an in-memory Ontology model to JSON-LD.
+ * The output follows common OWL/JSON-LD patterns:
+ * - Ontology metadata at the root
+ * - All entities flattened into @graph
+ * - Relationships expressed as @id references
+ */
 export function serializeToJSONLD(ontology: Ontology): string {
+  /**
+   * JSON-LD requires a @context block to map short prefixes (owl:, rdf:, etc.)
+   * to their full IRIs. This allows compact terms while remaining standards-compliant.
+   */
   const context = {
     '@context': {
       owl: 'http://www.w3.org/2002/07/owl#',
@@ -10,22 +21,43 @@ export function serializeToJSONLD(ontology: Ontology): string {
     },
   }
 
+  /**
+   * The ontology is serialized as a single JSON-LD document.
+   * Maps are flattened into arrays because JSON does not support Map types.
+   */
   const jsonld = {
     ...context,
     '@id': ontology.id,
     '@type': 'owl:Ontology',
     'owl:versionInfo': ontology.version,
+
+    /**
+     * owl:imports is always represented as an array of @id references
+     * to keep the structure consistent even when only one import exists.
+     */
     'owl:imports': ontology.imports.map(imp => ({ '@id': imp })),
+
     '@graph': [
       // Convert Map to array using Array.from()
       ...Array.from(ontology.classes.values()).map(cls => ({
         '@id': cls.id,
         '@type': 'owl:Class',
+
+        // Prefer human-friendly labels; fall back to internal name if missing
         'rdfs:label': cls.label || cls.name,
+
+        // Optional description; omitted by JSON.stringify when undefined
         'rdfs:comment': cls.description,
+
+        /**
+         * Relationships are always emitted as arrays of @id objects.
+         * This avoids ambiguity between singular and plural values.
+         */
         'rdfs:subClassOf': cls.superClasses.map(sc => ({ '@id': sc })),
         'owl:disjointWith': cls.disjointWith.map(dw => ({ '@id': dw })),
       })),
+
+      // Properties
       ...Array.from(ontology.properties.values()).map(prop => ({
         '@id': prop.id,
         '@type': `owl:${prop.type}`,
@@ -35,17 +67,30 @@ export function serializeToJSONLD(ontology: Ontology): string {
         'rdfs:range': prop.range.map(r => ({ '@id': r })),
         'rdfs:subPropertyOf': prop.superProperties.map(sp => ({ '@id': sp })),
       })),
+
+      // Individuals
       ...Array.from(ontology.individuals.values()).map(ind => ({
         '@id': ind.id,
+
+        /**
+         * Individuals may have multiple rdf:types,
+         * so @type is always emitted as an array.
+         */
         '@type': ind.types.map(t => ({ '@id': t })),
         'rdfs:label': ind.label || ind.name,
       })),
     ],
   }
 
+  // Pretty-print JSON for readability and easier debugging
   return JSON.stringify(jsonld, null, 2)
 }
 
+/**
+ * Serialize an ontology to Turtle.
+ * This is a lightweight, human-readable implementation and does not aim
+ * to cover the full Turtle specification.
+ */
 export function serializeToTurtle(ontology: Ontology): string {
   let turtle = `@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -54,6 +99,7 @@ export function serializeToTurtle(ontology: Ontology): string {
 
 <${ontology.id}> a owl:Ontology`
 
+  // Version info is optional and only emitted when present
   if (ontology.version) {
     turtle += ` ;\n  owl:versionInfo "${ontology.version}"`
   }
@@ -69,6 +115,8 @@ export function serializeToTurtle(ontology: Ontology): string {
     if (cls.description) {
       turtle += ` ;\n  rdfs:comment "${cls.description}"`
     }
+
+    // Multiple superclass relationships are emitted as repeated predicates
     cls.superClasses.forEach(sc => {
       turtle += ` ;\n  rdfs:subClassOf <${sc}>`
     })
@@ -105,6 +153,10 @@ export function serializeToTurtle(ontology: Ontology): string {
   return turtle
 }
 
+/**
+ * Serialize an ontology to OWL/XML (RDF/XML).
+ * This implementation focuses on interoperability rather than full OWL coverage.
+ */
 export function serializeToOWLXML(ontology: Ontology): string {
   let xml = `<?xml version="1.0"?>
 <rdf:RDF xmlns="http://example.org/ontology#"
@@ -152,6 +204,10 @@ export function serializeToOWLXML(ontology: Ontology): string {
 
   // Individuals
   Array.from(ontology.individuals.values()).forEach(ind => {
+    /**
+     * Each rdf:type is emitted as a separate NamedIndividual block
+     * to avoid ambiguity in RDF/XML parsers.
+     */
     ind.types.forEach(type => {
       xml += `    <owl:NamedIndividual rdf:about="${ind.id}">\n`
       xml += `        <rdf:type rdf:resource="${type}"/>\n`
@@ -166,7 +222,15 @@ export function serializeToOWLXML(ontology: Ontology): string {
   return xml
 }
 
+/**
+ * Parse OWL/XML (RDF/XML) into the internal Ontology model.
+ * Parsing is intentionally defensive to handle variations in namespace usage.
+ */
 export function parseOWLXML(content: string): Ontology {
+  /**
+   * DOMParser provides a simple, browser-compatible XML parser.
+   * Invalid XML may result in partial or empty documents.
+   */
   const parser = new DOMParser()
   const xmlDoc = parser.parseFromString(content, 'text/xml')
 
@@ -190,6 +254,10 @@ export function parseOWLXML(content: string): Ontology {
       return
     }
 
+    /**
+     * Labels fall back to the local fragment of the IRI
+     * to guarantee a usable display name.
+     */
     const label =
       node.querySelector('label')?.textContent || id.split('#').pop() || id.split('/').pop() || id
     const description = node.querySelector('comment')?.textContent || undefined
@@ -232,6 +300,10 @@ export function parseOWLXML(content: string): Ontology {
         name: label,
         label,
         description,
+
+        /**
+         * DatatypeProperty is normalized to DataProperty internally.
+         */
         type:
           propType === 'DatatypeProperty'
             ? 'DataProperty'
@@ -288,17 +360,28 @@ export function parseOWLXML(content: string): Ontology {
   }
 }
 
+/**
+ * RDF/XML is treated as equivalent to OWL/XML for parsing purposes.
+ */
 export function parseRDFXML(content: string): Ontology {
-  // RDF/XML is similar to OWL/XML, use the same parser
   return parseOWLXML(content)
 }
 
+/**
+ * Parse Turtle using a minimal, line-oriented approach.
+ * This supports only basic class and property declarations.
+ */
 export function parseTurtle(content: string): Ontology {
   const classes = new Map<string, OntologyClass>()
   const properties = new Map<string, OntologyProperty>()
   const individuals = new Map<string, Individual>()
 
-  // Simple Turtle parser (basic implementation)
+  /**
+   * This parser is intentionally simplistic:
+   * - No blank nodes
+   * - No collections
+   * - No multi-line triples
+   */
   const lines = content.split('\n')
   let currentSubject: string | null = null
   let currentType: string | null = null
@@ -377,6 +460,10 @@ export function parseTurtle(content: string): Ontology {
   }
 }
 
+/**
+ * Parse JSON-LD into the internal Ontology model.
+ * Handles both single-object and @graph-based documents.
+ */
 export function parseJSONLD(content: string): Ontology {
   const data = JSON.parse(content)
   const classes = new Map<string, OntologyClass>()
