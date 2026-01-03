@@ -8,11 +8,12 @@ The `OntologySearch` class provides a comprehensive, type-safe search solution f
 
 - **Fast searching** with O(1) lookups using ontology Maps
 - **Relevance scoring** with configurable weights for different fields
-- **Fuzzy matching** using Levenshtein distance
+- **Fuzzy matching** using Levenshtein distance for typo tolerance
 - **Field-specific filtering** to search only specific entity attributes
+- **Class name resolution** - automatically searches resolved class names/labels in property domain/range and individual types
 - **Caching** for improved performance on repeated queries
 - **Type safety** with full TypeScript support
-- **Comprehensive testing** with 44 unit tests
+- **Comprehensive testing** with 48 unit tests
 
 ## Basic Usage
 
@@ -101,6 +102,28 @@ const results = search.search('Stuent', {  // Typo: "Student"
   fuzzyMatch: true,
 });
 // Will match "Student" with lower score
+```
+
+### Class Name Resolution (Smart Search)
+
+The search automatically resolves and searches class names/labels in relational fields:
+
+```typescript
+// When searching properties, searches BOTH the class ID AND the resolved class name/label
+const props = search.searchProperties('Teacher', {
+  fields: ['domain'],  // Finds properties where domain class is "Teacher"
+});
+// This will find properties like "teaches" even if domain is stored as ID
+
+// When searching individuals, searches BOTH the type ID AND the resolved class name/label
+const individuals = search.searchIndividuals('Student', {
+  fields: ['types'],  // Finds individuals of type "Student"
+});
+// Works with both class IDs and human-readable labels
+
+// Example: If "Teacher" class has label "Educator", both queries work:
+search.searchProperties('Teacher');   // Matches by class name
+search.searchProperties('Educator');  // Also matches by class label!
 ```
 
 ## Integration Examples
@@ -413,10 +436,12 @@ npm test -- search.test.ts
 ```
 
 The test suite includes:
-- 44 unit tests
+- 48 unit tests
 - Coverage of all search methods
+- Class name resolution tests
 - Edge case handling
 - Scoring algorithm validation
+- Fuzzy matching tests
 - Cache management tests
 - Helper function tests
 

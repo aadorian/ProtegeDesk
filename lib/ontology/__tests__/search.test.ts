@@ -272,6 +272,49 @@ describe('OntologySearch', () => {
       expect(rangeResults.some((r) => r.entity.id === 'teaches')).toBe(true);
     });
 
+    it('should resolve and search class names in domain', () => {
+      // Search by resolved class name "Teacher" (not just the ID)
+      const results = search.searchProperties('Teacher', {
+        fields: ['domain'],
+      });
+      expect(results.some((r) => r.entity.id === 'teaches')).toBe(true);
+
+      // Also search by class label if it exists
+      const eduResults = search.searchProperties('Educator', {
+        fields: ['domain'],
+      });
+      expect(eduResults.some((r) => r.entity.id === 'teaches')).toBe(true);
+    });
+
+    it('should resolve and search class names in range', () => {
+      // Add a property with a class that has a different label
+      ontology.classes.set('Course', {
+        id: 'Course',
+        name: 'Course',
+        label: 'Educational Course',
+        description: 'A course of study',
+        superClasses: ['Thing'],
+        properties: [],
+        disjointWith: [],
+        equivalentTo: [],
+        annotations: [],
+      });
+
+      const newSearch = new OntologySearch(ontology);
+
+      // Search by class name
+      const nameResults = newSearch.searchProperties('Course', {
+        fields: ['range'],
+      });
+      expect(nameResults.some((r) => r.entity.id === 'teaches')).toBe(true);
+
+      // Search by class label
+      const labelResults = newSearch.searchProperties('Educational', {
+        fields: ['range'],
+      });
+      expect(labelResults.some((r) => r.entity.id === 'teaches')).toBe(true);
+    });
+
     it('should filter by specific fields', () => {
       const nameOnly = search.searchProperties('teaches', {
         fields: ['name'],
@@ -315,6 +358,28 @@ describe('OntologySearch', () => {
         fields: ['types'],
       });
       expect(personResults.length).toBe(2);
+    });
+
+    it('should resolve and search class names in types', () => {
+      // Search by resolved class name
+      const studentResults = search.searchIndividuals('Student', {
+        fields: ['types'],
+      });
+      expect(studentResults.some((r) => r.entity.id === 'john')).toBe(true);
+
+      // Search by class label ("Educator" is the label for "Teacher" class)
+      const educatorResults = search.searchIndividuals('Educator', {
+        fields: ['types'],
+      });
+      expect(educatorResults.some((r) => r.entity.id === 'jane')).toBe(true);
+    });
+
+    it('should search both type ID and resolved class label', () => {
+      // Search by the label "Human Person" (label of Person class)
+      const humanResults = search.searchIndividuals('Human', {
+        fields: ['types'],
+      });
+      expect(humanResults.length).toBe(2); // Both john and jane are type Person
     });
   });
 

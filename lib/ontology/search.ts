@@ -286,24 +286,57 @@ export class OntologySearch {
     }
 
     // Domain/Range matches (low priority)
+    // Search both the class ID and resolved class name/label
     if (searchableFields.includes('domain')) {
       for (const domain of entity.domain || []) {
+        // Search the domain ID directly
         const domainScore = this.scoreField(domain, query, options, 2);
         if (domainScore > 0) {
           score += domainScore;
           matchedFields.push('domain');
           break;
         }
+
+        // Also search the resolved class name/label
+        const domainClass = this.ontology.classes.get(domain);
+        if (domainClass) {
+          const classNameScore = this.scoreField(domainClass.name, query, options, 2);
+          const classLabelScore = domainClass.label
+            ? this.scoreField(domainClass.label, query, options, 2)
+            : 0;
+
+          if (classNameScore > 0 || classLabelScore > 0) {
+            score += Math.max(classNameScore, classLabelScore);
+            matchedFields.push('domain');
+            break;
+          }
+        }
       }
     }
 
     if (searchableFields.includes('range')) {
       for (const range of entity.range || []) {
+        // Search the range ID directly
         const rangeScore = this.scoreField(range, query, options, 2);
         if (rangeScore > 0) {
           score += rangeScore;
           matchedFields.push('range');
           break;
+        }
+
+        // Also search the resolved class name/label
+        const rangeClass = this.ontology.classes.get(range);
+        if (rangeClass) {
+          const classNameScore = this.scoreField(rangeClass.name, query, options, 2);
+          const classLabelScore = rangeClass.label
+            ? this.scoreField(rangeClass.label, query, options, 2)
+            : 0;
+
+          if (classNameScore > 0 || classLabelScore > 0) {
+            score += Math.max(classNameScore, classLabelScore);
+            matchedFields.push('range');
+            break;
+          }
         }
       }
     }
@@ -343,13 +376,30 @@ export class OntologySearch {
     }
 
     // Type matches (medium priority)
+    // Search both the class ID and resolved class name/label
     if (searchableFields.includes('types')) {
       for (const type of entity.types || []) {
+        // Search the type ID directly
         const typeScore = this.scoreField(type, query, options, 5);
         if (typeScore > 0) {
           score += typeScore;
           matchedFields.push('types');
           break;
+        }
+
+        // Also search the resolved class name/label
+        const typeClass = this.ontology.classes.get(type);
+        if (typeClass) {
+          const classNameScore = this.scoreField(typeClass.name, query, options, 5);
+          const classLabelScore = typeClass.label
+            ? this.scoreField(typeClass.label, query, options, 5)
+            : 0;
+
+          if (classNameScore > 0 || classLabelScore > 0) {
+            score += Math.max(classNameScore, classLabelScore);
+            matchedFields.push('types');
+            break;
+          }
         }
       }
     }
