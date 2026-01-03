@@ -4,6 +4,9 @@ import { useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useOntology } from '@/lib/ontology/context'
 import { Box, Link2, User } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
+import { Toaster } from '@/components/ui/toaster'
+import { Button } from '../ui/button'
 
 export function OntologyStats() {
   const { ontology } = useOntology()
@@ -11,6 +14,7 @@ export function OntologyStats() {
   const classCount = ontology?.classes.size ?? 0
   const propertyCount = ontology?.properties.size ?? 0
   const individualCount = ontology?.individuals.size ?? 0
+  const { toast } = useToast();
 
   // Debug logging when ontology changes
   useEffect(() => {
@@ -26,6 +30,15 @@ export function OntologyStats() {
 
   if (!ontology) {
     return null
+  }
+
+  const onClickHandler = async () => {
+    await navigator.clipboard.writeText(ontology.id)
+  
+    toast({
+      title: 'Copied',
+      description: 'IRI copied to clipboard',
+    })
   }
 
   return (
@@ -75,6 +88,13 @@ export function OntologyStats() {
           <div>
             <div className="text-muted-foreground">IRI:</div>
             <div className="font-mono break-all">{ontology.id}</div>
+            <Button 
+              aria-label='Copy IRI' 
+              title='Copy IRI'
+              onClick={onClickHandler}
+              size='sm'
+            >Copy IRI</Button>
+            <Toaster/>
           </div>
           {ontology.version && (
             <div>
