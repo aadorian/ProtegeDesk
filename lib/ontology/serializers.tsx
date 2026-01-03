@@ -1,4 +1,12 @@
 import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
+/**
+ * JSON-LD values can appear as strings, objects with @id,
+ * or arrays of those forms.
+ */
+type JSONLDValue =
+  | string
+  | { '@id'?: string }
+  | Array<string | { '@id'?: string }>
 
 /**
  * Escape special XML characters to ensure valid XML output.
@@ -48,11 +56,20 @@ export function serializeToJSONLD(ontology: Ontology): string {
      * owl:imports is always represented as an array of @id references
      * to keep the structure consistent even when only one import exists.
      */
-    'owl:imports': ontology.imports.map(imp => ({ '@id': imp })),
+    'owl:imports': ontology.imports.map((imp): { '@id': string } => ({ '@id': imp })),
+
 
     '@graph': [
       // Convert Map to array using Array.from()
-      ...Array.from(ontology.classes.values()).map(cls => ({
+      ...Array.from(ontology.classes.values()).map((cls): {
+        '@id': string
+        '@type': string
+        'rdfs:label': string
+        'rdfs:comment'?: string
+        'rdfs:subClassOf': { '@id': string }[]
+        'owl:disjointWith': { '@id': string }[]
+} => ({
+
         '@id': cls.id,
         '@type': 'owl:Class',
 
@@ -120,7 +137,7 @@ export function serializeToTurtle(ontology: Ontology): string {
   turtle += ' .\n\n'
 
   // Classes
-  Array.from(ontology.classes.values()).forEach(cls => {
+  Array.from(ontology.classes.values()).forEach((cls): void => {
     turtle += `<${cls.id}> a owl:Class`
     if (cls.label) {
       turtle += ` ;\n  rdfs:label "${cls.label}"`
@@ -374,8 +391,14 @@ export function parseOWLXML(content: string): Ontology {
     xmlBase ||
     'http://example.org/ontology'
 
+
+
+  // Parse classes
+
+
   const versionInfo =
     ontologyNode?.querySelector('versionInfo, owl\\:versionInfo')?.textContent || undefined
+
 
   // Parse owl:imports declarations per W3C OWL specification
   const importNodes = ontologyNode?.querySelectorAll('imports, owl\\:imports') || []
@@ -681,7 +704,10 @@ export function parseTurtle(content: string): Ontology {
   let currentSubject: string | null = null
   let currentType: string | null = null
 
-  lines.forEach(line => {
+
+  lines.forEach((line): void => {
+  
+
     line = line.trim()
     if (line.startsWith('@prefix') || line.startsWith('#') || !line) {
       return
@@ -759,60 +785,97 @@ export function parseTurtle(content: string): Ontology {
  * Parse JSON-LD into the internal Ontology model.
  * Handles both single-object and @graph-based documents.
  */
-export function parseJSONLD(content: string): Ontology {
-  const data = JSON.parse(content)
+  export function parseJSONLD(content: string): Ontology {
+  const data: unknown = JSON.parse(content)
+
   const classes = new Map<string, OntologyClass>()
   const properties = new Map<string, OntologyProperty>()
   const individuals = new Map<string, Individual>()
 
-  const graph = data['@graph'] || [data]
+  if (typeof data !== 'object' || data === null) {
+    throw new Error('Invalid JSON-LD content')
+  }
 
-  graph.forEach((item: any) => {
-    const type = item['@type']
-    const id = item['@id']
+  const root = data as Record<string, unknown>
+  const graph = Array.isArray(root['@graph']) ? root['@graph'] : [root]
 
-    if (!id) {
+  graph.forEach((item: unknown): void => {
+    if (typeof item !== 'object' || item === null) return
+
+    const record = item as Record<string, JSONLDValue>
+    const id = record['@id']
+    const type = record['@type']
+
+    if (typeof id !== 'string') return
+
+    /* ---------- Classes ---------- */
+    if (type === 'owl:Class' || (typeof type === 'string' && type.includes('Class'))) {
+      const label =
+        record['rdfs:label'] ??
+        id.split('#').pop() ??
+        id.split('/').pop() ??
+        id
+
+      const superClasses: string[] = Array.isArray(record['rdfs:subClassOf'])
+        ? record['rdfs:subClassOf']
+            .map(v => (typeof v === 'string' ? v : v?.['@id']))
+            .filter((v): v is string => Boolean(v))
+        : record['rdfs:subClassOf']
+          ? [
+              typeof record['rdfs:subClassOf'] === 'string'
+                ? record['rdfs:subClassOf']
+                : record['rdfs:subClassOf']['@id'],
+            ].filter((v): v is string => Boolean(v))
+          : []
+
+      classes.set(id, {
+        id,
+        name: label,
+        label,
+        description: record['rdfs:comment'] as string | undefined,
+        superClasses,
+        disjointWith: [],
+        equivalentTo: [],
+        annotations: [],
+        properties: [],
+      })
       return
     }
 
-    if (type === 'owl:Class' || type?.includes?.('Class')) {
-      classes.set(id, {
-        id,
-        name: item['rdfs:label'] || id.split('#').pop() || id.split('/').pop() || id,
-        label: item['rdfs:label'],
-        description: item['rdfs:comment'],
-        superClasses: Array.isArray(item['rdfs:subClassOf'])
-          ? item['rdfs:subClassOf'].map((sc: any) => sc['@id'] || sc)
-          : item['rdfs:subClassOf']
-            ? [item['rdfs:subClassOf']['@id'] || item['rdfs:subClassOf']]
-            : [],
-        annotations: [],
-        properties: [],
-        disjointWith: [],
-        equivalentTo: [],
-      })
-    } else if (type?.includes?.('Property')) {
-      const propType = type.includes('Object')
-        ? 'ObjectProperty'
-        : type.includes('Data')
-          ? 'DataProperty'
-          : 'AnnotationProperty'
+    /* ---------- Properties ---------- */
+    if (typeof type === 'string' && type.includes('Property')) {
+      const propType: 'ObjectProperty' | 'DataProperty' | 'AnnotationProperty' =
+        type.includes('Object')
+          ? 'ObjectProperty'
+          : type.includes('Data')
+            ? 'DataProperty'
+            : 'AnnotationProperty'
+
+      const label =
+        record['rdfs:label'] ??
+        id.split('#').pop() ??
+        id.split('/').pop() ??
+        id
+
+      const extractIds = (value?: JSONLDValue): string[] =>
+        Array.isArray(value)
+          ? value
+              .map(v => (typeof v === 'string' ? v : v?.['@id']))
+              .filter((v): v is string => Boolean(v))
+          : value
+            ? [typeof value === 'string' ? value : value['@id']].filter(
+                (v): v is string => Boolean(v)
+              )
+            : []
+
       properties.set(id, {
         id,
-        name: item['rdfs:label'] || id.split('#').pop() || id.split('/').pop() || id,
-        label: item['rdfs:label'],
-        description: item['rdfs:comment'],
-        type: propType as 'ObjectProperty' | 'DataProperty' | 'AnnotationProperty',
-        domain: Array.isArray(item['rdfs:domain'])
-          ? item['rdfs:domain'].map((d: any) => d['@id'] || d)
-          : item['rdfs:domain']
-            ? [item['rdfs:domain']['@id'] || item['rdfs:domain']]
-            : [],
-        range: Array.isArray(item['rdfs:range'])
-          ? item['rdfs:range'].map((r: any) => r['@id'] || r)
-          : item['rdfs:range']
-            ? [item['rdfs:range']['@id'] || item['rdfs:range']]
-            : [],
+        name: label,
+        label,
+        description: record['rdfs:comment'] as string | undefined,
+        type: propType,
+        domain: extractIds(record['rdfs:domain']),
+        range: extractIds(record['rdfs:range']),
         superProperties: [],
         characteristics: [],
         annotations: [],
@@ -820,18 +883,22 @@ export function parseJSONLD(content: string): Ontology {
     }
   })
 
-  // Parse owl:imports from JSON-LD
-  const importsData = data['owl:imports']
-  const imports = importsData
-    ? Array.isArray(importsData)
-      ? importsData.map((imp: any) => imp['@id'] || imp)
-      : [importsData['@id'] || importsData]
-    : []
+  const imports: string[] = Array.isArray(root['owl:imports'])
+    ? root['owl:imports']
+        .map(v => (typeof v === 'string' ? v : v?.['@id']))
+        .filter((v): v is string => Boolean(v))
+    : root['owl:imports']
+      ? [
+          typeof root['owl:imports'] === 'string'
+            ? root['owl:imports']
+            : (root['owl:imports'] as { '@id'?: string })['@id'],
+        ].filter((v): v is string => Boolean(v))
+      : []
 
   return {
-    id: data['@id'] || 'http://example.org/imported-ontology',
-    name: data['rdfs:label'] || 'Imported Ontology',
-    version: data['owl:versionInfo'],
+    id: (root['@id'] as string) || 'http://example.org/imported-ontology',
+    name: (root['rdfs:label'] as string) || 'Imported Ontology',
+    version: root['owl:versionInfo'] as string | undefined,
     imports,
     classes,
     properties,
@@ -839,6 +906,8 @@ export function parseJSONLD(content: string): Ontology {
     annotations: [],
   }
 }
+
+
 
 /**
  * Validate that an ontology conforms to W3C RDF/OWL standards.

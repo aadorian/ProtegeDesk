@@ -286,10 +286,15 @@ export class HermiTReasoner {
     const result = new Set<string>()
     const visited = new Set<string>()
 
+<
+    const traverse = (id: string):void => {
+      if (visited.has(id)) return
+
     const traverse = (id: string) => {
       if (visited.has(id)) {
         return
       }
+
       visited.add(id)
 
       const owlClass = this.ontology.classes.get(id)
