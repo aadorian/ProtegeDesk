@@ -243,7 +243,7 @@ export class HermiTReasoner {
     const result = new Set<string>()
     const visited = new Set<string>()
 
-    const traverse = (id: string) => {
+    const traverse = (id: string):void => {
       if (visited.has(id)) return
       visited.add(id)
 
