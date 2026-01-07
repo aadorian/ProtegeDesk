@@ -20,12 +20,12 @@ interface IndividualDetailsProps {
 export function IndividualDetails({ isModalView, individual }: IndividualDetailsProps) {
   const { selectedIndividual } = useOntology()
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   const copyToClipboard = async (text: string) => {
     const success = await copy(text)
 
-    if(success) {
+    if (success) {
       toast({
         title: 'Copied',
         description: `Copied "${text}" to clipboard`,
@@ -38,7 +38,7 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
     }
   }
 
-  if(isModalView && individual) {
+  if (isModalView && individual) {
     return (
       <>
         <div className="space-y-2">
@@ -90,7 +90,8 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
           </CardContent>
         </Card>
       </>
-    )}
+    )
+  }
 
   if (!selectedIndividual) {
     return (

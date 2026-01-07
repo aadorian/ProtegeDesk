@@ -40,7 +40,7 @@ export function SPARQLQuery() {
   const [isExecuting, setIsExecuting] = useState(false)
   const [activeTab, setActiveTab] = useState('editor')
   const [viewMode, setViewMode] = useState<ViewMode>('table')
-  const { copy, copied } = useCopyToClipboard('');
+  const { copy } = useCopyToClipboard('')
 
   const executeQuery = () => {
     if (!ontology) {
@@ -82,7 +82,7 @@ export function SPARQLQuery() {
   const copyQuery = async () => {
     const success = await copy(query)
 
-    if(success) {
+    if (success) {
       toast.success('Query copied to clipboard')
     } else {
       toast.error('Unable to copy to clipboard')
@@ -170,8 +170,7 @@ export function SPARQLQuery() {
                   </Button>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Press{' '}
-                  <kbd className="bg-muted rounded border px-1.5 py-0.5 text-xs">Ctrl</kbd> +{' '}
+                  Press <kbd className="bg-muted rounded border px-1.5 py-0.5 text-xs">Ctrl</kbd> +{' '}
                   <kbd className="bg-muted rounded border px-1.5 py-0.5 text-xs">Enter</kbd> to
                   execute
                 </p>
@@ -188,7 +187,7 @@ export function SPARQLQuery() {
                     }
                   }}
                   placeholder="Enter SPARQL query..."
-                  className="font-mono h-full resize-none text-sm"
+                  className="h-full resize-none font-mono text-sm"
                   spellCheck={false}
                 />
               </div>
@@ -344,11 +343,16 @@ export function SPARQLQuery() {
                                       ?{variable}
                                     </p>
                                     {variable in binding ? (
-                                      <p className="break-words text-sm" title={String(binding[variable])}>
+                                      <p
+                                        className="text-sm break-words"
+                                        title={String(binding[variable])}
+                                      >
                                         {formatValue(binding[variable])}
                                       </p>
                                     ) : (
-                                      <p className="text-muted-foreground text-xs italic">No value</p>
+                                      <p className="text-muted-foreground text-xs italic">
+                                        No value
+                                      </p>
                                     )}
                                   </div>
                                 ))}

@@ -16,13 +16,27 @@ export function formatRelativeTime(date: Date): string {
   const diffHour = Math.floor(diffMin / 60)
   const diffDay = Math.floor(diffHour / 24)
 
-  if (diffSec < 10) return 'just now'
-  if (diffSec < 60) return `${diffSec} seconds ago`
-  if (diffMin === 1) return '1 minute ago'
-  if (diffMin < 60) return `${diffMin} minutes ago`
-  if (diffHour === 1) return '1 hour ago'
-  if (diffHour < 24) return `${diffHour} hours ago`
-  if (diffDay === 1) return '1 day ago'
+  if (diffSec < 10) {
+    return 'just now'
+  }
+  if (diffSec < 60) {
+    return `${diffSec} seconds ago`
+  }
+  if (diffMin === 1) {
+    return '1 minute ago'
+  }
+  if (diffMin < 60) {
+    return `${diffMin} minutes ago`
+  }
+  if (diffHour === 1) {
+    return '1 hour ago'
+  }
+  if (diffHour < 24) {
+    return `${diffHour} hours ago`
+  }
+  if (diffDay === 1) {
+    return '1 day ago'
+  }
   return `${diffDay} days ago`
 }
 

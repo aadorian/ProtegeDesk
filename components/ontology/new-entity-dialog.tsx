@@ -27,15 +27,13 @@ import type { Ontology } from '@/lib/ontology/types'
 
 // Validate IRI format - accepts full IRIs or simple identifiers
 function isValidIRI(value: string): boolean {
-  const iriPattern = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]+$/;
-  return iriPattern.test(value) || /^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(value);
+  const iriPattern = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]+$/
+  return iriPattern.test(value) || /^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(value)
 }
 
 // Check if ID already exists in the ontology
 function isDuplicate(id: string, ontology: Ontology): boolean {
-  return ontology.classes.has(id) ||
-         ontology.properties.has(id) ||
-         ontology.individuals.has(id);
+  return ontology.classes.has(id) || ontology.properties.has(id) || ontology.individuals.has(id)
 }
 
 export function NewEntityDialog() {
@@ -151,7 +149,10 @@ export function NewEntityDialog() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>Entity Type</Label>
-            <Select value={entityType} onValueChange={v => setEntityType(v as any)}>
+            <Select
+              value={entityType}
+              onValueChange={v => setEntityType(v as 'class' | 'property')}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -200,7 +201,10 @@ export function NewEntityDialog() {
           {entityType === 'property' && (
             <div className="space-y-2">
               <Label>Property Type</Label>
-              <Select value={propertyType} onValueChange={v => setPropertyType(v as any)}>
+              <Select
+                value={propertyType}
+                onValueChange={v => setPropertyType(v as 'ObjectProperty' | 'DataProperty')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

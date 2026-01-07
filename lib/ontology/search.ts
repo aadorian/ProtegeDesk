@@ -368,7 +368,7 @@ export class OntologySearch {
 
   /**
    * Score a single field against the query using a hierarchical matching strategy.
-   * 
+   *
    * WHY this scoring hierarchy:
    * - Exact matches are most valuable (10x weight) because they indicate precise intent
    * - Prefix matches (5x weight) are better than substring matches because they suggest
@@ -376,7 +376,7 @@ export class OntologySearch {
    * - Substring matches (2x weight) catch partial matches anywhere in the field
    * - Fuzzy matches (0.7-1.0x weight) handle typos but only above 70% similarity
    *   to avoid false positives from unrelated terms
-   * 
+   *
    * The baseWeight parameter allows different fields to have different importance
    * (e.g., name matches are more important than description matches).
    */
@@ -433,16 +433,16 @@ export class OntologySearch {
 
   /**
    * Calculate Levenshtein distance (edit distance) between two strings.
-   * 
+   *
    * WHAT: Measures the minimum number of single-character edits (insertions,
    * deletions, substitutions) required to change one string into another.
-   * 
+   *
    * WHY use dynamic programming:
    * The naive recursive approach has exponential time complexity O(3^n).
    * Dynamic programming reduces this to O(m*n) by storing intermediate results
    * in a matrix, where matrix[i][j] represents the edit distance between
    * the first i characters of str2 and the first j characters of str1.
-   * 
+   *
    * HOW it works:
    * 1. Initialize first row/column with incremental values (base cases)
    * 2. For each cell, if characters match, copy diagonal value (no edit needed)
@@ -480,8 +480,8 @@ export class OntologySearch {
           // WHY take minimum: we want the cheapest path (fewest edits)
           matrix[i][j] = Math.min(
             matrix[i - 1][j - 1] + 1, // Substitution: replace str2[i-1] with str1[j-1]
-            matrix[i][j - 1] + 1,     // Insertion: add str1[j-1] to str2
-            matrix[i - 1][j] + 1      // Deletion: remove str2[i-1]
+            matrix[i][j - 1] + 1, // Insertion: add str1[j-1] to str2
+            matrix[i - 1][j] + 1 // Deletion: remove str2[i-1]
           )
         }
       }

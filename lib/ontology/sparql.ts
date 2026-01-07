@@ -1,5 +1,4 @@
-import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
-import { serializeToTurtle } from './serializers'
+import type { Ontology } from './types'
 
 /**
  * SPARQL Query Result types
@@ -256,7 +255,9 @@ function matchPattern(
   // Normalize pattern IRIs
   const normalizedPattern = {
     subject: pattern.subject.startsWith('?') ? pattern.subject : normalizeIRI(pattern.subject),
-    predicate: pattern.predicate.startsWith('?') ? pattern.predicate : normalizeIRI(pattern.predicate),
+    predicate: pattern.predicate.startsWith('?')
+      ? pattern.predicate
+      : normalizeIRI(pattern.predicate),
     object: pattern.object.startsWith('?') ? pattern.object : normalizeIRI(pattern.object),
   }
 
@@ -301,33 +302,6 @@ function matchPattern(
 }
 
 /**
- * Check if two IRIs match, accounting for prefix expansion
- */
-function isIRIMatch(pattern: string, value: string): boolean {
-  // Handle common prefixes
-  const prefixes: Record<string, string> = {
-    'rdf:': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'rdfs:': 'http://www.w3.org/2000/01/rdf-schema#',
-    'owl:': 'http://www.w3.org/2002/07/owl#',
-    'xsd:': 'http://www.w3.org/2001/XMLSchema#',
-  }
-
-  let expandedPattern = pattern
-  for (const [prefix, uri] of Object.entries(prefixes)) {
-    if (pattern.startsWith(prefix)) {
-      expandedPattern = pattern.replace(prefix, uri)
-      break
-    }
-  }
-
-  // Remove angle brackets if present
-  expandedPattern = expandedPattern.replace(/^<|>$/g, '')
-  const expandedValue = value.replace(/^<|>$/g, '')
-
-  return expandedPattern === expandedValue
-}
-
-/**
  * Parse a simple SPARQL SELECT query
  * This is a minimal parser that supports basic SELECT queries
  */
@@ -363,8 +337,12 @@ function parseSPARQLQuery(query: string): {
   whereClause = whereClause.replace(/OPTIONAL\s*\{([^}]*)\}/gi, '$1')
 
   // Parse triple patterns (very basic)
-  const patterns: Array<{ subject: string; predicate: string; object: string; optional?: boolean }> =
-    []
+  const patterns: Array<{
+    subject: string
+    predicate: string
+    object: string
+    optional?: boolean
+  }> = []
   const lines = whereClause
     .split('.')
     .map(l => l.trim())
@@ -385,7 +363,11 @@ function parseSPARQLQuery(query: string): {
       patterns.push({
         subject: parts[0],
         predicate: parts[1],
-        object: parts.slice(2).join(' ').replace(/\s*;\s*$/, '').trim(),
+        object: parts
+          .slice(2)
+          .join(' ')
+          .replace(/\s*;\s*$/, '')
+          .trim(),
       })
     }
   }

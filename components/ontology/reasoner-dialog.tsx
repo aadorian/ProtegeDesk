@@ -41,8 +41,8 @@ export function ReasonerDialog() {
       toast({
         title: 'Reasoning completed',
         description: reasoningResult.consistent
-        ? 'Ontology is logically consistent'
-        : `${reasoningResult.errors.length} errors, ${reasoningResult.warnings.length} warnings`,
+          ? 'Ontology is logically consistent'
+          : `${reasoningResult.errors.length} errors, ${reasoningResult.warnings.length} warnings`,
         variant: reasoningResult.consistent ? 'default' : 'destructive',
         duration: 4000,
       })

@@ -1,11 +1,14 @@
 'use client'
 
+import debug from 'debug'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
 import type React from 'react'
 
 import { useState } from 'react'
+
+const log = debug('protegedesk:import-export')
 import {
   Dialog,
   DialogContent,
@@ -119,7 +122,7 @@ export function ImportExportDialog() {
       const validationErrors = validateOntology(imported)
 
       // Debug logging for imported ontology stats
-      console.log('[Import] Ontology stats:', {
+      log('[Import] Ontology stats:', {
         name: imported.name,
         classes: imported.classes.size,
         properties: imported.properties.size,
@@ -242,7 +245,10 @@ export function ImportExportDialog() {
           <TabsContent value="export" className="space-y-4">
             <div className="space-y-2">
               <Label>Export Format</Label>
-              <Select value={exportFormat} onValueChange={v => setExportFormat(v as any)}>
+              <Select
+                value={exportFormat}
+                onValueChange={v => setExportFormat(v as 'jsonld' | 'turtle' | 'owlxml')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -309,7 +315,10 @@ export function ImportExportDialog() {
 
             <div className="space-y-2">
               <Label>Import Format</Label>
-              <Select value={importFormat} onValueChange={v => setImportFormat(v as any)}>
+              <Select
+                value={importFormat}
+                onValueChange={v => setImportFormat(v as 'jsonld' | 'turtle' | 'owlxml' | 'auto')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

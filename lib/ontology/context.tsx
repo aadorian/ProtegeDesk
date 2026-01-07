@@ -43,7 +43,6 @@ type OntologyContextType = {
  */
 const OntologyContext = createContext<OntologyContextType | undefined>(undefined)
 
-
 export function OntologyProvider({ children }: { children: React.ReactNode }): JSX.Element {
   /**
    * The full ontology object is stored as a single state value.
@@ -260,7 +259,6 @@ export function OntologyProvider({ children }: { children: React.ReactNode }): J
     </OntologyContext.Provider>
   )
 }
-
 
 /**
  * Consumer hook with a guard to ensure correct usage.

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { NewEntityDialog } from '../new-entity-dialog'
 import { OntologyProvider } from '@/lib/ontology/context'
@@ -31,7 +31,9 @@ function TestWrapper({
     ...ontology,
   }
 
-  return <OntologyProviderWithSetup ontology={defaultOntology}>{children}</OntologyProviderWithSetup>
+  return (
+    <OntologyProviderWithSetup ontology={defaultOntology}>{children}</OntologyProviderWithSetup>
+  )
 }
 
 // Component that sets ontology on mount
@@ -50,7 +52,7 @@ function OntologyProviderWithSetup({
 
     useEffect(() => {
       setOntology(ontology)
-    }, [])
+    }, [setOntology, ontology])
 
     return <>{children}</>
   }
@@ -78,7 +80,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -99,7 +101,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person_Class')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -119,7 +121,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person-Class')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -139,7 +141,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'http://example.org/Person')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -159,7 +161,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'https://example.org/Person')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -179,7 +181,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, '123Person')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -201,7 +203,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person Class')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -222,7 +224,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person@Class')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -264,7 +266,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Person')
       await userEvent.type(nameInput, 'Person Class')
 
@@ -306,7 +308,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'hasName')
       await userEvent.type(nameInput, 'Has Name')
 
@@ -346,7 +348,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'john')
       await userEvent.type(nameInput, 'John')
 
@@ -387,7 +389,7 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const idInput = screen.getByLabelText(/ID/i)
       const nameInput = screen.getByLabelText(/Name/i)
-      
+
       await userEvent.type(idInput, 'Animal')
       await userEvent.type(nameInput, 'Animal Class')
 
@@ -402,5 +404,4 @@ describe('NewEntityDialog - Validation Tests', () => {
       )
     })
   })
-
 })

@@ -37,7 +37,7 @@ export default function HomePage() {
               value={viewMode}
               onValueChange={v => {
                 log('View mode changed to', v)
-                setViewMode(v as any)
+                setViewMode(v as 'details' | 'graph' | 'sparql')
               }}
               className="w-full"
             >

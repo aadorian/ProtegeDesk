@@ -1,7 +1,10 @@
 'use client'
 
+import debug from 'debug'
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { Plus, Search, User } from 'lucide-react'
+
+const log = debug('protegedesk:individual-list')
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -72,7 +75,7 @@ export function IndividualList() {
 
   // Debug logging when individuals change
   useEffect(() => {
-    console.log('[IndividualList] Individuals updated:', {
+    log('[IndividualList] Individuals updated:', {
       count: individuals.length,
       individuals: individuals.map(ind => ({ id: ind.id, label: ind.label, types: ind.types })),
     })

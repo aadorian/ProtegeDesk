@@ -3,10 +3,7 @@ import type { Ontology, OntologyClass, OntologyProperty, Individual } from './ty
  * JSON-LD values can appear as strings, objects with @id,
  * or arrays of those forms.
  */
-type JSONLDValue =
-  | string
-  | { '@id'?: string }
-  | Array<string | { '@id'?: string }>
+type JSONLDValue = string | { '@id'?: string } | Array<string | { '@id'?: string }>
 
 /**
  * Escape special XML characters to ensure valid XML output.
@@ -58,34 +55,36 @@ export function serializeToJSONLD(ontology: Ontology): string {
      */
     'owl:imports': ontology.imports.map((imp): { '@id': string } => ({ '@id': imp })),
 
-
     '@graph': [
       // Convert Map to array using Array.from()
-      ...Array.from(ontology.classes.values()).map((cls): {
-        '@id': string
-        '@type': string
-        'rdfs:label': string
-        'rdfs:comment'?: string
-        'rdfs:subClassOf': { '@id': string }[]
-        'owl:disjointWith': { '@id': string }[]
-} => ({
+      ...Array.from(ontology.classes.values()).map(
+        (
+          cls
+        ): {
+          '@id': string
+          '@type': string
+          'rdfs:label': string
+          'rdfs:comment'?: string
+          'rdfs:subClassOf': { '@id': string }[]
+          'owl:disjointWith': { '@id': string }[]
+        } => ({
+          '@id': cls.id,
+          '@type': 'owl:Class',
 
-        '@id': cls.id,
-        '@type': 'owl:Class',
+          // Prefer human-friendly labels; fall back to internal name if missing
+          'rdfs:label': cls.label || cls.name,
 
-        // Prefer human-friendly labels; fall back to internal name if missing
-        'rdfs:label': cls.label || cls.name,
+          // Optional description; omitted by JSON.stringify when undefined
+          'rdfs:comment': cls.description,
 
-        // Optional description; omitted by JSON.stringify when undefined
-        'rdfs:comment': cls.description,
-
-        /**
-         * Relationships are always emitted as arrays of @id objects.
-         * This avoids ambiguity between singular and plural values.
-         */
-        'rdfs:subClassOf': cls.superClasses.map(sc => ({ '@id': sc })),
-        'owl:disjointWith': cls.disjointWith.map(dw => ({ '@id': dw })),
-      })),
+          /**
+           * Relationships are always emitted as arrays of @id objects.
+           * This avoids ambiguity between singular and plural values.
+           */
+          'rdfs:subClassOf': cls.superClasses.map(sc => ({ '@id': sc })),
+          'owl:disjointWith': cls.disjointWith.map(dw => ({ '@id': dw })),
+        })
+      ),
 
       // Properties
       ...Array.from(ontology.properties.values()).map(prop => ({
@@ -330,17 +329,17 @@ function getAttributeNS(
 
 /**
  * Resolve a potentially relative IRI against a base URI.
- * 
+ *
  * WHY IRI resolution is needed:
  * Per W3C RDF/XML specification, IRIs in ontology documents can be relative
  * (e.g., "#Person") and must be resolved against the document's base URI
  * (xml:base attribute) to produce absolute IRIs for entity identification.
- * 
+ *
  * HOW resolution works:
  * 1. If IRI is already absolute (http/https), return as-is
  * 2. If IRI starts with #, treat as fragment identifier relative to base
  * 3. Otherwise, concatenate base + IRI (general relative case)
- * 
+ *
  * This ensures all entities have globally unique identifiers (IRIs)
  * that can be referenced across different ontology documents.
  */
@@ -370,24 +369,24 @@ function resolveIRI(iri: string, xmlBase: string): string {
 
 /**
  * Parse OWL/XML (RDF/XML) into the internal Ontology model.
- * 
+ *
  * WHY defensive parsing:
  * OWL/XML documents can vary significantly in structure due to:
  * - Different namespace prefixes (owl:, rdf:, or no prefix)
  * - Different attribute naming conventions (rdf:about vs about)
  * - Relative vs absolute IRIs
  * - XML serialization quirks from different tools
- * 
+ *
  * Parsing is intentionally defensive to handle these variations gracefully
  * rather than failing on minor syntactic differences.
- * 
+ *
  * HOW the parser handles variation:
  * 1. Uses CSS selectors with fallbacks (e.g., 'Class, owl\\:Class') to match
  *    elements regardless of namespace prefix usage
  * 2. Uses getAttributeNS() helper to find attributes with or without prefixes
  * 3. Resolves relative IRIs against xml:base per W3C RDF/XML spec
  * 4. Falls back to IRI fragments for labels when rdfs:label is missing
- * 
+ *
  * STANDARDS COMPLIANCE:
  * Follows W3C RDF Syntax Grammar: https://www.w3.org/TR/rdf-syntax-grammar/
  * and OWL 2 XML Serialization: https://www.w3.org/TR/owl2-xml-serialization/
@@ -427,14 +426,10 @@ export function parseOWLXML(content: string): Ontology {
     xmlBase ||
     'http://example.org/ontology'
 
-
-
   // Parse classes
-
 
   const versionInfo =
     ontologyNode?.querySelector('versionInfo, owl\\:versionInfo')?.textContent || undefined
-
 
   // Parse owl:imports declarations per W3C OWL specification
   const importNodes = ontologyNode?.querySelectorAll('imports, owl\\:imports') || []
@@ -724,25 +719,25 @@ export function parseRDFXML(content: string): Ontology {
 
 /**
  * Parse Turtle using a minimal, line-oriented approach.
- * 
+ *
  * WHAT: Turtle (Terse RDF Triple Language) is a human-friendly RDF serialization format
  * designed to be more readable than XML-based formats.
- * 
+ *
  * WHY line-oriented parsing:
  * Full Turtle parsing requires complex grammar handling (multi-line triples, blank nodes,
  * collections, nested structures). For ProtegeDesk's import feature, we implement a
  * simplified parser that handles the most common patterns used in ontology files.
- * 
+ *
  * LIMITATIONS of this implementation:
  * - No blank node support (nodes without explicit IRIs)
  * - No collection syntax ([...] or (...) structures)
  * - No multi-line triple continuations (assumes ; ends on same line)
  * - No prefix abbreviation resolution (relies on full IRIs)
- * 
+ *
  * WHY these limitations are acceptable:
  * Most ontology tools (Protégé, TopBraid) export Turtle in a normalized format
  * that uses explicit IRIs and one-triple-per-line structure, which this parser handles.
- * 
+ *
  * For production use with arbitrary Turtle files, consider integrating a full
  * Turtle parser library like N3.js.
  */
@@ -758,10 +753,7 @@ export function parseTurtle(content: string): Ontology {
   // WHY track currentType: Determines which Map to update when processing predicates
   let currentType: string | null = null
 
-
   lines.forEach((line): void => {
-  
-
     line = line.trim()
     // Skip prefix declarations, comments, and empty lines
     // WHY: These don't contribute to entity definitions in our simplified model
@@ -840,30 +832,30 @@ export function parseTurtle(content: string): Ontology {
 
 /**
  * Parse JSON-LD into the internal Ontology model.
- * 
+ *
  * WHAT: JSON-LD (JSON for Linking Data) combines JSON syntax with RDF semantics,
  * allowing ontologies to be represented as standard JSON objects.
- * 
+ *
  * WHY handle both single-object and @graph formats:
  * JSON-LD documents can structure entities in two ways:
  * 1. Flat structure: root object IS the ontology, no @graph array
  * 2. Graph structure: root has @graph array containing all entities
- * 
+ *
  * The @graph approach is preferred for complex ontologies because it cleanly
  * separates ontology metadata from entity definitions.
- * 
+ *
  * HOW parsing works:
  * 1. Parse JSON string into JavaScript object
  * 2. Normalize to array (treat single object as 1-element @graph)
  * 3. Iterate entities, dispatching by @type to appropriate handler
  * 4. Extract relationships using helper extractIds() for uniform handling
- * 
+ *
  * WHY extractIds helper:
  * JSON-LD allows values to be:
  * - Single string: "rdfs:domain": "#Person"
  * - Single object: "rdfs:domain": { "@id": "#Person" }
  * - Array of either: "rdfs:domain": ["#Person", { "@id": "#Organization" }]
- * 
+ *
  * extractIds() normalizes all three forms into a string array for consistent processing.
  */
 export function parseJSONLD(content: string): Ontology {
@@ -882,21 +874,21 @@ export function parseJSONLD(content: string): Ontology {
   const graph = Array.isArray(root['@graph']) ? root['@graph'] : [root]
 
   graph.forEach((item: unknown): void => {
-    if (typeof item !== 'object' || item === null) return
+    if (typeof item !== 'object' || item === null) {
+      return
+    }
 
     const record = item as Record<string, JSONLDValue>
     const id = record['@id']
     const type = record['@type']
 
-    if (typeof id !== 'string') return
+    if (typeof id !== 'string') {
+      return
+    }
 
     /* ---------- Classes ---------- */
     if (type === 'owl:Class' || (typeof type === 'string' && type.includes('Class'))) {
-      const label =
-        record['rdfs:label'] ??
-        id.split('#').pop() ??
-        id.split('/').pop() ??
-        id
+      const label = record['rdfs:label'] ?? id.split('#').pop() ?? id.split('/').pop() ?? id
 
       const superClasses: string[] = Array.isArray(record['rdfs:subClassOf'])
         ? record['rdfs:subClassOf']
@@ -926,18 +918,15 @@ export function parseJSONLD(content: string): Ontology {
 
     /* ---------- Properties ---------- */
     if (typeof type === 'string' && type.includes('Property')) {
-      const propType: 'ObjectProperty' | 'DataProperty' | 'AnnotationProperty' =
-        type.includes('Object')
-          ? 'ObjectProperty'
-          : type.includes('Data')
-            ? 'DataProperty'
-            : 'AnnotationProperty'
+      const propType: 'ObjectProperty' | 'DataProperty' | 'AnnotationProperty' = type.includes(
+        'Object'
+      )
+        ? 'ObjectProperty'
+        : type.includes('Data')
+          ? 'DataProperty'
+          : 'AnnotationProperty'
 
-      const label =
-        record['rdfs:label'] ??
-        id.split('#').pop() ??
-        id.split('/').pop() ??
-        id
+      const label = record['rdfs:label'] ?? id.split('#').pop() ?? id.split('/').pop() ?? id
 
       // WHY complex extractIds helper:
       // JSON-LD spec allows property values in multiple forms for flexibility.
@@ -952,8 +941,8 @@ export function parseJSONLD(content: string): Ontology {
               .map(v => (typeof v === 'string' ? v : v?.['@id']))
               .filter((v): v is string => Boolean(v))
           : value
-            ? [typeof value === 'string' ? value : value['@id']].filter(
-                (v): v is string => Boolean(v)
+            ? [typeof value === 'string' ? value : value['@id']].filter((v): v is string =>
+                Boolean(v)
               )
             : []
 
@@ -996,8 +985,6 @@ export function parseJSONLD(content: string): Ontology {
     lastModified: new Date(),
   }
 }
-
-
 
 /**
  * Validate that an ontology conforms to W3C RDF/OWL standards.

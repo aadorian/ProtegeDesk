@@ -1,5 +1,6 @@
 'use client'
 
+import debug from 'debug'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useOntology } from '@/lib/ontology/context'
@@ -10,6 +11,8 @@ import { Button } from '../ui/button'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
 import { formatRelativeTime, formatAbsoluteTime } from '@/lib/utils'
 
+const log = debug('protegedesk:ontology-stats')
+
 export function OntologyStats() {
   const { ontology } = useOntology()
   const [, setUpdateTrigger] = useState(0)
@@ -18,12 +21,12 @@ export function OntologyStats() {
   const propertyCount = ontology?.properties.size ?? 0
   const individualCount = ontology?.individuals.size ?? 0
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   // Debug logging when ontology changes
   useEffect(() => {
     if (ontology) {
-      console.log('[OntologyStats] Ontology updated:', {
+      log('[OntologyStats] Ontology updated:', {
         name: ontology.name,
         classes: classCount,
         properties: propertyCount,
@@ -48,7 +51,7 @@ export function OntologyStats() {
   const onClickHandler = async () => {
     const success = await copy(ontology.id)
 
-    if(success) {
+    if (success) {
       toast({
         title: 'Copied',
         description: 'Ontology IRI copied to clipboard',
@@ -108,13 +111,10 @@ export function OntologyStats() {
           <div>
             <div className="text-muted-foreground">IRI:</div>
             <div className="font-mono break-all">{ontology.id}</div>
-            <Button 
-              aria-label='Copy IRI' 
-              title='Copy IRI'
-              onClick={onClickHandler}
-              size='sm'
-            >Copy IRI</Button>
-            <Toaster/>
+            <Button aria-label="Copy IRI" title="Copy IRI" onClick={onClickHandler} size="sm">
+              Copy IRI
+            </Button>
+            <Toaster />
           </div>
           {ontology.version && (
             <div>
@@ -125,10 +125,7 @@ export function OntologyStats() {
           {ontology.lastModified && (
             <div>
               <div className="text-muted-foreground">Last Modified:</div>
-              <div
-                className="cursor-default"
-                title={formatAbsoluteTime(ontology.lastModified)}
-              >
+              <div className="cursor-default" title={formatAbsoluteTime(ontology.lastModified)}>
                 {formatRelativeTime(ontology.lastModified)}
               </div>
             </div>

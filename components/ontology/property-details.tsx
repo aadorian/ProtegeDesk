@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useOntology } from '@/lib/ontology/context'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import type { PropertyCharacteristic } from '@/lib/ontology/types'
 import {
   Select,
   SelectContent,
@@ -29,9 +30,8 @@ interface PropertyDetailsProps {
 export function PropertyDetails({ isModalView, property }: PropertyDetailsProps) {
   const { selectedProperty } = useOntology()
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
-  
   const characteristics = [
     { id: 'Functional', label: 'Functional' },
     { id: 'InverseFunctional', label: 'Inverse Functional' },
@@ -44,57 +44,55 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
 
   if (isModalView) {
     return (
-      property && <ScrollArea className="h-full p-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Property Info</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <div><b>Name:</b> {property.name}</div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-6 w-6"
-                onClick={async () => {
-                  const success = await copy(property?.id)
-                  toast({
-                    title: success ? 'Copied' : 'Copy failed',
-                    description: success ? 'Property IRI copied.' : undefined,
-                    variant: success ? undefined : 'destructive',
-                  })
-                }}
-              >
-                <Copy className="h-3 w-3" />
-              </Button>
-            </div>
+      property && (
+        <ScrollArea className="h-full p-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Property Info</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex items-center justify-between">
+                <div>
+                  <b>Name:</b> {property.name}
+                </div>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-6 w-6"
+                  onClick={async () => {
+                    const success = await copy(property?.id)
+                    toast({
+                      title: success ? 'Copied' : 'Copy failed',
+                      description: success ? 'Property IRI copied.' : undefined,
+                      variant: success ? undefined : 'destructive',
+                    })
+                  }}
+                >
+                  <Copy className="h-3 w-3" />
+                </Button>
+              </div>
 
-            <div>
-              <b>Domain:</b>{' '}
-              {property.domain.length > 0
-                ? property.domain.join(', ')
-                : '-'}
-            </div>
+              <div>
+                <b>Domain:</b> {property.domain.length > 0 ? property.domain.join(', ') : '-'}
+              </div>
 
-            <div>
-              <b>Range:</b>{' '}
-              {property.range.length > 0
-                ? property.range.join(', ')
-                : '-'}
-            </div>
-            <div>
-              <b>Characteristics:</b>{' '}
-              {characteristics
-                .filter(c => property.characteristics.includes(c.id as any))
-                .map(c => c.label)
-                .join(', ') || '-'}
-            </div>
-          </CardContent>
-        </Card>
-      </ScrollArea>
+              <div>
+                <b>Range:</b> {property.range.length > 0 ? property.range.join(', ') : '-'}
+              </div>
+              <div>
+                <b>Characteristics:</b>{' '}
+                {characteristics
+                  .filter(c => property.characteristics.includes(c.id as PropertyCharacteristic))
+                  .map(c => c.label)
+                  .join(', ') || '-'}
+              </div>
+            </CardContent>
+          </Card>
+        </ScrollArea>
+      )
     )
   }
-  
+
   if (!selectedProperty) {
     return (
       <div className="text-muted-foreground flex h-full items-center justify-center text-sm">
@@ -129,10 +127,10 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                   onClick={async () => {
                     const success = await copy(selectedProperty.id)
 
-                    if(success) {
+                    if (success) {
                       toast({
                         title: 'Copied',
-                        description: 'The entity IRI has been copied.'
+                        description: 'The entity IRI has been copied.',
                       })
                     } else {
                       toast({
@@ -251,7 +249,9 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                   <div key={characteristic.id} className="flex items-center space-x-2">
                     <Checkbox
                       id={characteristic.id}
-                      checked={selectedProperty.characteristics.includes(characteristic.id as any)}
+                      checked={selectedProperty.characteristics.includes(
+                        characteristic.id as PropertyCharacteristic
+                      )}
                     />
                     <Label
                       htmlFor={characteristic.id}
