@@ -63,8 +63,8 @@ Violations can be reported to [conduct@example.com]. All complaints will be revi
 
 Looking for a good first issue? Check out:
 
-- [good-first-issue](https://github.com/yourusername/modern-ontology-editor/labels/good-first-issue) label
-- [help-wanted](https://github.com/yourusername/modern-ontology-editor/labels/help-wanted) label
+- [good-first-issue](https://github.com/aadorian/ProtegeDesk/issues?q=is%3Aissue%20state%3Aopen%20label%3Agood-first-issue) label
+- [help-wanted](https://github.com/aadorian/ProtegeDesk/issues?q=is%3Aissue%20state%3Aopen%20label%3Ahelp-wanted) label
 
 ---
 

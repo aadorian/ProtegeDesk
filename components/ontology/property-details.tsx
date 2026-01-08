@@ -27,9 +27,19 @@ interface PropertyDetailsProps {
 }
 
 export function PropertyDetails({ isModalView, property }: PropertyDetailsProps) {
-  const { selectedProperty } = useOntology()
+  const { selectedProperty, ontology, updateProperty } = useOntology()
   const { toast } = useToast()
   const { copy, copied } = useCopyToClipboard('')
+
+  const availableProperties = ontology
+    ? Array.from(ontology.properties.values()).filter(
+        (p) => p.type === 'ObjectProperty' && p.id !== selectedProperty?.id
+      )
+    : []
+
+  const liveProperty = selectedProperty
+    ? (ontology?.properties.get(selectedProperty.id) ?? selectedProperty)
+    : null
 
   const characteristics = [
     { id: 'Functional', label: 'Functional' },
@@ -198,6 +208,35 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 className="text-xs"
               />
             </div>
+            {selectedProperty.type === 'ObjectProperty' && liveProperty && (
+              <div className="space-y-2">
+                <Label htmlFor="inverse-property" className="text-xs">
+                  Inverse Of
+                </Label>
+                <Select
+                  value={liveProperty.inverse || 'none'}
+                  onValueChange={(value) => {
+                    updateProperty(liveProperty.id, {
+                      inverse: value === 'none' ? undefined : value,
+                    })
+                  }}
+                >
+                  <SelectTrigger className="text-xs">
+                    <SelectValue placeholder="Select inverse property..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none" className="text-xs">
+                      None
+                    </SelectItem>
+                    {availableProperties.map((prop) => (
+                      <SelectItem key={prop.id} value={prop.id} className="text-xs">
+                        {prop.label || prop.id}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -282,11 +321,11 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 )}
               </div>
             </div>
-            {selectedProperty.inverse && (
+            {liveProperty?.inverse && (
               <div className="space-y-2">
                 <Label className="text-xs">Inverse Of</Label>
                 <Badge variant="outline" className="font-mono text-xs">
-                  {selectedProperty.inverse}
+                  {liveProperty.inverse}
                 </Badge>
               </div>
             )}
