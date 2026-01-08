@@ -80,6 +80,43 @@ function applyForces(nodes: Node[], edges: Edge[]) {
   });
 }
 
+function getDistanceFromLine(
+  x: number,
+  y: number,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number
+) {
+  const A = x - x1;
+  const B = y - y1;
+  const C = x2 - x1;
+  const D = y2 - y1;
+
+  const dot = A * C + B * D;
+  const lenSq = C * C + D * D;
+  let param = -1;
+
+  if (lenSq !== 0) param = dot / lenSq;
+
+  let xx, yy;
+
+  if (param < 0) {
+    xx = x1;
+    yy = y1;
+  } else if (param > 1) {
+    xx = x2;
+    yy = y2;
+  } else {
+    xx = x1 + param * C;
+    yy = y1 + param * D;
+  }
+
+  const dx = x - xx;
+  const dy = y - yy;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
 export function GraphView() {
   const {
     ontology,
@@ -92,7 +129,7 @@ export function GraphView() {
   } = useOntology();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
   const [zoom, setZoom] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -100,6 +137,9 @@ export function GraphView() {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [hoveredEdge, setHoveredEdge] = useState<Edge | null>(null);
+  const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [isSimulating, setIsSimulating] = useState(true);
 
   useEffect(() => {
@@ -265,15 +305,30 @@ export function GraphView() {
       const toNode = nodes.find((n) => n.id === edge.to);
 
       if (fromNode && toNode) {
+        const isHovered = hoveredEdge === edge;
+        const isSelected = selectedEdge === edge;
+
         ctx.beginPath();
         ctx.moveTo(fromNode.x, fromNode.y);
         ctx.lineTo(toNode.x, toNode.y);
-        ctx.strokeStyle = edge.color;
-        ctx.lineWidth = edge.type === "subclass" ? 2.5 : 1.5;
-        if (edge.type === "property") {
-          ctx.setLineDash([5, 5]);
-        } else {
+
+        // Highlight style
+        if (isSelected) {
+          ctx.strokeStyle = "rgb(255, 215, 0)"; // Gold for selection
+          ctx.lineWidth = 4;
           ctx.setLineDash([]);
+        } else if (isHovered) {
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.8)"; // Whiteish for hover
+          ctx.lineWidth = 3;
+          ctx.setLineDash([]);
+        } else {
+          ctx.strokeStyle = edge.color;
+          ctx.lineWidth = edge.type === "subclass" ? 2.5 : 1.5;
+          if (edge.type === "property") {
+            ctx.setLineDash([5, 5]);
+          } else {
+            ctx.setLineDash([]);
+          }
         }
         ctx.stroke();
 
@@ -294,7 +349,11 @@ export function GraphView() {
           arrowX - arrowLength * Math.cos(angle + Math.PI / 6),
           arrowY - arrowLength * Math.sin(angle + Math.PI / 6)
         );
-        ctx.strokeStyle = edge.color;
+        ctx.strokeStyle = isSelected
+          ? "rgb(255, 215, 0)"
+          : isHovered
+          ? "rgba(255, 255, 255, 0.8)"
+          : edge.color;
         ctx.lineWidth = 2;
         ctx.stroke();
         ctx.setLineDash([]);
@@ -303,12 +362,17 @@ export function GraphView() {
 
     nodes.forEach((node) => {
       const isSelected = node.id === selectedNode;
+      const isConnectedToSelectedEdge =
+        selectedEdge &&
+        (selectedEdge.from === node.id || selectedEdge.to === node.id);
 
-      // Draw selection highlight
-      if (isSelected) {
+      // Draw selection highlight (node or edge connection)
+      if (isSelected || isConnectedToSelectedEdge) {
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius + 6, 0, 2 * Math.PI);
-        ctx.strokeStyle = "rgb(255, 215, 0)";
+        ctx.strokeStyle = isSelected
+          ? "rgb(255, 215, 0)"
+          : "rgba(255, 215, 0, 0.5)";
         ctx.lineWidth = 3;
         ctx.stroke();
       }
@@ -344,7 +408,7 @@ export function GraphView() {
     });
 
     ctx.restore();
-  }, [nodes, edges, zoom, offset, selectedNode]);
+  }, [nodes, edges, zoom, offset, selectedNode, hoveredEdge, selectedEdge]);
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
@@ -358,11 +422,58 @@ export function GraphView() {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    setOffset({
-      x: e.clientX - dragStart.x,
-      y: e.clientY - dragStart.y,
-    });
+    if (isDragging) {
+      setOffset({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y,
+      });
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const mouseX = (e.clientX - rect.left - centerX - offset.x) / zoom;
+    const mouseY = (e.clientY - rect.top - centerY - offset.y) / zoom;
+
+    // Hit detection for edges
+    let foundEdge: Edge | null = null;
+    // Check nodes first (optional, usually nodes cover edges)
+    // Actually simplicity: if over node, activeNode takes precedence?
+    // Let's just check edges.
+
+    for (const edge of edges) {
+      const fromNode = nodes.find((n) => n.id === edge.from);
+      const toNode = nodes.find((n) => n.id === edge.to);
+      if (fromNode && toNode) {
+        const dist = getDistanceFromLine(
+          mouseX,
+          mouseY,
+          fromNode.x,
+          fromNode.y,
+          toNode.x,
+          toNode.y
+        );
+        if (dist < 10) {
+          // 10px threshold
+          foundEdge = edge;
+          break;
+        }
+      }
+    }
+
+    if (foundEdge !== hoveredEdge) {
+      setHoveredEdge(foundEdge);
+    }
+
+    // Update tooltip pos (screen coords)
+    if (foundEdge) {
+      setTooltipPos({ x: e.clientX - rect.left + 15, y: e.clientY - rect.top });
+    }
   };
 
   const handleMouseUp = () => {
@@ -389,6 +500,7 @@ export function GraphView() {
 
     if (clickedNode) {
       setSelectedNode(clickedNode.id);
+      setSelectedEdge(null); // Clear edge selection
       if (clickedNode.type === "class") {
         selectClass(clickedNode.id);
       } else if (clickedNode.type === "property") {
@@ -398,10 +510,13 @@ export function GraphView() {
       }
     } else {
       setSelectedNode(null);
-      // Optional: Deselect everything in context if clicking on empty space?
-      // The requirement doesn't explicitly say to deselect on empty click, but "Graph maintains local selectedNode state separate from OntologyContext" suggests we might want to keep them in sync.
-      // However, the current behavior just sets selectedNode(null).
-      // Let's keep it minimally invasive for now.
+
+      // Check for edge click
+      if (hoveredEdge) {
+        setSelectedEdge(hoveredEdge);
+      } else {
+        setSelectedEdge(null);
+      }
     }
   };
 
@@ -544,6 +659,69 @@ export function GraphView() {
           </div>
         )}
       </div>
+      {hoveredEdge && !isDragging && (
+        <div
+          className="absolute z-10 bg-popover text-popover-foreground px-3 py-1.5 rounded-md shadow-md text-xs border border-border pointer-events-none"
+          style={{ top: tooltipPos.y, left: tooltipPos.x }}
+        >
+          <div className="font-semibold">
+            {hoveredEdge.label || hoveredEdge.type}
+          </div>
+          <div className="text-[10px] opacity-80">
+            {nodes.find((n) => n.id === hoveredEdge.from)?.label} →{" "}
+            {nodes.find((n) => n.id === hoveredEdge.to)?.label}
+          </div>
+        </div>
+      )}
+
+      {selectedEdge && (
+        <div className="absolute top-4 left-4 bg-card border border-border rounded-lg p-4 shadow-lg w-64 text-sm z-20">
+          <div className="flex justify-between items-start mb-2">
+            <div className="font-semibold">Relationship Details</div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-4 w-4"
+              onClick={() => setSelectedEdge(null)}
+            >
+              <span className="sr-only">Close</span>
+              <span className="text-xs">✕</span>
+            </Button>
+          </div>
+          <div className="space-y-2">
+            <div>
+              <span className="text-muted-foreground text-xs">Type:</span>
+              <div className="font-medium capitalize">{selectedEdge.type}</div>
+            </div>
+            <div>
+              <span className="text-muted-foreground text-xs">Label:</span>
+              <div className="font-mono text-xs">
+                {selectedEdge.label || "-"}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border">
+              <div>
+                <span className="text-muted-foreground text-xs">From:</span>
+                <div
+                  className="truncate"
+                  title={nodes.find((n) => n.id === selectedEdge.from)?.label}
+                >
+                  {nodes.find((n) => n.id === selectedEdge.from)?.label}
+                </div>
+              </div>
+              <div>
+                <span className="text-muted-foreground text-xs">To:</span>
+                <div
+                  className="truncate"
+                  title={nodes.find((n) => n.id === selectedEdge.to)?.label}
+                >
+                  {nodes.find((n) => n.id === selectedEdge.to)?.label}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
