@@ -20,7 +20,7 @@ interface IndividualDetailsProps {
 export function IndividualDetails({ isModalView, individual }: IndividualDetailsProps) {
   const { selectedIndividual } = useOntology()
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   const copyToClipboard = async (text: string) => {
     const success = await copy(text)

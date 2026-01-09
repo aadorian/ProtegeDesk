@@ -10,6 +10,10 @@ import debug from 'debug'
 
 const logger = debug('app:class-tree')
 
+// Tree indentation constants
+const TREE_INDENT_PX = 16
+const TREE_ICON_SPACING_PX = 8
+
 type ClassTreeNodeProps = {
   classId: string
   owlClass: OntologyClass
@@ -46,7 +50,7 @@ function ClassTreeNode({ classId, owlClass, level, expandedIds, onToggle }: Clas
           'group hover:bg-accent flex cursor-pointer items-center gap-1 rounded px-2 py-1 text-sm',
           isSelected && 'bg-primary/20 text-primary'
         )}
-        style={{ paddingLeft: `${level * 16 + 8}px` }}
+        style={{ paddingLeft: `${level * TREE_INDENT_PX + TREE_ICON_SPACING_PX}px` }}
         onClick={() => {
           logger('Class selected', {
             classId,

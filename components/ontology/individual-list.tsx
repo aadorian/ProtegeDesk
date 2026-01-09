@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { IndividualItemProps } from '@/lib/ontology/types'
 
+const MAX_VISIBLE_TYPES = 2
+
 const IndividualItem = React.memo(function IndividualItem({
   individual,
   isSelected,
@@ -30,14 +32,16 @@ const IndividualItem = React.memo(function IndividualItem({
 
         {individual.types.length > 0 && (
           <div className="text-muted-foreground flex flex-wrap gap-1 text-xs">
-            {individual.types.slice(0, 2).map((type, idx) => (
+            {individual.types.slice(0, MAX_VISIBLE_TYPES).map((type, idx) => (
               <span key={idx} className="truncate">
                 {type}
-                {idx < Math.min(individual.types.length, 2) - 1 && ','}
+                {idx < Math.min(individual.types.length, MAX_VISIBLE_TYPES) - 1 && ','}
               </span>
             ))}
-            {individual.types.length > 2 && (
-              <span className="text-muted-foreground">+{individual.types.length - 2}</span>
+            {individual.types.length > MAX_VISIBLE_TYPES && (
+              <span className="text-muted-foreground">
+                +{individual.types.length - MAX_VISIBLE_TYPES}
+              </span>
             )}
           </div>
         )}
@@ -70,10 +74,10 @@ export function IndividualList() {
     [selectClass, selectProperty, selectIndividual]
   )
 
-// Debug logging when individuals change
-useEffect(() => {
-  // console.log removed for production cleanup (issue #120)
-}, [individuals])
+  // Debug logging when individuals change
+  useEffect(() => {
+    // console.log removed for production cleanup (issue #120)
+  }, [individuals])
 
   const filteredIndividuals = useMemo(() => {
     if (!searchQuery) {

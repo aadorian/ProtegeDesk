@@ -30,6 +30,8 @@ import { json } from '@codemirror/lang-json'
 import { EditorView } from '@codemirror/view'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
 
+const JSON_INDENT_SPACES = 2
+
 type ViewMode = 'table' | 'json' | 'cards'
 
 export function SPARQLQuery() {
@@ -40,7 +42,7 @@ export function SPARQLQuery() {
   const [isExecuting, setIsExecuting] = useState(false)
   const [activeTab, setActiveTab] = useState('editor')
   const [viewMode, setViewMode] = useState<ViewMode>('table')
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   const executeQuery = () => {
     if (!ontology) {
@@ -94,7 +96,8 @@ export function SPARQLQuery() {
       return
     }
 
-    const json = JSON.stringify(result, null, 2)
+    const JSON_INDENT_SPACES = 2
+    const json = JSON.stringify(result, null, JSON_INDENT_SPACES)
     const blob = new Blob([json], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -365,7 +368,7 @@ export function SPARQLQuery() {
                       {viewMode === 'json' && (
                         <div className="w-full pb-4">
                           <CodeMirror
-                            value={JSON.stringify(result, null, 2)}
+                            value={JSON.stringify(result, null, JSON_INDENT_SPACES)}
                             extensions={[
                               json(),
                               EditorView.lineWrapping,

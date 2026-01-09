@@ -149,7 +149,10 @@ export function NewEntityDialog() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>Entity Type</Label>
-            <Select value={entityType} onValueChange={v => setEntityType(v as any)}>
+            <Select
+              value={entityType}
+              onValueChange={v => setEntityType(v as 'class' | 'property')}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -198,7 +201,10 @@ export function NewEntityDialog() {
           {entityType === 'property' && (
             <div className="space-y-2">
               <Label>Property Type</Label>
-              <Select value={propertyType} onValueChange={v => setPropertyType(v as any)}>
+              <Select
+                value={propertyType}
+                onValueChange={v => setPropertyType(v as 'ObjectProperty' | 'DataProperty')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
