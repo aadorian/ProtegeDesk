@@ -383,6 +383,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Vineeth Wilson** - [@VineethWilson](https://github.com/VineethWilson)
   - Last modified timestamp tracking for statistics
 
+- **Tim** - [@TimmyByDay](https://github.com/TimmyByDay)
+  - Comprehensive JSDoc documentation for utility functions
+
+- **EvanPerezJ** - [@EvanPerezJ](https://github.com/EvanPerezJ)
+  - Expand/collapse toggle for class tree
+
+- **Ronit Reddy** - [@ronitvoila](https://github.com/ronitvoila)
+  - Inverse property selection UI implementation
+
+- **Umer Jahangir** - [@Umer-Jahangir](https://github.com/Umer-Jahangir)
+  - Console.log cleanup for production components
+
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and detailed contribution information.
 
 ---

@@ -66,6 +66,19 @@ We appreciate all contributions to this project, big or small!
 - **Vineeth Wilson** ([@VineethWilson](https://github.com/VineethWilson))
   - Last modified timestamp tracking for statistics
 
+- **Tim** ([@TimmyByDay](https://github.com/TimmyByDay))
+  - Comprehensive JSDoc documentation for utility functions
+  - Onboarding documentation fixes
+
+- **EvanPerezJ** ([@EvanPerezJ](https://github.com/EvanPerezJ))
+  - Expand/collapse toggle for class tree
+
+- **Ronit Reddy** ([@ronitvoila](https://github.com/ronitvoila))
+  - Inverse property selection UI implementation
+
+- **Umer Jahangir** ([@Umer-Jahangir](https://github.com/Umer-Jahangir))
+  - Console.log cleanup for production components
+
 ## How to Contribute
 
 We welcome contributions from everyone! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
