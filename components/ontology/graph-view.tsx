@@ -42,6 +42,7 @@ import { ClassDetails } from './class-details'
 import { PropertyDetails } from './property-details'
 import { IndividualDetails } from './individual-details'
 import { NodeHoverCard } from './node-hover-card'
+import { NewEntityDialog } from './new-entity-dialog'
 
 type Node = {
   id: string
@@ -165,6 +166,9 @@ export function GraphView() {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null)
   const hoverTimeoutRef = useRef<number | null>(null)
+  const [contextNode, setContextNode] = useState<Node | null>(null)
+  const [contextMenuPos, setContextMenuPos] = useState<{ x: number; y: number } | null>(null)
+  const [createSubclassParent, setCreateSubclassParent] = useState<string | null>(null)
   
   const selectedNodeData = useMemo(() => {
     if (!ontology || !selectedNode) {
@@ -568,6 +572,7 @@ export function GraphView() {
       setClickPosition({ x: e.clientX, y: e.clientY })
     } else {
       setSelectedNode(null)
+      selectClass(null)
       setClickPosition(null)
     }
   }
@@ -639,6 +644,36 @@ export function GraphView() {
     link.click()
   }
 
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault()
+  
+    const canvas = canvasRef.current
+    if (!canvas) return
+  
+    const rect = canvas.getBoundingClientRect()
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+  
+    const x = (e.clientX - rect.left - centerX - offset.x) / zoom
+    const y = (e.clientY - rect.top - centerY - offset.y) / zoom
+  
+    const node = nodes.find(n => {
+      const dx = x - n.x
+      const dy = y - n.y
+      return Math.sqrt(dx * dx + dy * dy) <= n.radius
+    })
+  
+    if (node?.type === 'class') {
+      setContextNode(node)
+      setContextMenuPos({ x: e.clientX - 250, y: e.clientY - 80})
+    } else {
+      setContextNode(null)
+      setContextMenuPos(null)
+    }
+  }
+  
+  
+
   return (
     <div ref={containerRef} className="relative h-full w-full">
       <canvas
@@ -657,6 +692,7 @@ export function GraphView() {
           setHoveredNode(null)
         }}
         onClick={handleClick}
+        onContextMenu={handleContextMenu}
       />
       <div className="absolute top-4 right-4 flex flex-col gap-2">
         <div className="bg-secondary/80 border-border flex flex-col gap-1 rounded-lg border p-1 shadow-md backdrop-blur-sm">
@@ -798,6 +834,39 @@ export function GraphView() {
           </DialogContent>
         </Dialog>
       )}
+      {contextNode && contextMenuPos && (
+        <div
+          className="absolute z-50 rounded-md border border-border bg-card shadow-lg"
+          style={{
+            left: contextMenuPos.x,
+            top: contextMenuPos.y,
+          }}
+        >
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={() => {
+              setCreateSubclassParent(contextNode.id)
+              setContextNode(null)
+              setContextMenuPos(null)
+            }}
+          >
+            Create subclass
+          </Button>
+        </div>
+      )}
+      {createSubclassParent && (
+        <NewEntityDialog
+          open={true}
+          parentClassId={createSubclassParent}
+          onOpenChange={(open) => {
+            if (!open) {
+              setCreateSubclassParent(null)
+            }
+          }}
+        />
+      )}
+
       {hoveredNode && (() => {
         const screenPos = graphToScreen(hoveredNode.x, hoveredNode.y)
         if (!screenPos) return null

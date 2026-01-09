@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -36,10 +36,23 @@ function isDuplicate(id: string, ontology: Ontology): boolean {
   return ontology.classes.has(id) || ontology.properties.has(id) || ontology.individuals.has(id)
 }
 
-export function NewEntityDialog() {
+export function NewEntityDialog({
+  defaultEntityType = 'class',
+  parentClassId,
+  open,
+  onOpenChange,
+}: {
+  defaultEntityType?: 'class' | 'property'
+  parentClassId?: string
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) {
   const { ontology, addClass, addProperty } = useOntology()
   const { toast } = useToast()
-  const [open, setOpen] = useState(false)
+  const [internalOpen, setInternalOpen] = useState(false)
+  const isControlled = open !== undefined
+  const dialogOpen = isControlled ? open : internalOpen
+  const setDialogOpen = isControlled ? onOpenChange! : setInternalOpen
   const [entityType, setEntityType] = useState<'class' | 'property'>('class')
   const [id, setId] = useState('')
   const [name, setName] = useState('')
@@ -48,6 +61,16 @@ export function NewEntityDialog() {
   const [propertyType, setPropertyType] = useState<'ObjectProperty' | 'DataProperty'>(
     'ObjectProperty'
   )
+
+  useEffect(() => {
+    setEntityType(defaultEntityType)
+  }, [defaultEntityType])
+
+  useEffect(() => {
+    if(parentClassId) {
+      setEntityType('class')
+    }
+  }, [parentClassId])
 
   const handleCreate = () => {
     // Validate required fields
@@ -95,7 +118,7 @@ export function NewEntityDialog() {
         name,
         label,
         description,
-        superClasses: ['owl:Thing'],
+        superClasses: parentClassId ? [parentClassId] : ['owl:Thing'],
         annotations: [],
         properties: [],
         disjointWith: [],
@@ -129,11 +152,11 @@ export function NewEntityDialog() {
     setName('')
     setLabel('')
     setDescription('')
-    setOpen(false)
+    setDialogOpen(false)
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm">
           <Plus className="mr-2 h-4 w-4" />
@@ -149,7 +172,11 @@ export function NewEntityDialog() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>Entity Type</Label>
-            <Select value={entityType} onValueChange={v => setEntityType(v as any)}>
+            <Select 
+              value={entityType} 
+              onValueChange={v => setEntityType(v as any)}
+              disabled={!!parentClassId}
+              >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
