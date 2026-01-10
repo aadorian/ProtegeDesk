@@ -52,6 +52,7 @@ We appreciate all contributions to this project, big or small!
   - ESLint magic numbers rule enforcement
   - Test suite fixes for file parsing issues
   - Success and failure message notifications for operations
+  - Right-click context menu to create subclass from parent class in graph view
 
 - **mostafakm78** ([@mostafakm78](https://github.com/mostafakm78))
   - Performance optimization with component memoization
@@ -78,6 +79,9 @@ We appreciate all contributions to this project, big or small!
 
 - **Umer Jahangir** ([@Umer-Jahangir](https://github.com/Umer-Jahangir))
   - Console.log cleanup for production components
+
+- **Timmy Da Encarnacao** ([@DevSpawn](https://github.com/DevSpawn))
+  - Comprehensive JSDoc documentation for utility functions
 
 ## How to Contribute
 
