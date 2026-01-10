@@ -147,3 +147,8 @@ export const ARRAY_INDEX_NOT_FOUND = -1
 export const ARRAY_FIRST_ELEMENT = 0
 export const SPARQL_LIMIT_OFFSET = 3
 export const SPARQL_OFFSET_OFFSET = 2
+
+/* =========================
+   Property Chain Constants
+========================= */
+export const MIN_PROPERTY_CHAIN_LENGTH = 2

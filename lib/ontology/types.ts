@@ -24,6 +24,7 @@ export type OntologyProperty = {
   characteristics: PropertyCharacteristic[]
   inverse?: string
   annotations: Annotation[]
+  propertyChains?: string[][] // Each chain is an array of property IDs (e.g., [hasParent, hasBrother] -> hasUncle)
 }
 
 export type PropertyCharacteristic =

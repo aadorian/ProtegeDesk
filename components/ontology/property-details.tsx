@@ -19,7 +19,8 @@ import { Button } from '@/components/ui/button'
 import { Copy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
-import { OntologyProperty } from '@/lib/ontology/types'
+import type { OntologyProperty, PropertyCharacteristic } from '@/lib/ontology/types'
+import { PropertyChainEditor } from './property-chain-editor'
 
 interface PropertyDetailsProps {
   isModalView?: boolean
@@ -300,6 +301,17 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                   </div>
                 ))}
               </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {selectedProperty.type === 'ObjectProperty' && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Property Chains</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PropertyChainEditor property={selectedProperty} />
             </CardContent>
           </Card>
         )}
