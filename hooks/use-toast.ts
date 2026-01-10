@@ -181,8 +181,9 @@ function useToast(): {
   React.useEffect(() => {
     listeners.push(setState)
     return () => {
+      const ARRAY_INDEX_NOT_FOUND = -1
       const index = listeners.indexOf(setState)
-      if (index > -1) {
+      if (index > ARRAY_INDEX_NOT_FOUND) {
         listeners.splice(index, 1)
       }
     }

@@ -29,11 +29,11 @@ interface PropertyDetailsProps {
 export function PropertyDetails({ isModalView, property }: PropertyDetailsProps) {
   const { selectedProperty, ontology, updateProperty } = useOntology()
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   const availableProperties = ontology
     ? Array.from(ontology.properties.values()).filter(
-        (p) => p.type === 'ObjectProperty' && p.id !== selectedProperty?.id
+        p => p.type === 'ObjectProperty' && p.id !== selectedProperty?.id
       )
     : []
 
@@ -91,7 +91,7 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
               <div>
                 <b>Characteristics:</b>{' '}
                 {characteristics
-                  .filter(c => property.characteristics.includes(c.id as any))
+                  .filter(c => property.characteristics.includes(c.id as PropertyCharacteristic))
                   .map(c => c.label)
                   .join(', ') || '-'}
               </div>
@@ -215,7 +215,7 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 </Label>
                 <Select
                   value={liveProperty.inverse || 'none'}
-                  onValueChange={(value) => {
+                  onValueChange={value => {
                     updateProperty(liveProperty.id, {
                       inverse: value === 'none' ? undefined : value,
                     })
@@ -228,7 +228,7 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                     <SelectItem value="none" className="text-xs">
                       None
                     </SelectItem>
-                    {availableProperties.map((prop) => (
+                    {availableProperties.map(prop => (
                       <SelectItem key={prop.id} value={prop.id} className="text-xs">
                         {prop.label || prop.id}
                       </SelectItem>
@@ -287,7 +287,9 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                   <div key={characteristic.id} className="flex items-center space-x-2">
                     <Checkbox
                       id={characteristic.id}
-                      checked={selectedProperty.characteristics.includes(characteristic.id as any)}
+                      checked={selectedProperty.characteristics.includes(
+                        characteristic.id as PropertyCharacteristic
+                      )}
                     />
                     <Label
                       htmlFor={characteristic.id}

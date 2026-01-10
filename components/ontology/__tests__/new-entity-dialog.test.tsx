@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { NewEntityDialog } from '../new-entity-dialog'
 import { OntologyProvider } from '@/lib/ontology/context'
@@ -52,7 +52,7 @@ function OntologyProviderWithSetup({
 
     useEffect(() => {
       setOntology(ontology)
-    }, [])
+    }, [setOntology])
 
     return <>{children}</>
   }

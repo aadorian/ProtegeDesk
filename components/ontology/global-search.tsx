@@ -30,8 +30,9 @@ export function GlobalSearch() {
       return []
     }
 
+    const SEARCH_RESULT_LIMIT = 20
     return search.search(searchQuery, {
-      maxResults: 20,
+      maxResults: SEARCH_RESULT_LIMIT,
       fuzzyMatch: true, // Enable typo tolerance
     })
   }, [searchQuery, search])

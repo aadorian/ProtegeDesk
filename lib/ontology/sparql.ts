@@ -1,5 +1,4 @@
-import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
-import { serializeToTurtle } from './serializers'
+import type { Ontology } from './types'
 
 /**
  * SPARQL Query Result types
@@ -302,32 +301,7 @@ function matchPattern(
   return results
 }
 
-/**
- * Check if two IRIs match, accounting for prefix expansion
- */
-function isIRIMatch(pattern: string, value: string): boolean {
-  // Handle common prefixes
-  const prefixes: Record<string, string> = {
-    'rdf:': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'rdfs:': 'http://www.w3.org/2000/01/rdf-schema#',
-    'owl:': 'http://www.w3.org/2002/07/owl#',
-    'xsd:': 'http://www.w3.org/2001/XMLSchema#',
-  }
-
-  let expandedPattern = pattern
-  for (const [prefix, uri] of Object.entries(prefixes)) {
-    if (pattern.startsWith(prefix)) {
-      expandedPattern = pattern.replace(prefix, uri)
-      break
-    }
-  }
-
-  // Remove angle brackets if present
-  expandedPattern = expandedPattern.replace(/^<|>$/g, '')
-  const expandedValue = value.replace(/^<|>$/g, '')
-
-  return expandedPattern === expandedValue
-}
+// Removed unused isIRIMatch function
 
 /**
  * Parse a simple SPARQL SELECT query
@@ -387,12 +361,16 @@ function parseSPARQLQuery(query: string): {
       .filter(p => p.length > 0 && p !== '{' && p !== '}')
       .map(p => p.trim())
 
-    if (parts.length >= 3) {
+    const MIN_PATTERN_PARTS = 3
+    if (parts.length >= MIN_PATTERN_PARTS) {
+      const SUBJECT_INDEX = 0
+      const PREDICATE_INDEX = 1
+      const OBJECT_START_INDEX = 2
       patterns.push({
-        subject: parts[0],
-        predicate: parts[1],
+        subject: parts[SUBJECT_INDEX],
+        predicate: parts[PREDICATE_INDEX],
         object: parts
-          .slice(2)
+          .slice(OBJECT_START_INDEX)
           .join(' ')
           .replace(/\s*;\s*$/, '')
           .trim(),

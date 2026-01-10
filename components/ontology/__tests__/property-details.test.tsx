@@ -36,7 +36,7 @@ function createTestProperty(overrides: Partial<OntologyProperty> = {}): Ontology
 // Create a mock ontology
 function createMockOntology(properties: OntologyProperty[] = []): Ontology {
   const propertiesMap = new Map<string, OntologyProperty>()
-  properties.forEach((p) => propertiesMap.set(p.id, p))
+  properties.forEach(p => propertiesMap.set(p.id, p))
 
   return {
     id: 'test-ontology',
@@ -360,7 +360,7 @@ describe('PropertyDetails - Inverse Property Feature', () => {
 
       // Get available properties (simulating what the component does)
       const availableProperties = Array.from(result.current.ontology!.properties.values()).filter(
-        (p) => p.type === 'ObjectProperty' && p.id !== result.current.selectedProperty?.id
+        p => p.type === 'ObjectProperty' && p.id !== result.current.selectedProperty?.id
       )
 
       // Should only include hasEmployee (not worksFor which is self, not hasName which is DataProperty, not comment which is AnnotationProperty)

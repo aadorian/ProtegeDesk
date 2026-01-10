@@ -11,11 +11,14 @@ type NodeHoverCardProps = {
   style: React.CSSProperties
 }
 
-const truncate = (text?: string, max = 120) =>
+const DEFAULT_TRUNCATE_LENGTH = 120
+const truncate = (text?: string, max = DEFAULT_TRUNCATE_LENGTH) =>
   text && text.length > max ? text.slice(0, max) + '…' : text
 
 export function NodeHoverCard({ node, ontology, style }: NodeHoverCardProps) {
-  if (!ontology) return null
+  if (!ontology) {
+    return null
+  }
 
   let description: string | undefined
   let details: React.ReactNode = null
@@ -23,7 +26,9 @@ export function NodeHoverCard({ node, ontology, style }: NodeHoverCardProps) {
   /** ---------- CLASS ---------- */
   if (node.type === 'class') {
     const cls = ontology.classes.get(node.id)
-    if (!cls) return null
+    if (!cls) {
+      return null
+    }
 
     const subclassCount = Array.from(ontology.classes.values()).filter(c =>
       c.superClasses?.includes(node.id)
@@ -45,7 +50,9 @@ export function NodeHoverCard({ node, ontology, style }: NodeHoverCardProps) {
   /** ---------- PROPERTY ---------- */
   if (node.type === 'property') {
     const prop = ontology.properties.get(node.id)
-    if (!prop) return null
+    if (!prop) {
+      return null
+    }
 
     description = prop.description
 
@@ -71,7 +78,9 @@ export function NodeHoverCard({ node, ontology, style }: NodeHoverCardProps) {
   /** ---------- INDIVIDUAL ---------- */
   if (node.type === 'individual') {
     const ind = ontology.individuals.get(node.id)
-    if (!ind) return null
+    if (!ind) {
+      return null
+    }
 
     description = ind.label
 
@@ -80,40 +89,19 @@ export function NodeHoverCard({ node, ontology, style }: NodeHoverCardProps) {
 
     details = (
       <>
-        <div className="text-muted-foreground">
-          {primaryType ?? 'Unknown type'}
-        </div>
-        <div className="text-muted-foreground">
-          {assertionCount} type assertions
-        </div>
+        <div className="text-muted-foreground">{primaryType ?? 'Unknown type'}</div>
+        <div className="text-muted-foreground">{assertionCount} type assertions</div>
       </>
     )
   }
 
   return (
     <div
-      className="
-        pointer-events-none
-        absolute
-        z-50
-        -translate-x-1/2
-        -translate-y-full
-        rounded-lg
-        border
-        bg-card
-        px-3
-        py-2
-        text-xs
-        shadow-xl
-        backdrop-blur-sm
-        max-w-[260px]
-      "
+      className="bg-card pointer-events-none absolute z-50 max-w-[260px] -translate-x-1/2 -translate-y-full rounded-lg border px-3 py-2 text-xs shadow-xl backdrop-blur-sm"
       style={style}
     >
       {/* Title */}
-      <div className="text-foreground font-semibold leading-tight">
-        {node.label}
-      </div>
+      <div className="text-foreground leading-tight font-semibold">{node.label}</div>
 
       {/* Type */}
       <div className="mt-1 flex items-center gap-2">

@@ -1,5 +1,10 @@
 import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
 
+const SAMPLE_AGE_JOHN = 30
+const SAMPLE_AGE_JANE = 28
+const SAMPLE_FOUNDED_YEAR = 1995
+const SAMPLE_AGE_ALICE = 35
+
 export function createSampleOntology(): Ontology {
   const classes = new Map<string, OntologyClass>()
   const properties = new Map<string, OntologyProperty>()
@@ -108,7 +113,7 @@ export function createSampleOntology(): Ontology {
     types: ['Employee'],
     propertyAssertions: [
       { property: 'hasName', value: 'John Doe', datatype: 'xsd:string' },
-      { property: 'hasAge', value: 30, datatype: 'xsd:integer' },
+      { property: 'hasAge', value: SAMPLE_AGE_JOHN, datatype: 'xsd:integer' },
       { property: 'worksFor', value: 'acme_corp' },
     ],
     annotations: [{ property: 'rdfs:comment', value: 'Software engineer at ACME Corp' }],
@@ -123,7 +128,7 @@ export function createSampleOntology(): Ontology {
     types: ['Employee'],
     propertyAssertions: [
       { property: 'hasName', value: 'Jane Smith', datatype: 'xsd:string' },
-      { property: 'hasAge', value: 28, datatype: 'xsd:integer' },
+      { property: 'hasAge', value: SAMPLE_AGE_JANE, datatype: 'xsd:integer' },
       { property: 'worksFor', value: 'acme_corp' },
     ],
     annotations: [{ property: 'rdfs:comment', value: 'Product manager at ACME Corp' }],
@@ -138,7 +143,7 @@ export function createSampleOntology(): Ontology {
     types: ['Organization'],
     propertyAssertions: [
       { property: 'hasName', value: 'ACME Corporation', datatype: 'xsd:string' },
-      { property: 'foundedIn', value: 1995, datatype: 'xsd:integer' },
+      { property: 'foundedIn', value: SAMPLE_FOUNDED_YEAR, datatype: 'xsd:integer' },
     ],
     annotations: [{ property: 'rdfs:comment', value: 'A technology company' }],
     sameAs: [],
@@ -152,7 +157,7 @@ export function createSampleOntology(): Ontology {
     types: ['Person'],
     propertyAssertions: [
       { property: 'hasName', value: 'Alice Johnson', datatype: 'xsd:string' },
-      { property: 'hasAge', value: 35, datatype: 'xsd:integer' },
+      { property: 'hasAge', value: SAMPLE_AGE_ALICE, datatype: 'xsd:integer' },
     ],
     annotations: [],
     sameAs: [],
