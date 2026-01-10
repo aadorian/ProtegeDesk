@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { useOntology } from "@/lib/ontology/context";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Badge } from "@/components/ui/badge"
+import { useOntology } from "@/lib/ontology/context"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export function IndividualDetails() {
-  const { selectedIndividual, ontology } = useOntology();
+  const { selectedIndividual, ontology } = useOntology()
 
   if (!selectedIndividual) {
     return (
       <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
         Select an individual to view details
       </div>
-    );
+    )
   }
 
   return (
@@ -127,5 +127,5 @@ export function IndividualDetails() {
         </Card>
       </div>
     </ScrollArea>
-  );
+  )
 }
