@@ -64,7 +64,6 @@ Closes #
 
 **Performance measurements** (if applicable):
 
-
 ## Accessibility
 
 <!-- Confirm accessibility compliance -->
@@ -102,7 +101,6 @@ Closes #
 
 **New dependencies** (if any):
 
-
 ## Breaking Changes
 
 <!-- If this is a breaking change, describe what breaks and migration path -->
@@ -111,7 +109,6 @@ Closes #
 - [ ] Breaking changes (describe below)
 
 **Migration guide** (if applicable):
-
 
 ## Deployment Notes
 
@@ -124,7 +121,6 @@ Closes #
 - [ ] Other deployment considerations (describe below)
 
 **Deployment instructions** (if applicable):
-
 
 ## Security Considerations
 
@@ -142,11 +138,9 @@ Closes #
 
 <!-- How can this change be rolled back if needed? -->
 
-
 ## Additional Context
 
 <!-- Add any other context about the PR here -->
-
 
 ## Reviewer Checklist
 

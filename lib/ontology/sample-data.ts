@@ -1,4 +1,4 @@
-import type { Ontology, OntologyClass, OntologyProperty, Individual } from "./types"
+import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
 
 export function createSampleOntology(): Ontology {
   const classes = new Map<string, OntologyClass>()
@@ -7,10 +7,10 @@ export function createSampleOntology(): Ontology {
 
   // Top-level classes
   const thing: OntologyClass = {
-    id: "owl:Thing",
-    name: "Thing",
-    label: "Thing",
-    description: "The root class of all classes",
+    id: 'owl:Thing',
+    name: 'Thing',
+    label: 'Thing',
+    description: 'The root class of all classes',
     superClasses: [],
     annotations: [],
     properties: [],
@@ -19,37 +19,37 @@ export function createSampleOntology(): Ontology {
   }
 
   const person: OntologyClass = {
-    id: "Person",
-    name: "Person",
-    label: "Person",
-    description: "A human being",
-    superClasses: ["owl:Thing"],
-    annotations: [{ property: "rdfs:comment", value: "Represents a human person" }],
-    properties: ["hasName", "hasAge", "hasEmail"],
-    disjointWith: ["Organization"],
+    id: 'Person',
+    name: 'Person',
+    label: 'Person',
+    description: 'A human being',
+    superClasses: ['owl:Thing'],
+    annotations: [{ property: 'rdfs:comment', value: 'Represents a human person' }],
+    properties: ['hasName', 'hasAge', 'hasEmail'],
+    disjointWith: ['Organization'],
     equivalentTo: [],
   }
 
   const organization: OntologyClass = {
-    id: "Organization",
-    name: "Organization",
-    label: "Organization",
-    description: "An organized group",
-    superClasses: ["owl:Thing"],
-    annotations: [{ property: "rdfs:comment", value: "Represents an organization" }],
-    properties: ["hasName", "foundedIn"],
-    disjointWith: ["Person"],
+    id: 'Organization',
+    name: 'Organization',
+    label: 'Organization',
+    description: 'An organized group',
+    superClasses: ['owl:Thing'],
+    annotations: [{ property: 'rdfs:comment', value: 'Represents an organization' }],
+    properties: ['hasName', 'foundedIn'],
+    disjointWith: ['Person'],
     equivalentTo: [],
   }
 
   const employee: OntologyClass = {
-    id: "Employee",
-    name: "Employee",
-    label: "Employee",
-    description: "A person employed by an organization",
-    superClasses: ["Person"],
+    id: 'Employee',
+    name: 'Employee',
+    label: 'Employee',
+    description: 'A person employed by an organization',
+    superClasses: ['Person'],
     annotations: [],
-    properties: ["worksFor", "hasJobTitle"],
+    properties: ['worksFor', 'hasJobTitle'],
     disjointWith: [],
     equivalentTo: [],
   }
@@ -61,39 +61,39 @@ export function createSampleOntology(): Ontology {
 
   // Properties
   const hasName: OntologyProperty = {
-    id: "hasName",
-    name: "hasName",
-    label: "has name",
-    type: "DataProperty",
-    domain: ["owl:Thing"],
-    range: ["xsd:string"],
+    id: 'hasName',
+    name: 'hasName',
+    label: 'has name',
+    type: 'DataProperty',
+    domain: ['owl:Thing'],
+    range: ['xsd:string'],
     superProperties: [],
-    characteristics: ["Functional"],
-    annotations: [{ property: "rdfs:comment", value: "The name of an entity" }],
+    characteristics: ['Functional'],
+    annotations: [{ property: 'rdfs:comment', value: 'The name of an entity' }],
   }
 
   const hasAge: OntologyProperty = {
-    id: "hasAge",
-    name: "hasAge",
-    label: "has age",
-    type: "DataProperty",
-    domain: ["Person"],
-    range: ["xsd:integer"],
+    id: 'hasAge',
+    name: 'hasAge',
+    label: 'has age',
+    type: 'DataProperty',
+    domain: ['Person'],
+    range: ['xsd:integer'],
     superProperties: [],
-    characteristics: ["Functional"],
+    characteristics: ['Functional'],
     annotations: [],
   }
 
   const worksFor: OntologyProperty = {
-    id: "worksFor",
-    name: "worksFor",
-    label: "works for",
-    type: "ObjectProperty",
-    domain: ["Employee"],
-    range: ["Organization"],
+    id: 'worksFor',
+    name: 'worksFor',
+    label: 'works for',
+    type: 'ObjectProperty',
+    domain: ['Employee'],
+    range: ['Organization'],
     superProperties: [],
     characteristics: [],
-    annotations: [{ property: "rdfs:comment", value: "Relates an employee to their employer" }],
+    annotations: [{ property: 'rdfs:comment', value: 'Relates an employee to their employer' }],
   }
 
   properties.set(hasName.id, hasName)
@@ -102,13 +102,57 @@ export function createSampleOntology(): Ontology {
 
   // Individuals
   const john: Individual = {
-    id: "john_doe",
-    name: "john_doe",
-    label: "John Doe",
-    types: ["Employee"],
+    id: 'john_doe',
+    name: 'john_doe',
+    label: 'John Doe',
+    types: ['Employee'],
     propertyAssertions: [
-      { property: "hasName", value: "John Doe" },
-      { property: "hasAge", value: 30 },
+      { property: 'hasName', value: 'John Doe', datatype: 'xsd:string' },
+      { property: 'hasAge', value: 30, datatype: 'xsd:integer' },
+      { property: 'worksFor', value: 'acme_corp' },
+    ],
+    annotations: [{ property: 'rdfs:comment', value: 'Software engineer at ACME Corp' }],
+    sameAs: [],
+    differentFrom: ['jane_smith'],
+  }
+
+  const jane: Individual = {
+    id: 'jane_smith',
+    name: 'jane_smith',
+    label: 'Jane Smith',
+    types: ['Employee'],
+    propertyAssertions: [
+      { property: 'hasName', value: 'Jane Smith', datatype: 'xsd:string' },
+      { property: 'hasAge', value: 28, datatype: 'xsd:integer' },
+      { property: 'worksFor', value: 'acme_corp' },
+    ],
+    annotations: [{ property: 'rdfs:comment', value: 'Product manager at ACME Corp' }],
+    sameAs: [],
+    differentFrom: ['john_doe'],
+  }
+
+  const acmeCorp: Individual = {
+    id: 'acme_corp',
+    name: 'acme_corp',
+    label: 'ACME Corporation',
+    types: ['Organization'],
+    propertyAssertions: [
+      { property: 'hasName', value: 'ACME Corporation', datatype: 'xsd:string' },
+      { property: 'foundedIn', value: 1995, datatype: 'xsd:integer' },
+    ],
+    annotations: [{ property: 'rdfs:comment', value: 'A technology company' }],
+    sameAs: [],
+    differentFrom: [],
+  }
+
+  const alice: Individual = {
+    id: 'alice_johnson',
+    name: 'alice_johnson',
+    label: 'Alice Johnson',
+    types: ['Person'],
+    propertyAssertions: [
+      { property: 'hasName', value: 'Alice Johnson', datatype: 'xsd:string' },
+      { property: 'hasAge', value: 35, datatype: 'xsd:integer' },
     ],
     annotations: [],
     sameAs: [],
@@ -116,18 +160,21 @@ export function createSampleOntology(): Ontology {
   }
 
   individuals.set(john.id, john)
+  individuals.set(jane.id, jane)
+  individuals.set(acmeCorp.id, acmeCorp)
+  individuals.set(alice.id, alice)
 
   return {
-    id: "http://example.org/ontology",
-    name: "Example Ontology",
-    version: "1.0.0",
+    id: 'http://example.org/ontology',
+    name: 'Example Ontology',
+    version: '1.0.0',
     imports: [],
     classes,
     properties,
     individuals,
     annotations: [
-      { property: "rdfs:label", value: "Example Ontology" },
-      { property: "rdfs:comment", value: "A sample ontology for demonstration" },
+      { property: 'rdfs:label', value: 'Example Ontology' },
+      { property: 'rdfs:comment', value: 'A sample ontology for demonstration' },
     ],
   }
 }

@@ -1,4 +1,5 @@
 # Detailed Use Cases and User Stories
+
 ## Modern TypeScript-Based Ontology Editor
 
 **Document Version:** 1.0  
@@ -27,6 +28,7 @@ This document provides detailed use cases and user stories for the Modern Ontolo
 ### 1.2 Document Conventions
 
 **Use Case Format:**
+
 - **Use Case ID**: Unique identifier (UC-XXX)
 - **Use Case Name**: Descriptive title
 - **Actor(s)**: Primary and secondary actors
@@ -39,6 +41,7 @@ This document provides detailed use cases and user stories for the Modern Ontolo
 - **Non-functional Requirements**: Performance, usability requirements
 
 **User Story Format:**
+
 ```
 As a [role]
 I want [feature/capability]
@@ -53,6 +56,7 @@ Acceptance Criteria:
 ### 1.3 Scope
 
 This document covers:
+
 - 25+ detailed use cases across all major system features
 - 60+ user stories organized by epic
 - User journey maps for key workflows
@@ -66,6 +70,7 @@ This document covers:
 ### 2.1 Primary Actors
 
 **Ontology Engineer (OE)**
+
 - **Description**: Professional developer of ontologies with advanced knowledge of OWL, logic, and knowledge representation
 - **Goals**: Create complex, well-structured ontologies; ensure logical consistency; optimize ontology performance
 - **Technical Proficiency**: Expert
@@ -73,6 +78,7 @@ This document covers:
 - **Representative Persona**: Dr. Sarah Chen, Senior Ontology Engineer at a healthcare organization, 8 years experience
 
 **Researcher (R)**
+
 - **Description**: Academic or industry researcher using ontologies for their research projects
 - **Goals**: Model domain knowledge; support research publications; enable data integration
 - **Technical Proficiency**: Intermediate
@@ -80,6 +86,7 @@ This document covers:
 - **Representative Persona**: Prof. James Miller, Computer Science researcher studying semantic web, needs ontologies for papers
 
 **Graduate Student (GS)**
+
 - **Description**: Master's or PhD student learning ontology engineering
 - **Goals**: Complete assignments; understand ontology concepts; build thesis-related ontologies
 - **Technical Proficiency**: Novice to Intermediate
@@ -87,6 +94,7 @@ This document covers:
 - **Representative Persona**: Maria Rodriguez, PhD candidate in bioinformatics, first exposure to ontologies
 
 **Knowledge Engineer (KE)**
+
 - **Description**: Professional capturing domain knowledge in structured formats
 - **Goals**: Translate expert knowledge into formal ontologies; maintain knowledge bases
 - **Technical Proficiency**: Intermediate
@@ -96,23 +104,27 @@ This document covers:
 ### 2.2 Secondary Actors
 
 **Domain Expert (DE)**
+
 - **Description**: Subject matter expert providing knowledge for ontology development
 - **Goals**: Ensure accurate domain representation; validate ontology content
 - **Technical Proficiency**: Low (ontology tools)
 - **Interaction**: Indirect (through Knowledge Engineer)
 
 **System Administrator (SA)**
+
 - **Description**: Manages backend services and infrastructure
 - **Goals**: Ensure system availability; monitor performance; manage API keys
 - **Technical Proficiency**: Expert (systems)
 - **Frequency of Use**: As needed for maintenance
 
 **AI Service (AI)**
+
 - **Description**: External LLM services (OpenAI, Anthropic)
 - **Goals**: Provide intelligent suggestions and generation
 - **Type**: External system actor
 
 **Reasoning Service (RS)**
+
 - **Description**: External or internal reasoning engines
 - **Goals**: Perform logical inference and consistency checking
 - **Type**: System actor
@@ -132,16 +144,19 @@ This document covers:
 **Actor(s)**: Ontology Engineer, Researcher, Graduate Student
 
 **Preconditions**:
+
 - User has launched the application
 - No ontology is currently loaded
 
 **Postconditions**:
+
 - New empty ontology is created and active
 - Ontology has unique IRI and metadata
 - User can begin adding classes and properties
 - Ontology is saved to browser state
 
 **Main Flow**:
+
 1. User clicks "New Ontology" button in toolbar
 2. System displays "Create New Ontology" dialog
 3. User enters:
@@ -166,6 +181,7 @@ This document covers:
 **Alternative Flows**:
 
 **AF-001A: Use Template**
+
 - At step 2, user selects "Use Template" option
 - System displays template gallery (Basic, Pizza, FOAF, Dublin Core)
 - User selects "Basic IoT Template"
@@ -173,6 +189,7 @@ This document covers:
 - Continue to step 5
 
 **AF-001B: Import Settings from File**
+
 - At step 3, user clicks "Import Metadata"
 - System opens file picker
 - User selects metadata.json file
@@ -180,6 +197,7 @@ This document covers:
 - Continue to step 4
 
 **AF-001C: Skip Optional Fields**
+
 - At step 3, user fills only required fields (name, IRI)
 - User clicks "Create"
 - System creates ontology with minimal metadata
@@ -188,6 +206,7 @@ This document covers:
 **Exception Flows**:
 
 **EF-001A: Invalid IRI Format**
+
 - At step 5, system detects invalid IRI (missing protocol, invalid characters)
 - System displays error: "Invalid IRI format. Expected: http(s)://domain/path#"
 - System highlights IRI field in red
@@ -196,6 +215,7 @@ This document covers:
 - Return to step 4
 
 **EF-001B: Duplicate Name**
+
 - At step 5, system detects ontology with same name exists in browser storage
 - System displays warning: "An ontology with this name already exists"
 - System offers options:
@@ -205,6 +225,7 @@ This document covers:
 - User selects option
 
 **EF-001C: Network Unavailable (for AI suggestions)**
+
 - At step 2, system attempts to load AI-suggested metadata
 - Network request fails
 - System displays offline indicator
@@ -212,12 +233,14 @@ This document covers:
 - User completes creation manually
 
 **Business Rules**:
+
 - BR-001: IRI must be valid URI format (RFC 3986)
 - BR-002: Ontology name must be unique within user's workspace
 - BR-003: Base IRI should end with # or / for proper fragment handling
 - BR-004: Version string must follow semantic versioning (major.minor.patch)
 
 **Non-functional Requirements**:
+
 - Dialog must appear within 100ms of button click
 - Validation must complete within 50ms
 - Ontology initialization must complete within 200ms
@@ -232,16 +255,19 @@ This document covers:
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - User has ontology file in supported format (TTL, RDF/XML, OWL/XML)
 - Browser supports File System Access API
 
 **Postconditions**:
+
 - Ontology is loaded and parsed
 - All classes, properties, and individuals are available
 - Ontology is displayed in all views (tree, graph, editor)
 - Original file format is preserved for export
 
 **Main Flow**:
+
 1. User clicks "Import" button in toolbar
 2. System displays import dialog with options:
    - "From File" (default)
@@ -277,6 +303,7 @@ This document covers:
 **Alternative Flows**:
 
 **AF-002A: Import from URL**
+
 - At step 3, user selects "From URL"
 - System displays URL input field
 - User enters "http://www.co-ode.org/ontologies/pizza/pizza.owl"
@@ -285,6 +312,7 @@ This document covers:
 - Continue to step 7
 
 **AF-002B: Import from Text**
+
 - At step 3, user selects "From Text"
 - System displays large text area
 - User pastes Turtle-formatted ontology
@@ -293,6 +321,7 @@ This document covers:
 - Continue to step 8
 
 **AF-002C: Large File (>5MB)**
+
 - At step 7, system detects file size exceeds 5MB
 - System displays warning: "Large ontology detected (12MB). This may take several minutes."
 - System offers options:
@@ -304,6 +333,7 @@ This document covers:
 - Continue to step 9
 
 **AF-002D: Auto-detect Format**
+
 - At step 8, system attempts format detection
 - System examines file extension and content
 - If TTL: looks for "@prefix" or triple patterns
@@ -316,6 +346,7 @@ This document covers:
 **Exception Flows**:
 
 **EF-002A: Parse Error**
+
 - At step 9, parser encounters syntax error at line 342
 - System displays error dialog:
   - "Parse error at line 342: Unexpected token ')'"
@@ -329,12 +360,14 @@ This document covers:
 - User reviews what was skipped in error log
 
 **EF-002B: Unsupported Format**
+
 - At step 8, system detects unsupported format (e.g., N-Quads)
 - System displays error: "Unsupported format. Supported: Turtle, RDF/XML, OWL/XML, N-Triples"
 - System offers "Convert with External Tool" (opens documentation)
 - User must convert file and retry
 
 **EF-002C: Missing Dependencies**
+
 - At step 10, system detects imported ontology not available
 - System displays warning: "Missing import: http://www.w3.org/2004/02/skos/core"
 - System offers options:
@@ -345,6 +378,7 @@ This document covers:
 - System resolves dependency
 
 **EF-002D: Memory Limit Exceeded**
+
 - At step 11, browser memory exceeds 2GB threshold
 - System displays error: "Ontology too large for available memory"
 - System offers options:
@@ -354,6 +388,7 @@ This document covers:
 - User must take corrective action
 
 **EF-002E: Corrupted File**
+
 - At step 7, system detects file corruption (checksum mismatch, unexpected EOF)
 - System displays error: "File appears corrupted or incomplete"
 - System attempts recovery:
@@ -362,12 +397,14 @@ This document covers:
 - If recovery fails: User must provide valid file
 
 **Business Rules**:
+
 - BR-005: Maximum file size for client-side parsing: 50MB
 - BR-006: Parser timeout: 60 seconds (then offer server-side parsing)
 - BR-007: Minimum required ontology elements: valid IRI and at least one class
 - BR-008: Imports are resolved recursively up to 5 levels deep
 
 **Non-functional Requirements**:
+
 - File picker must open within 200ms
 - Parsing rate must exceed 1,000 axioms/second
 - Progress indicator must update at least every 500ms
@@ -375,6 +412,7 @@ This document covers:
 - Error messages must include line numbers and context
 
 **Success Metrics**:
+
 - 95% of standard ontology files parse successfully
 - Users can import their ontology within 30 seconds
 - Less than 5% of imports require error correction
@@ -388,16 +426,19 @@ This document covers:
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - Ontology is loaded and contains at least one entity
 - User has file system write permissions
 
 **Postconditions**:
+
 - Ontology is serialized to selected format
 - File is saved to user-specified location
 - Original ontology in editor remains unchanged
 - Export settings are saved for future exports
 
 **Main Flow**:
+
 1. User clicks "Export" button in toolbar (or Ctrl+E)
 2. System displays "Export Ontology" dialog showing:
    - Current ontology name: "SmartHomeOntology"
@@ -413,6 +454,7 @@ This document covers:
    - Base IRI: Use ontology IRI
 5. User clicks "Preview" (optional)
 6. System generates preview (first 100 lines):
+
 ```turtle
 @prefix : <http://example.org/smarthome#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -426,6 +468,7 @@ This document covers:
 :Device rdf:type owl:Class ;
     rdfs:subClassOf owl:Thing .
 ```
+
 7. User reviews preview, clicks "Export"
 8. System opens native file save dialog
 9. User selects location: ~/Documents/ontologies/
@@ -442,12 +485,14 @@ This document covers:
 **Alternative Flows**:
 
 **AF-003A: Quick Export (Same Format)**
+
 - At step 1, user presses Ctrl+Shift+E (quick export shortcut)
 - System skips dialog, uses last export settings
 - System opens save dialog immediately
 - Continue to step 9
 
 **AF-003B: Export to Clipboard**
+
 - At step 2, user clicks "Copy to Clipboard" instead of "Export"
 - System serializes ontology to selected format
 - System copies result to clipboard
@@ -455,6 +500,7 @@ This document covers:
 - User can paste into email, document, etc.
 
 **AF-003C: Export Subset**
+
 - At step 4, user enables "Export Selected Only"
 - System shows entity selector (checkboxes for classes, properties)
 - User selects specific classes to export (e.g., only "Device" hierarchy)
@@ -462,6 +508,7 @@ This document covers:
 - Continue to step 7
 
 **AF-003D: Include Inferred Axioms**
+
 - At step 4, user enables "Include inferred axioms"
 - System checks if reasoning has been performed
 - If yes: System includes inferred subClassOf, equivalentClass, etc.
@@ -470,6 +517,7 @@ This document covers:
 - Continue to step 7
 
 **AF-003E: Batch Export (Multiple Formats)**
+
 - At step 2, user enables "Batch export"
 - User selects multiple formats: [Turtle, RDF/XML, OWL/XML]
 - System shows format-specific options for each
@@ -481,6 +529,7 @@ This document covers:
 **Exception Flows**:
 
 **EF-003A: Serialization Error**
+
 - At step 11, serializer encounters invalid construct
 - System displays error: "Cannot serialize axiom: Pizza and (hasTopping some (not Topping))"
 - System offers options:
@@ -490,6 +539,7 @@ This document covers:
 - User selects option
 
 **EF-003B: File Write Failure**
+
 - At step 12, file write operation fails (disk full, permission denied)
 - System displays error with system message
 - System offers options:
@@ -499,6 +549,7 @@ This document covers:
 - User takes corrective action
 
 **EF-003C: Large Export Warning**
+
 - At step 11, system detects export will exceed 100MB
 - System displays warning: "Large export (250MB). This may take several minutes and affect browser performance."
 - System recommends: "Consider exporting subset or using server-side export"
@@ -509,6 +560,7 @@ This document covers:
 - User decides
 
 **EF-003D: Unsupported Constructs**
+
 - At step 11, system detects OWL constructs not supported in target format
 - Example: JSON-LD export with complex property chains
 - System displays warning: "Some advanced OWL features may not be fully represented in JSON-LD"
@@ -516,12 +568,14 @@ This document covers:
 - User chooses different format or accepts limitation
 
 **Business Rules**:
+
 - BR-009: Default export format is Turtle (most human-readable)
 - BR-010: Inferred axioms must be clearly marked if included
 - BR-011: Exported files must round-trip (import back) without loss
 - BR-012: File extension must match format (.ttl, .rdf, .owl, .nt, .jsonld)
 
 **Non-functional Requirements**:
+
 - Serialization must process ≥ 5,000 axioms/second
 - Preview generation must complete within 500ms
 - File save dialog must open within 200ms
@@ -540,29 +594,36 @@ This document covers:
 **Actor(s)**: Ontology Engineer, Researcher
 
 **Preconditions**:
+
 - Ontology is loaded
 - Class "VegetarianPizza" exists
 - Properties "hasTopping", "hasBase" are defined
 - Classes "Pizza", "VegetarianTopping", "MeatTopping" exist
 
 **Postconditions**:
+
 - Complex class axiom is defined and validated
 - Axiom is added to ontology
 - Reasoner can classify using new axiom
 - Axiom is visible in graph view
 
 **Main Flow**:
+
 1. User selects "VegetarianPizza" class in tree
 2. User clicks "Edit Axioms" button in properties panel
 3. System opens axiom editor with existing axioms:
+
 ```
 VegetarianPizza SubClassOf Pizza
 ```
+
 4. User clicks "Add Axiom" button
 5. System adds empty axiom template:
+
 ```
-VegetarianPizza SubClassOf 
+VegetarianPizza SubClassOf
 ```
+
 6. User positions cursor after "SubClassOf"
 7. User types "P" (begins typing "Pizza")
 8. System displays autocomplete dropdown after 200ms:
@@ -590,9 +651,11 @@ VegetarianPizza SubClassOf
     - Classes: orange (VegetarianPizza, Pizza, MeatTopping)
     - Properties: green (hasTopping)
 23. User has completed axiom:
+
 ```
 VegetarianPizza SubClassOf Pizza and (hasTopping only (not MeatTopping))
 ```
+
 24. System validates syntax in real-time:
     - Parses with Tree-sitter
     - Checks entity references exist
@@ -608,6 +671,7 @@ VegetarianPizza SubClassOf Pizza and (hasTopping only (not MeatTopping))
 **Alternative Flows**:
 
 **AF-004A: Use Axiom Templates**
+
 - At step 4, user clicks "Templates" dropdown instead of typing
 - System displays common patterns:
   - "Necessary Condition: C SubClassOf D"
@@ -622,6 +686,7 @@ VegetarianPizza SubClassOf Pizza and (hasTopping only (not MeatTopping))
 - Continue to step 21
 
 **AF-004B: Copy Existing Axiom**
+
 - At step 5, user right-clicks existing axiom
 - User selects "Duplicate and Modify"
 - System copies axiom and opens for editing
@@ -629,17 +694,21 @@ VegetarianPizza SubClassOf Pizza and (hasTopping only (not MeatTopping))
 - Continue to step 26
 
 **AF-004C: Multi-line Axiom Formatting**
+
 - After step 20, user presses Enter for readability
 - System intelligently indents:
+
 ```
-VegetarianPizza SubClassOf 
-    Pizza and 
+VegetarianPizza SubClassOf
+    Pizza and
     (hasTopping only (not MeatTopping))
 ```
+
 - Syntax highlighting maintains across lines
 - Continue to step 24
 
 **AF-004D: Keyboard Navigation Only**
+
 - User navigates entirely with keyboard:
   - Tab: Move to next field
   - Ctrl+Space: Trigger autocomplete
@@ -652,6 +721,7 @@ VegetarianPizza SubClassOf
 **Exception Flows**:
 
 **EF-004A: Syntax Error**
+
 - At step 21, user types invalid syntax: "hasTopping only not MeatTopping" (missing parentheses)
 - System detects error immediately
 - Red squiggle appears under "not"
@@ -663,6 +733,7 @@ VegetarianPizza SubClassOf
 - Error clears when corrected
 
 **EF-004B: Undefined Entity Reference**
+
 - At step 21, user types "MozzarellaTopping"
 - System searches ontology, class not found
 - Yellow warning underline appears
@@ -676,6 +747,7 @@ VegetarianPizza SubClassOf
 - Warning clears
 
 **EF-004C: Circular Reference**
+
 - User attempts to create: "Pizza SubClassOf VegetarianPizza"
 - Combined with existing "VegetarianPizza SubClassOf Pizza"
 - System runs live validation
@@ -686,6 +758,7 @@ VegetarianPizza SubClassOf
 - User must resolve by removing one axiom
 
 **EF-004D: Contradictory Axiom**
+
 - User defines: "VegetarianPizza SubClassOf (hasTopping some MeatTopping)"
 - This contradicts existing axiom (hasTopping only (not MeatTopping))
 - System detects logical contradiction
@@ -698,6 +771,7 @@ VegetarianPizza SubClassOf
 - User investigates and corrects
 
 **EF-004E: Performance Degradation**
+
 - User is editing very long axiom (500+ characters)
 - Autocomplete query takes > 200ms
 - System displays "Loading..." indicator
@@ -706,18 +780,21 @@ VegetarianPizza SubClassOf
 - User can continue working, autocomplete arrives when ready
 
 **Business Rules**:
+
 - BR-013: All entity references must exist in ontology or imports
 - BR-014: Axioms must be syntactically valid OWL Manchester Syntax
 - BR-015: Circular hierarchies are prohibited
 - BR-016: Auto-save occurs 5 seconds after last keystroke
 
 **Non-functional Requirements**:
+
 - Autocomplete must appear within 200ms of trigger
 - Syntax highlighting must update within 50ms
 - Live validation must complete within 500ms
 - Editor must handle axioms up to 1,000 characters smoothly
 
 **Success Metrics**:
+
 - 90% of users successfully define complex axioms within 5 minutes
 - Autocomplete acceptance rate > 70%
 - Syntax error resolution time < 30 seconds
@@ -731,16 +808,19 @@ VegetarianPizza SubClassOf
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - Ontology is loaded
 - User has selected parent class in tree
 
 **Postconditions**:
+
 - New class is created with unique IRI
 - Class is added to hierarchy under parent
 - Class appears in all views (tree, graph, search index)
 - Default annotations are added
 
 **Main Flow**:
+
 1. User selects "Device" class in class tree
 2. User right-clicks to open context menu
 3. User selects "Add Subclass"
@@ -755,9 +835,9 @@ VegetarianPizza SubClassOf
    - Generates IRI: <http://example.org/smarthome#TemperatureSensor>
    - Creates subClassOf axiom: TemperatureSensor SubClassOf Device
    - Adds default annotations:
-     * rdfs:label "Temperature Sensor"
-     * rdfs:comment "A sensor that measures temperature"
-     * dc:created "2025-12-29T10:30:00Z"
+     - rdfs:label "Temperature Sensor"
+     - rdfs:comment "A sensor that measures temperature"
+     - dc:created "2025-12-29T10:30:00Z"
 9. System updates UI:
    - Inserts "TemperatureSensor" in tree under "Device"
    - Adds node to graph view
@@ -776,49 +856,57 @@ VegetarianPizza SubClassOf
 14. User clicks "Create"
 15. System creates property and associates with class
 16. System updates axioms:
+
 ```
 TemperatureSensor SubClassOf Device
 TemperatureSensor SubClassOf (hasTemperatureValue exactly 1 xsd:decimal)
 ```
+
 17. System displays updated properties panel
 18. System marks ontology as modified
 
 **Alternative Flows**:
 
 **AF-005A: Quick Create with Keyboard**
+
 - At step 2, user presses "Insert" key (keyboard shortcut)
 - System enters inline edit mode immediately
 - Continue to step 5
 
 **AF-005B: Batch Class Creation**
+
 - At step 3, user selects "Add Multiple Subclasses"
 - System displays dialog with multi-line text area
 - User enters multiple class names (one per line):
+
 ```
 TemperatureSensor
 HumiditySensor
 MotionSensor
 LightSensor
 ```
+
 - System creates all classes simultaneously
 - System displays summary: "Created 4 classes under Device"
 - User reviews created classes in tree
 
 **AF-005C: AI-Assisted Property Suggestion**
+
 - At step 11, user clicks "AI Suggest Properties"
 - System sends request to LLM:
   "Suggest data and object properties for a TemperatureSensor class in a smart home ontology"
 - AI responds with suggestions:
-  * hasTemperatureValue (DataProperty, Range: xsd:decimal)
-  * hasUnit (DataProperty, Range: xsd:string)
-  * locatedIn (ObjectProperty, Range: Room)
-  * isActive (DataProperty, Range: xsd:boolean)
+  - hasTemperatureValue (DataProperty, Range: xsd:decimal)
+  - hasUnit (DataProperty, Range: xsd:string)
+  - locatedIn (ObjectProperty, Range: Room)
+  - isActive (DataProperty, Range: xsd:boolean)
 - System displays suggestions with checkboxes
 - User selects desired properties
 - System creates selected properties
 - Continue to step 18
 
 **AF-005D: Clone Existing Class**
+
 - At step 3, user selects "Clone Class"
 - System displays class selector
 - User selects "HumiditySensor" to clone
@@ -832,6 +920,7 @@ LightSensor
 **Exception Flows**:
 
 **EF-005A: Invalid Class Name**
+
 - At step 6, user enters "Temperature Sensor" (with space)
 - System displays error: "Invalid class name. No spaces allowed."
 - System suggests: "TemperatureSensor" or "Temperature_Sensor"
@@ -839,6 +928,7 @@ LightSensor
 - Return to step 5
 
 **EF-005B: Duplicate Class Name**
+
 - At step 6, system detects "TemperatureSensor" already exists
 - System displays error: "Class 'TemperatureSensor' already exists"
 - System offers options:
@@ -848,6 +938,7 @@ LightSensor
 - User selects option
 
 **EF-005C: Property Creation Failure**
+
 - At step 15, system encounters error creating property
 - Error: "Property 'hasTemperatureValue' already exists with different domain"
 - System displays conflict details:
@@ -857,6 +948,7 @@ LightSensor
 - User resolves conflict
 
 **EF-005D: Naming Convention Warning**
+
 - At step 6, user enters "temperatureSensor" (camelCase instead of PascalCase)
 - System displays warning (not error): "Convention: Class names should use PascalCase"
 - System suggests: "TemperatureSensor"
@@ -866,12 +958,14 @@ LightSensor
   - Configure conventions in settings
 
 **Business Rules**:
+
 - BR-017: Class names must be valid OWL identifiers
 - BR-018: Each class must have unique IRI within ontology
 - BR-019: Default annotations are added unless user disables in settings
 - BR-020: Class IRI is generated from base IRI + class name
 
 **Non-functional Requirements**:
+
 - Inline editor must appear within 100ms
 - Class creation must complete within 200ms
 - Tree UI must update within 100ms
@@ -890,17 +984,20 @@ LightSensor
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - Large ontology is loaded (2,000+ classes)
 - Graph view is active
 - Incremental loading is enabled
 
 **Postconditions**:
+
 - User has navigated complex hierarchy smoothly
 - Only visible portion of ontology is rendered
 - Memory usage remains stable
 - User understands overall ontology structure
 
 **Main Flow**:
+
 1. User imports large biomedical ontology (SNOMED CT subset, 3,500 classes)
 2. System displays loading indicator: "Parsing ontology..."
 3. System parses and indexes ontology (takes 15 seconds)
@@ -952,6 +1049,7 @@ LightSensor
 **Alternative Flows**:
 
 **AF-006A: Load All (Override Incremental)**
+
 - At step 4, user clicks "Load All Classes" button
 - System displays warning: "Loading 3,500 classes may affect performance"
 - System shows estimated memory: ~800MB
@@ -962,6 +1060,7 @@ LightSensor
 - Trade-off: Slower performance, but complete view
 
 **AF-006B: Expand All Descendants**
+
 - At step 6, user right-clicks "ClinicalFinding"
 - User selects "Expand All Descendants" (recursive expand)
 - System displays confirmation: "This will load 1,245 classes. Continue?"
@@ -971,6 +1070,7 @@ LightSensor
 - Continue to step 26
 
 **AF-006C: Collapse Branch**
+
 - After expanding multiple levels, user wants to simplify view
 - User right-clicks "CardiovascularFinding"
 - User selects "Collapse"
@@ -980,6 +1080,7 @@ LightSensor
 - User sees simplified hierarchy
 
 **AF-006D: Viewport-Based Auto-Loading**
+
 - At step 9, user pans rapidly through graph
 - System detects nodes with "..." entering viewport
 - System automatically loads their children without double-click
@@ -989,6 +1090,7 @@ LightSensor
 **Exception Flows**:
 
 **EF-006A: Memory Warning**
+
 - At step 10, system detects memory usage approaching 1.5GB
 - System displays warning: "Memory usage high (1.5GB). Consider:"
   - "Collapse distant branches"
@@ -999,6 +1101,7 @@ LightSensor
 - System continues functioning
 
 **EF-006B: Layout Timeout**
+
 - At step 7, ELK layout algorithm exceeds 5 second timeout
 - System displays: "Layout taking longer than expected"
 - System offers options:
@@ -1010,6 +1113,7 @@ LightSensor
 - Quality may be lower but functional
 
 **EF-006C: Search No Results**
+
 - At step 18, user searches for "pneumonia"
 - System searches index, no matches found
 - System displays: "No results for 'pneumonia'"
@@ -1021,6 +1125,7 @@ LightSensor
 - System finds close matches
 
 **EF-006D: Corrupted Index**
+
 - At step 18, system detects search index corruption
 - System displays: "Search index corrupted. Rebuilding..."
 - System rebuilds index in background (5 seconds)
@@ -1029,12 +1134,14 @@ LightSensor
 - User repeats search successfully
 
 **Business Rules**:
+
 - BR-021: Incremental loading enabled for ontologies > 1,000 classes
 - BR-022: Nodes off-screen > 30 seconds are eligible for unloading
 - BR-023: Parent nodes and siblings of current focus always remain loaded
 - BR-024: Maximum rendered nodes: 500 (configurable)
 
 **Non-functional Requirements**:
+
 - Node expansion must complete within 500ms
 - Layout recalculation for 100 nodes must complete within 1 second
 - Unloading must not cause visible flicker or jank
@@ -1050,24 +1157,29 @@ LightSensor
 **Actor(s)**: Ontology Engineer, Researcher
 
 **Preconditions**:
+
 - Ontology is loaded with axioms suitable for inference
 - Reasoner is available (client or server)
 - Graph view is active
 
 **Postconditions**:
+
 - Inferred relationships are visible in graph
 - User can distinguish asserted from inferred edges
 - User can trace inference explanations
 - Inferred axioms can be materialized if desired
 
 **Main Flow**:
+
 1. User has Pizza ontology loaded (145 classes, 250 axioms)
 2. User defines classes:
+
 ```
 Mammal SubClassOf Animal
 Dog SubClassOf Mammal
 Cat SubClassOf Mammal
 ```
+
 3. Graph shows solid edges:
    - Mammal → Animal (solid arrow)
    - Dog → Mammal (solid arrow)
@@ -1085,18 +1197,20 @@ Cat SubClassOf Mammal
    - Stage 2: Classification (500ms) ✓
    - Stage 3: Property realization (300ms) ✓
 9. System receives inferred axioms:
+
 ```
 Dog SubClassOf Animal [inferred]
 Cat SubClassOf Animal [inferred]
 ```
+
 10. System updates graph:
     - Adds dashed edges:
-      * Dog → Animal (dashed, blue)
-      * Cat → Animal (dashed, blue)
+      - Dog → Animal (dashed, blue)
+      - Cat → Animal (dashed, blue)
     - Solid edges remain:
-      * Mammal → Animal (solid, black)
-      * Dog → Mammal (solid, black)
-      * Cat → Mammal (solid, black)
+      - Mammal → Animal (solid, black)
+      - Dog → Mammal (solid, black)
+      - Cat → Mammal (solid, black)
 11. System displays legend:
     - Solid edge: Asserted axiom
     - Dashed edge: Inferred axiom
@@ -1107,6 +1221,7 @@ Cat SubClassOf Animal [inferred]
     - "Click for explanation"
 15. User clicks edge
 16. System opens explanation panel:
+
 ```
 Inference Chain:
 1. Dog SubClassOf Mammal [asserted]
@@ -1115,6 +1230,7 @@ Inference Chain:
 
 OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 ```
+
 17. User reviews explanation
 18. User clicks "Materialize Inferred Axioms" (optional)
 19. System displays confirmation: "This will convert 2 inferred axioms to asserted axioms"
@@ -1125,6 +1241,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 **Alternative Flows**:
 
 **AF-007A: Server-Side Reasoning**
+
 - At step 4, ontology is too large for client-side reasoning (2,000+ classes)
 - System recommends: "Use server-side reasoning for better performance"
 - User selects "HermiT Reasoner (Server)"
@@ -1135,6 +1252,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - Continue to step 10
 
 **AF-007B: Incremental Reasoning**
+
 - User has made small change to ontology (added one axiom)
 - At step 4, system detects previous reasoning results exist
 - System offers "Incremental Reasoning" option
@@ -1143,6 +1261,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - Continue to step 10
 
 **AF-007C: Compare Before/After**
+
 - After step 10, user clicks "Compare View" button
 - System splits screen:
   - Left: Graph before reasoning
@@ -1152,19 +1271,23 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - User closes comparison when done
 
 **AF-007D: Export Inferred Ontology**
+
 - After step 12, user wants to share complete ontology
 - User selects File > Export > "Include Inferred Axioms"
 - System includes both asserted and inferred axioms in export
 - Inferred axioms marked with annotation:
+
 ```turtle
 :Dog rdfs:subClassOf :Animal .
 # Inferred by HermiT reasoner on 2025-12-29
 ```
+
 - Recipient can understand which axioms are inferred
 
 **Exception Flows**:
 
 **EF-007A: Inconsistency Detected**
+
 - At step 8, reasoner detects inconsistency
 - Reasoning halts in Stage 1
 - System displays error: "Ontology is inconsistent"
@@ -1173,6 +1296,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - System offers "Explain Inconsistency"
 - User clicks explain
 - System shows conflicting axioms:
+
 ```
 1. VegetarianPizza SubClassOf Pizza
 2. VegetarianPizza SubClassOf (hasTopping only VegetarianTopping)
@@ -1180,9 +1304,11 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 4. MeatTopping DisjointWith VegetarianTopping
 → Contradiction!
 ```
+
 - User must fix inconsistency before reasoning can complete
 
 **EF-007B: Reasoning Timeout**
+
 - At step 8, reasoning exceeds 30 second timeout
 - System displays: "Reasoning is taking longer than expected"
 - System offers:
@@ -1195,6 +1321,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - System displays: "ELK reasoner used (may not compute all inferences)"
 
 **EF-007C: Out of Memory**
+
 - At step 8, browser memory exceeds limit
 - System displays: "Insufficient memory for reasoning"
 - System offers:
@@ -1206,6 +1333,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - Continue with AF-007A
 
 **EF-007D: Network Failure (Server Reasoning)**
+
 - During AF-007A, network connection drops
 - System displays: "Connection to reasoning server lost"
 - System offers:
@@ -1216,12 +1344,14 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 - System resumes successfully
 
 **Business Rules**:
+
 - BR-025: Inferred axioms must be visually distinguishable from asserted axioms
 - BR-026: User must be able to access reasoning explanations
 - BR-027: Materialization converts inferred to asserted (one-way operation)
 - BR-028: Reasoning results cached for 5 minutes (avoid re-computation)
 
 **Non-functional Requirements**:
+
 - Client-side reasoning for 500 classes must complete within 5 seconds
 - Graph updates with inferred edges must complete within 1 second
 - Explanation generation must complete within 500ms
@@ -1240,17 +1370,20 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - Empty or minimal ontology is loaded
 - User has configured LLM API key
 - Internet connection available
 
 **Postconditions**:
+
 - AI-generated class hierarchy is created
 - User has reviewed and approved classes
 - Properties are defined and linked to classes
 - Ontology is ready for refinement
 
 **Main Flow**:
+
 1. User creates new ontology: "UniversityOntology"
 2. User presses ⌘/Ctrl+K (command palette)
 3. System displays command palette overlay
@@ -1267,6 +1400,7 @@ OWL Axiom: SubPropertyOf(SubClassOf, SubClassOf)
    - Options: [✓] Include properties, [✓] Add descriptions, [ ] Generate individuals
    - Generate button
 8. User enters description:
+
 ```
 Create an ontology for a university system. Include concepts for:
 - Academic staff (professors, lecturers, researchers)
@@ -1275,51 +1409,59 @@ Create an ontology for a university system. Include concepts for:
 - Departments and faculties
 - Buildings and facilities
 ```
+
 9. User clicks "Generate"
 10. System displays "Generating..." with animated spinner
 11. System sends request to OpenAI API:
+
 ```json
 {
   "model": "gpt-4",
-  "messages": [{
-    "role": "system",
-    "content": "You are an ontology engineering assistant..."
-  }, {
-    "role": "user",
-    "content": "Create an ontology for a university system..."
-  }],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an ontology engineering assistant..."
+    },
+    {
+      "role": "user",
+      "content": "Create an ontology for a university system..."
+    }
+  ],
   "temperature": 0.7
 }
 ```
+
 12. API responds after 4 seconds with structured JSON:
+
 ```json
 {
   "classes": [
-    {"name": "Person", "parent": "owl:Thing", "description": "Any person in university"},
-    {"name": "AcademicStaff", "parent": "Person", "description": "Faculty members"},
-    {"name": "Professor", "parent": "AcademicStaff"},
-    {"name": "Lecturer", "parent": "AcademicStaff"},
-    {"name": "Student", "parent": "Person"},
-    {"name": "UndergraduateStudent", "parent": "Student"},
-    {"name": "GraduateStudent", "parent": "Student"},
-    {"name": "Course", "parent": "owl:Thing"},
-    {"name": "Department", "parent": "owl:Thing"},
-    {"name": "Building", "parent": "owl:Thing"}
+    { "name": "Person", "parent": "owl:Thing", "description": "Any person in university" },
+    { "name": "AcademicStaff", "parent": "Person", "description": "Faculty members" },
+    { "name": "Professor", "parent": "AcademicStaff" },
+    { "name": "Lecturer", "parent": "AcademicStaff" },
+    { "name": "Student", "parent": "Person" },
+    { "name": "UndergraduateStudent", "parent": "Student" },
+    { "name": "GraduateStudent", "parent": "Student" },
+    { "name": "Course", "parent": "owl:Thing" },
+    { "name": "Department", "parent": "owl:Thing" },
+    { "name": "Building", "parent": "owl:Thing" }
   ],
   "objectProperties": [
-    {"name": "teachesIn", "domain": "AcademicStaff", "range": "Course"},
-    {"name": "enrolledIn", "domain": "Student", "range": "Course"},
-    {"name": "worksFor", "domain": "Person", "range": "Department"},
-    {"name": "locatedIn", "domain": "Department", "range": "Building"}
+    { "name": "teachesIn", "domain": "AcademicStaff", "range": "Course" },
+    { "name": "enrolledIn", "domain": "Student", "range": "Course" },
+    { "name": "worksFor", "domain": "Person", "range": "Department" },
+    { "name": "locatedIn", "domain": "Department", "range": "Building" }
   ],
   "dataProperties": [
-    {"name": "hasEmployeeID", "domain": "AcademicStaff", "range": "xsd:string"},
-    {"name": "hasStudentID", "domain": "Student", "range": "xsd:string"},
-    {"name": "hasGPA", "domain": "Student", "range": "xsd:decimal"},
-    {"name": "hasCourseCode", "domain": "Course", "range": "xsd:string"}
+    { "name": "hasEmployeeID", "domain": "AcademicStaff", "range": "xsd:string" },
+    { "name": "hasStudentID", "domain": "Student", "range": "xsd:string" },
+    { "name": "hasGPA", "domain": "Student", "range": "xsd:decimal" },
+    { "name": "hasCourseCode", "domain": "Course", "range": "xsd:string" }
   ]
 }
 ```
+
 13. System parses JSON response
 14. System displays preview dialog:
     - Left panel: Tree view of class hierarchy
@@ -1327,6 +1469,7 @@ Create an ontology for a university system. Include concepts for:
     - Checkboxes for each item
     - "Accept All" / "Accept Selected" / "Regenerate" buttons
 15. System renders preview:
+
 ```
 ☑ Person
   ☑ AcademicStaff
@@ -1351,6 +1494,7 @@ Data Properties:
 ☑ hasGPA (Student → xsd:decimal)
 ☑ hasCourseCode (Course → xsd:string)
 ```
+
 16. User reviews suggestions
 17. User unchecks "Lecturer" (wants to rename it later)
 18. User clicks "Accept Selected"
@@ -1372,6 +1516,7 @@ Data Properties:
 **Alternative Flows**:
 
 **AF-008A: Regenerate with Different Instructions**
+
 - At step 16, user is not satisfied with results
 - User clicks "Regenerate"
 - System returns to step 7 with original prompt pre-filled
@@ -1379,12 +1524,13 @@ Data Properties:
   "Also include concepts for research projects and publications"
 - System sends new request
 - AI generates additional classes:
-  * ResearchProject
-  * Publication
-  * Grant
+  - ResearchProject
+  - Publication
+  - Grant
 - User reviews and accepts
 
 **AF-008B: Iterative Generation**
+
 - After step 23, user wants to expand existing structure
 - User selects "Course" class in tree
 - User presses ⌘+K and types "expand class"
@@ -1395,17 +1541,19 @@ Data Properties:
 - Ontology now has richer Course hierarchy
 
 **AF-008C: Generate from Example**
+
 - At step 7, user clicks "Use Example" button
 - System displays example ontologies:
-  * E-commerce
-  * Healthcare
-  * Education (University) ⭐
-  * IoT Smart Home
+  - E-commerce
+  - Healthcare
+  - Education (University) ⭐
+  - IoT Smart Home
 - User selects "Education"
 - System loads example prompt and generates
 - Continue to step 12
 
 **AF-008D: Multiple Iterations**
+
 - At step 16, user accepts Person branch but rejects Course structure
 - User deselects Course and related properties
 - User clicks "Accept Selected" (creates Person hierarchy only)
@@ -1417,6 +1565,7 @@ Data Properties:
 **Exception Flows**:
 
 **EF-008A: API Key Not Configured**
+
 - At step 11, system checks for API key
 - No API key found
 - System displays error: "OpenAI API key not configured"
@@ -1427,6 +1576,7 @@ Data Properties:
 - Continue to step 11
 
 **EF-008B: API Request Failed**
+
 - At step 11, API request fails (rate limit, network error)
 - System displays error: "Request failed: Rate limit exceeded"
 - System offers:
@@ -1437,6 +1587,7 @@ Data Properties:
 - Request succeeds
 
 **EF-008C: Invalid JSON Response**
+
 - At step 13, AI returns malformed JSON or unexpected format
 - System attempts to parse, fails
 - System displays error: "AI returned invalid response"
@@ -1449,6 +1600,7 @@ Data Properties:
 - New response is valid
 
 **EF-008D: Naming Conflicts**
+
 - At step 19, system detects "Person" class already exists (user created manually earlier)
 - System displays conflict warning: "Class 'Person' already exists"
 - System offers options:
@@ -1459,6 +1611,7 @@ Data Properties:
 - System merges structures successfully
 
 **EF-008E: API Cost Warning**
+
 - At step 9, system estimates API cost
 - System displays: "Estimated cost: $0.15 (based on prompt length and model)"
 - If user has made 10+ requests today:
@@ -1467,6 +1620,7 @@ Data Properties:
 - User proceeds
 
 **EF-008F: Content Policy Violation**
+
 - At step 12, AI refuses to generate due to content policy
 - Example: User asked for "weapons ontology"
 - System displays: "AI declined to generate this content"
@@ -1474,18 +1628,21 @@ Data Properties:
 - User must modify prompt to acceptable domain
 
 **Business Rules**:
+
 - BR-029: AI-generated content must be reviewed by user before insertion
 - BR-030: All AI interactions logged for debugging and cost tracking
 - BR-031: Maximum prompt length: 4,000 characters
 - BR-032: Generated IRIs must be valid and unique
 
 **Non-functional Requirements**:
+
 - AI response must be received within 15 seconds
 - UI must remain responsive during generation (async operation)
 - Generated structure must be syntactically valid OWL
 - System must handle API failures gracefully
 
 **Success Metrics**:
+
 - 80% of AI-generated structures accepted without major modifications
 - Average time to create basic ontology: < 2 minutes (vs. 30+ minutes manually)
 - User satisfaction with AI suggestions: > 4/5 rating
@@ -1499,21 +1656,26 @@ Data Properties:
 **Actor(s)**: All Users
 
 **Preconditions**:
+
 - Ontology is loaded
 - At least one class exists
 - LLM API is configured
 
 **Postconditions**:
+
 - User has received property suggestions for class
 - User has selected and created desired properties
 - Properties are properly linked with domain and range
 
 **Main Flow**:
+
 1. User is working on University ontology
 2. User has created "Professor" class:
+
 ```
 Professor SubClassOf AcademicStaff
 ```
+
 3. User selects "Professor" in class tree
 4. Properties panel displays class details (currently empty properties)
 5. User clicks "AI Suggest Properties" button
@@ -1523,6 +1685,7 @@ Professor SubClassOf AcademicStaff
    - Context: [✓] Use parent class properties, [✓] Use ontology domain
 7. User clicks "Generate"
 8. System builds context-aware prompt:
+
 ```
 Given an ontology for a university system, suggest appropriate properties for the class "Professor".
 
@@ -1546,8 +1709,10 @@ For each property:
 
 Format as JSON array.
 ```
+
 9. System sends to LLM API
 10. API responds after 3 seconds with suggestions:
+
 ```json
 {
   "objectProperties": [
@@ -1615,9 +1780,11 @@ Format as JSON array.
   ]
 }
 ```
+
 11. System displays suggestions in organized UI:
 
 **Object Properties:**
+
 ```
 □ Use existing: teachesIn (AcademicStaff → Course) ⚠️ Already exists
   Note: Consider reusing instead of creating new 'teaches' property
@@ -1631,6 +1798,7 @@ Format as JSON array.
 ```
 
 **Data Properties:**
+
 ```
 ☑ hasResearchInterest (Professor → xsd:string) [NEW]
   "Research areas of interest"
@@ -1663,6 +1831,7 @@ Format as JSON array.
     - hasOfficeNumber (AcademicStaff → xsd:string, functional)
     - tenured (Professor → xsd:boolean, functional)
 21. System updates ontology with property axioms:
+
 ```
 ObjectProperty: supervises
   Domain: Professor
@@ -1673,12 +1842,15 @@ DataProperty: tenured
   Range: xsd:boolean
   Characteristics: Functional
 ```
+
 22. System updates Professor class with property restrictions (optional):
+
 ```
 Professor SubClassOf AcademicStaff
 Professor SubClassOf (supervises only GraduateStudent)
 Professor SubClassOf (tenured exactly 1 xsd:boolean)
 ```
+
 23. System displays success: "Created 5 properties for Professor"
 24. Properties panel now shows all properties associated with Professor
 25. User can use new properties to define individuals or additional axioms
@@ -1686,6 +1858,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 **Alternative Flows**:
 
 **AF-009A: Modify AI Suggestion**
+
 - At step 12, user likes "supervises" but wants different name
 - User clicks edit icon next to "supervises"
 - System displays property editor
@@ -1695,17 +1868,19 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - Continue to step 19
 
 **AF-009B: Request More Suggestions**
+
 - At step 12, user wants additional suggestions
 - User clicks "Generate More"
 - System sends follow-up prompt: "Suggest 5 more properties for Professor, different from: supervises, hasResearchInterest..."
 - AI generates additional suggestions:
-  * collaboratesWith (Professor → Professor)
-  * grantPI (Professor → Grant)
-  * teachingLoad (Professor → xsd:integer)
+  - collaboratesWith (Professor → Professor)
+  - grantPI (Professor → Grant)
+  - teachingLoad (Professor → xsd:integer)
 - User reviews new suggestions
 - Continue to step 18
 
 **AF-009C: Apply to Similar Classes**
+
 - At step 24, user has Professor properties defined
 - User wants same properties for "Associate Professor" class
 - User selects "AssociateProfessor" class
@@ -1714,6 +1889,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - User can then modify specific to AssociateProfessor
 
 **AF-009D: Batch Property Generation**
+
 - At step 1, user wants properties for multiple classes
 - User multi-selects: Professor, Lecturer, Researcher
 - User clicks "AI Suggest Properties"
@@ -1726,6 +1902,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 **Exception Flows**:
 
 **EF-009A: API Timeout**
+
 - At step 9, API request takes > 15 seconds
 - System displays: "Request taking longer than expected"
 - System offers:
@@ -1736,6 +1913,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - Request completes after 20 seconds
 
 **EF-009B: Poor Quality Suggestions**
+
 - At step 11, AI suggests irrelevant properties
 - Example: "hasWheels" for Professor class (clearly wrong)
 - User unchecks all suggestions
@@ -1746,6 +1924,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - AI generates better suggestions
 
 **EF-009C: Range Class Missing**
+
 - At step 13, suggested property has range "Committee"
 - Committee class doesn't exist in ontology
 - System detects this and displays warning
@@ -1757,6 +1936,7 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - Continue to step 19
 
 **EF-009D: Property Name Conflict**
+
 - At step 20, system tries to create "supervises" property
 - Property "supervises" already exists with different domain/range
 - Existing: supervises (Person → Person)
@@ -1768,18 +1948,21 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 - System uses existing property
 
 **Business Rules**:
+
 - BR-033: Suggested properties must be relevant to class domain
 - BR-034: Property names must follow camelCase convention
 - BR-035: Functional properties should be clearly marked
 - BR-036: Suggested ranges must be valid classes or datatypes
 
 **Non-functional Requirements**:
+
 - AI response time: < 10 seconds
 - Suggestions must be syntactically valid OWL
 - UI must clearly distinguish existing vs. new properties
 - System must detect and warn about missing range classes
 
 **Success Metrics**:
+
 - 70% of suggested properties are accepted by users
 - Time to add properties reduced by 60% vs. manual entry
 - Less than 10% of suggestions require modification
@@ -1797,31 +1980,39 @@ Professor SubClassOf (tenured exactly 1 xsd:boolean)
 **Actor(s)**: Ontology Engineer, Researcher
 
 **Preconditions**:
+
 - Ontology is loaded with axioms
 - Reasoner is available
 - Ontology contains at least one inconsistency
 
 **Postconditions**:
+
 - Inconsistencies are identified and explained
 - User understands the source of conflicts
 - User has fixed the inconsistencies
 - Ontology passes consistency check
 
 **Main Flow**:
+
 1. User has been developing Pizza ontology
 2. User has defined various pizza classes and properties
 3. User defines "MargheritaPizza":
+
 ```
 MargheritaPizza SubClassOf VegetarianPizza
 MargheritaPizza SubClassOf (hasTopping some MozzarellaTopping)
 MargheritaPizza SubClassOf (hasTopping some TomatoTopping)
 ```
+
 4. User defines "VegetarianPizza":
+
 ```
 VegetarianPizza SubClassOf Pizza
 VegetarianPizza SubClassOf (hasTopping only VegetarianTopping)
 ```
+
 5. User defines toppings:
+
 ```
 MozzarellaTopping SubClassOf CheeseTopping
 CheeseTopping SubClassOf VegetarianTopping
@@ -1829,11 +2020,14 @@ CheeseTopping SubClassOf VegetarianTopping
 TomatoTopping SubClassOf VegetableTopping
 VegetableTopping SubClassOf VegetarianTopping
 ```
+
 6. User accidentally defines:
+
 ```
 MozzarellaTopping SubClassOf MeatTopping  # ERROR! Also defined as CheeseTopping
 MeatTopping DisjointWith VegetarianTopping
 ```
+
 7. User is unaware of the error
 8. User clicks "Check Consistency" button (or Ctrl+Shift+C)
 9. System displays reasoning progress dialog:
@@ -1843,6 +2037,7 @@ MeatTopping DisjointWith VegetarianTopping
 10. System invokes reasoner (client-side, 2 seconds)
 11. Reasoner detects inconsistency
 12. System receives reasoning results:
+
 ```json
 {
   "consistent": false,
@@ -1854,7 +2049,9 @@ MeatTopping DisjointWith VegetarianTopping
   "explanations": [...]
 }
 ```
+
 13. System displays error summary dialog:
+
 ```
 ❌ Ontology is INCONSISTENT
 
@@ -1867,9 +2064,11 @@ This means these classes cannot have any members - they contain logical contradi
 
 [View Detailed Explanation] [Highlight in Graph] [Cancel]
 ```
+
 14. User clicks "View Detailed Explanation"
 15. System opens explanation panel (side panel or modal)
 16. System displays explanation for "MargheritaPizza":
+
 ```
 Why MargheritaPizza is Unsatisfiable:
 
@@ -1920,13 +2119,17 @@ Mozzarella should only be CheeseTopping, not MeatTopping.
 18. User clicks "Go to Line 72"
 19. System navigates to axiom editor
 20. System highlights problematic axiom:
+
 ```
 MozzarellaTopping SubClassOf MeatTopping  ← HIGHLIGHTED IN RED
 ```
+
 21. Cursor positioned at this line
 22. Side panel shows:
-   - "This axiom causes inconsistency"
-   - "Conflicts with: Line 67 (MozzarellaTopping SubClassOf CheeseTopping)"
+
+- "This axiom causes inconsistency"
+- "Conflicts with: Line 67 (MozzarellaTopping SubClassOf CheeseTopping)"
+
 23. User realizes mistake (copy-paste error from defining PepperoniTopping)
 24. User deletes the problematic axiom
 25. System removes red highlight
@@ -1934,6 +2137,7 @@ MozzarellaTopping SubClassOf MeatTopping  ← HIGHLIGHTED IN RED
 27. User clicks "Check Consistency" again
 28. System runs reasoner (1 second)
 29. Reasoner result:
+
 ```json
 {
   "consistent": true,
@@ -1941,7 +2145,9 @@ MozzarellaTopping SubClassOf MeatTopping  ← HIGHLIGHTED IN RED
   "warnings": []
 }
 ```
+
 30. System displays success dialog:
+
 ```
 ✅ Ontology is CONSISTENT
 
@@ -1955,6 +2161,7 @@ Classification successful:
 
 [View Inferred Axioms] [Close]
 ```
+
 31. System updates graph view:
     - Removes red highlights from previously unsatisfiable classes
     - Displays green checkmark icon on consistency indicator
@@ -1963,11 +2170,12 @@ Classification successful:
 **Alternative Flows**:
 
 **AF-010A: Multiple Inconsistencies**
+
 - At step 13, system detects 10 unsatisfiable classes
 - System displays list with priorities:
-  * High Priority: Base classes (affect many subclasses)
-  * Medium: Mid-level classes
-  * Low: Leaf classes
+  - High Priority: Base classes (affect many subclasses)
+  - Medium: Mid-level classes
+  - Low: Leaf classes
 - System recommends: "Fix high priority issues first"
 - User fixes base class inconsistency
 - Ripple effect: 6 other inconsistencies resolve automatically
@@ -1975,6 +2183,7 @@ Classification successful:
 - 4 inconsistencies remain, user fixes those
 
 **AF-010B: Guided Repair Wizard**
+
 - At step 14, user clicks "Repair Wizard" instead of manual fix
 - System launches step-by-step wizard:
   1. "Inconsistency 1 of 3: MargheritaPizza"
@@ -1991,30 +2200,33 @@ Classification successful:
   9. System runs final consistency check
 
 **AF-010C: Compare with Previous Version**
+
 - User knows ontology was consistent before recent edits
 - At step 14, user clicks "Compare with Last Consistent Version"
 - System loads last auto-saved consistent state (30 minutes ago)
 - System displays diff:
-  * Green: Axioms present in consistent version
-  * Red: Axioms in current (inconsistent) version
+  - Green: Axioms present in consistent version
+  - Red: Axioms in current (inconsistent) version
 - User identifies new axioms added since last consistent state
 - These are likely culprits
 - User reviews and removes problematic recent additions
 
 **AF-010D: Export Inconsistency Report**
+
 - At step 16, user wants to share issues with team
 - User clicks "Export Report"
 - System generates detailed report:
-  * PDF format
-  * Summary of all inconsistencies
-  * Visual diagrams of conflict chains
-  * Recommended fixes
-  * Timestamps and axiom sources
+  - PDF format
+  - Summary of all inconsistencies
+  - Visual diagrams of conflict chains
+  - Recommended fixes
+  - Timestamps and axiom sources
 - User emails report to colleagues for review
 
 **Exception Flows**:
 
 **EF-010A: Reasoner Crash**
+
 - At step 10, reasoner encounters unexpected error and crashes
 - System displays: "Reasoner encountered an error"
 - Error details: "OutOfMemoryError: Java heap space"
@@ -2026,6 +2238,7 @@ Classification successful:
 - ELK completes successfully
 
 **EF-010B: Cannot Explain Inconsistency**
+
 - At step 15, system attempts to generate explanation
 - Reasoner provides minimal information (just "unsatisfiable")
 - System displays: "Unable to generate detailed explanation"
@@ -2036,6 +2249,7 @@ Classification successful:
 - User views related axioms and manually analyzes
 
 **EF-010C: Too Many Inconsistencies**
+
 - At step 13, reasoner finds 150 unsatisfiable classes
 - System displays: "Large number of inconsistencies (150)"
 - System suggests: "Ontology may have fundamental design issue"
@@ -2048,6 +2262,7 @@ Classification successful:
 - User reviews and fixes disjointness issues
 
 **EF-010D: Reasoning Timeout**
+
 - At step 10, reasoning exceeds 2 minute timeout
 - System displays: "Consistency check taking too long"
 - System offers:
@@ -2058,18 +2273,21 @@ Classification successful:
 - Check completes in 30 seconds
 
 **Business Rules**:
+
 - BR-037: Consistency check must complete or timeout within 2 minutes
 - BR-038: Explanations must trace back to asserted axioms
 - BR-039: Unsatisfiable classes must be clearly highlighted in UI
 - BR-040: System must suggest specific fixes, not just identify problems
 
 **Non-functional Requirements**:
+
 - Consistency check for 500 classes: < 5 seconds
 - Explanation generation: < 1 second per class
 - UI must remain responsive during reasoning (use Web Worker)
 - Explanation must be understandable by users with basic OWL knowledge
 
 **Success Metrics**:
+
 - 90% of inconsistencies resolved within 10 minutes
 - 80% of users understand explanations without additional help
 - Repair wizard success rate: 85% (fixes applied successfully)
@@ -2752,7 +2970,8 @@ Dependencies: Immer for state management
 
 **Goal**: Create a basic ontology for her thesis on protein interactions
 
-**Current Knowledge**: 
+**Current Knowledge**:
+
 - Has read about ontologies in papers
 - No hands-on experience with Protege or other tools
 - Understands her domain (biology) well
@@ -2760,95 +2979,102 @@ Dependencies: Immer for state management
 **Journey Stages**:
 
 #### Stage 1: Discovery and Onboarding (5 minutes)
+
 - **Actions**: Opens application URL, sees landing page
 - **Thoughts**: "Is this the right tool? How do I start?"
 - **Emotions**: Curious, slightly apprehensive
 - **Pain Points**: Needs to understand if tool is appropriate
-- **Opportunities**: 
-  * Quick start tutorial
-  * Example ontologies to explore
-  * Clear "New Ontology" call-to-action
+- **Opportunities**:
+  - Quick start tutorial
+  - Example ontologies to explore
+  - Clear "New Ontology" call-to-action
 
 #### Stage 2: Creating First Ontology (10 minutes)
-- **Actions**: 
-  * Clicks "New Ontology"
-  * Enters name "ProteinOntology"
-  * Sees empty interface
-  * Reads tooltips on panels
+
+- **Actions**:
+  - Clicks "New Ontology"
+  - Enters name "ProteinOntology"
+  - Sees empty interface
+  - Reads tooltips on panels
 - **Thoughts**: "Where do I start? What's a class tree?"
 - **Emotions**: Slightly overwhelmed, eager to learn
 - **Pain Points**: Too many panels, unclear what each does
 - **Opportunities**:
-  * Guided tour highlighting key areas
-  * Suggested first steps
-  * "AI: Generate starting structure" button
+  - Guided tour highlighting key areas
+  - Suggested first steps
+  - "AI: Generate starting structure" button
 
 #### Stage 3: Adding First Classes (15 minutes)
+
 - **Actions**:
-  * Right-clicks in class tree
-  * Adds "Protein" class
-  * Adds "Enzyme" as subclass
-  * Sees classes appear in graph view
+  - Right-clicks in class tree
+  - Adds "Protein" class
+  - Adds "Enzyme" as subclass
+  - Sees classes appear in graph view
 - **Thoughts**: "Oh! It's showing a diagram. That's helpful."
 - **Emotions**: Satisfied, gaining confidence
 - **Pain Points**: Unsure about naming conventions
 - **Opportunities**:
-  * Naming suggestions/validation
-  * Visual feedback (checkmarks for good names)
-  * Tips about OWL conventions
+  - Naming suggestions/validation
+  - Visual feedback (checkmarks for good names)
+  - Tips about OWL conventions
 
 #### Stage 4: Defining Properties (20 minutes)
+
 - **Actions**:
-  * Clicks "Add Property"
-  * Confused by Object vs Data property
-  * Reads documentation
-  * Creates "interactsWith" object property
-  * Creates "hasMolecularWeight" data property
+  - Clicks "Add Property"
+  - Confused by Object vs Data property
+  - Reads documentation
+  - Creates "interactsWith" object property
+  - Creates "hasMolecularWeight" data property
 - **Thoughts**: "This is more complex than I thought"
 - **Emotions**: Challenged but determined
 - **Pain Points**: Terminology unfamiliar, lots to learn
 - **Opportunities**:
-  * Inline help/explanations
-  * AI suggestions: "For Protein class, common properties are..."
-  * Examples from similar ontologies
+  - Inline help/explanations
+  - AI suggestions: "For Protein class, common properties are..."
+  - Examples from similar ontologies
 
 #### Stage 5: Using AI Assistant (10 minutes)
+
 - **Actions**:
-  * Discovers ⌘+K command palette (from tooltip)
-  * Types "help me add properties"
-  * AI suggests relevant properties
-  * Accepts 3 suggestions
-  * Sees properties added instantly
+  - Discovers ⌘+K command palette (from tooltip)
+  - Types "help me add properties"
+  - AI suggests relevant properties
+  - Accepts 3 suggestions
+  - Sees properties added instantly
 - **Thoughts**: "Wow, this is much easier!"
 - **Emotions**: Excited, empowered
 - **Pain Points**: Didn't discover AI feature earlier
 - **Opportunities**:
-  * Promote AI features more prominently
-  * Auto-suggest AI help after user struggles
+  - Promote AI features more prominently
+  - Auto-suggest AI help after user struggles
 
 #### Stage 6: Validating and Saving (5 minutes)
+
 - **Actions**:
-  * Clicks "Check Consistency"
-  * Sees green checkmark (consistent)
-  * Exports to Turtle format
-  * Saves file to thesis folder
+  - Clicks "Check Consistency"
+  - Sees green checkmark (consistent)
+  - Exports to Turtle format
+  - Saves file to thesis folder
 - **Thoughts**: "I did it! I have a real ontology!"
 - **Emotions**: Proud, accomplished
 - **Pain Points**: None
 - **Opportunities**:
-  * Celebration moment (animation, encouraging message)
-  * Suggest next steps (add more classes, try reasoning)
+  - Celebration moment (animation, encouraging message)
+  - Suggest next steps (add more classes, try reasoning)
 
 **Journey Insights**:
+
 - **Total Time**: 65 minutes (acceptable for first-time user)
-- **Key Success Factors**: 
-  * Clear visual feedback
-  * AI assistance discovery
-  * Simple core workflow
+- **Key Success Factors**:
+  - Clear visual feedback
+  - AI assistance discovery
+  - Simple core workflow
 - **Critical Improvements Needed**:
-  * Better onboarding/tutorial
-  * Earlier introduction to AI features
-  * More inline help for terminology
+  - Better onboarding/tutorial
+  - Earlier introduction to AI features
+  - More inline help for terminology
 
 ---
 
@@ -2859,6 +3085,7 @@ Dependencies: Immer for state management
 **Goal**: Debug inconsistencies in a large medical ontology
 
 **Current Knowledge**:
+
 - 8 years experience with Protege
 - Expert in OWL and description logics
 - Familiar with HermiT, Pellet reasoners
@@ -2866,88 +3093,94 @@ Dependencies: Immer for state management
 **Journey Stages**:
 
 #### Stage 1: Import and Assessment (3 minutes)
+
 - **Actions**:
-  * Drags .owl file into application
-  * File imports (1,200 classes)
-  * Opens graph view
-  * Scans overall structure
+  - Drags .owl file into application
+  - File imports (1,200 classes)
+  - Opens graph view
+  - Scans overall structure
 - **Thoughts**: "Let's see what's broken"
 - **Emotions**: Focused, professional
 - **Pain Points**: None (smooth import)
 - **Opportunities**: N/A - expert user, knows what to do
 
 #### Stage 2: Initial Consistency Check (2 minutes)
+
 - **Actions**:
-  * Presses Ctrl+Shift+C (shortcut)
-  * Reasoner runs (4 seconds)
-  * Sees "15 unsatisfiable classes"
-  * Reviews list
+  - Presses Ctrl+Shift+C (shortcut)
+  - Reasoner runs (4 seconds)
+  - Sees "15 unsatisfiable classes"
+  - Reviews list
 - **Thoughts**: "More than expected. Need to prioritize."
 - **Emotions**: Analytical, slightly concerned
 - **Pain Points**: Many issues to resolve
 - **Opportunities**:
-  * Group related issues
-  * Prioritize by impact
-  * Suggest root cause
+  - Group related issues
+  - Prioritize by impact
+  - Suggest root cause
 
 #### Stage 3: Investigating First Issue (8 minutes)
+
 - **Actions**:
-  * Clicks on "CardiacArrest" (unsatisfiable)
-  * Reviews explanation panel
-  * Sees conflict chain
-  * Identifies problematic disjointness axiom
-  * Uses "Find all uses" to check impact
+  - Clicks on "CardiacArrest" (unsatisfiable)
+  - Reviews explanation panel
+  - Sees conflict chain
+  - Identifies problematic disjointness axiom
+  - Uses "Find all uses" to check impact
 - **Thoughts**: "Ah, someone made Disease and Symptom disjoint, but CardiacArrest is both"
 - **Emotions**: Problem-solving mode
 - **Pain Points**: Complex explanation, need to trace through many axioms
 - **Opportunities**:
-  * Visual conflict diagram
-  * Highlight root cause more clearly
-  * Suggest which axiom to remove
+  - Visual conflict diagram
+  - Highlight root cause more clearly
+  - Suggest which axiom to remove
 
 #### Stage 4: Systematic Fixing (30 minutes)
+
 - **Actions**:
-  * Uses repair wizard for simple fixes
-  * Manually edits complex conflicts
-  * Re-runs consistency after each fix
-  * Uses incremental reasoning (faster)
-  * Sees unsatisfiable count decrease: 15→10→6→3→0
+  - Uses repair wizard for simple fixes
+  - Manually edits complex conflicts
+  - Re-runs consistency after each fix
+  - Uses incremental reasoning (faster)
+  - Sees unsatisfiable count decrease: 15→10→6→3→0
 - **Thoughts**: "Making good progress"
 - **Emotions**: Satisfied as issues resolve
 - **Pain Points**: Some explanations incomplete
 - **Opportunities**:
-  * Better inference explanation
-  * Track which fixes resolve multiple issues
+  - Better inference explanation
+  - Track which fixes resolve multiple issues
 
 #### Stage 5: Verification and Documentation (10 minutes)
+
 - **Actions**:
-  * Runs full classification
-  * Reviews inferred hierarchy
-  * Exports report of changes made
-  * Commits to version control (external)
-  * Exports corrected ontology
+  - Runs full classification
+  - Reviews inferred hierarchy
+  - Exports report of changes made
+  - Commits to version control (external)
+  - Exports corrected ontology
 - **Thoughts**: "Clean ontology, ready for production"
 - **Emotions**: Accomplished, relieved
 - **Pain Points**: Manual version tracking
 - **Opportunities**:
-  * Built-in version control
-  * Change summary generation
-  * Automated documentation
+  - Built-in version control
+  - Change summary generation
+  - Automated documentation
 
 **Journey Insights**:
+
 - **Total Time**: 53 minutes (efficient for 15 issues)
 - **Key Success Factors**:
-  * Powerful reasoning explanation
-  * Keyboard shortcuts
-  * Incremental reasoning
+  - Powerful reasoning explanation
+  - Keyboard shortcuts
+  - Incremental reasoning
 - **Expert User Needs**:
-  * Advanced features easily accessible
-  * No hand-holding, direct control
-  * Detailed, technical information
+  - Advanced features easily accessible
+  - No hand-holding, direct control
+  - Detailed, technical information
 - **Improvements for Experts**:
-  * Batch operations
-  * Scriptable actions
-  * Advanced query capabilities
+  - Batch operations
+  - Scriptable actions
+  - Advanced query capabilities
 
 ---
 
@@ -2958,33 +3191,39 @@ Dependencies: Immer for state management
 For a user story to be considered "done", it must meet ALL of the following criteria:
 
 #### Functionality
+
 - ✓ All acceptance criteria in the user story are met
 - ✓ Feature works as described in all supported browsers
 - ✓ No critical or high-priority bugs
 
 #### Code Quality
+
 - ✓ Code follows TypeScript best practices
 - ✓ Type coverage ≥ 95%
 - ✓ No linting errors or warnings
 - ✓ Code reviewed and approved by at least one other developer
 
 #### Testing
+
 - ✓ Unit tests written with ≥ 80% coverage for new code
 - ✓ Integration tests cover main user flows
 - ✓ Manual testing completed and documented
 - ✓ Accessibility tested (keyboard navigation, screen reader)
 
 #### Documentation
+
 - ✓ JSDoc comments for all public functions/components
 - ✓ User-facing changes documented in user guide
 - ✓ API changes documented if applicable
 
 #### Performance
+
 - ✓ Meets performance requirements specified in SRS
 - ✓ No memory leaks detected
 - ✓ Tested with realistic data volumes
 
 #### Design
+
 - ✓ UI matches design specifications
 - ✓ Responsive behavior verified
 - ✓ Consistent with overall design system
@@ -2994,6 +3233,7 @@ For a user story to be considered "done", it must meet ALL of the following crit
 **Story Point Scale**: Fibonacci sequence (1, 2, 3, 5, 8, 13, 21)
 
 **Reference Stories**:
+
 - **1 Point**: Add tooltip to existing button (1-2 hours)
 - **2 Points**: Create simple modal dialog (half day)
 - **3 Points**: Implement basic file export (1 day)
@@ -3003,6 +3243,7 @@ For a user story to be considered "done", it must meet ALL of the following crit
 - **21 Points**: Build complete AI assistant system (3-4 weeks)
 
 **Factors Affecting Estimates**:
+
 - Technical complexity
 - Unknowns and research required
 - Dependencies on external libraries
@@ -3012,24 +3253,28 @@ For a user story to be considered "done", it must meet ALL of the following crit
 ### 6.3 Priority Definitions
 
 **High Priority** (Must Have for MVP):
+
 - Core functionality required for basic ontology editing
 - Features that make the tool usable
 - Critical performance requirements
 - Example: Import/export, basic editing, class creation
 
 **Medium Priority** (Should Have):
+
 - Important features that enhance usability
 - Advanced but commonly-used capabilities
 - Nice-to-have improvements
 - Example: AI assistance, advanced visualization, reasoning
 
 **Low Priority** (Could Have):
+
 - Nice-to-have enhancements
 - Features for advanced users only
 - Cosmetic improvements
 - Example: Themes, advanced layout customization, batch operations
 
 **Out of Scope** (Won't Have in v1.0):
+
 - Features for future releases
 - Requires significant additional infrastructure
 - Example: Real-time collaboration, mobile apps, version control integration
@@ -3040,33 +3285,33 @@ For a user story to be considered "done", it must meet ALL of the following crit
 
 This matrix maps user stories to functional requirements and use cases:
 
-| User Story | Related Use Cases | Related FRs | Priority |
-|------------|-------------------|-------------|----------|
-| US-001 | UC-001 | FR-OM-001 | High |
-| US-002 | UC-002 | FR-OM-002 | High |
-| US-003 | UC-003 | FR-OM-003 | High |
-| US-004 | - | FR-OM-004 | Medium |
-| US-005 | - | FR-OM-005 | Medium |
-| US-006 | UC-004 | FR-AE-001 | High |
-| US-007 | UC-004 | FR-AE-003 | High |
-| US-008 | UC-004 | FR-AE-004 | High |
-| US-009 | UC-004 | FR-AE-005 | Medium |
-| US-010 | - | FR-AE-006 | Low |
-| US-011 | UC-006 | FR-VS-001 | High |
-| US-012 | UC-006 | FR-VS-002 | High |
-| US-013 | UC-006 | FR-VS-003 | High |
-| US-014 | - | FR-VS-006 | Medium |
-| US-015 | - | FR-VS-004 | Medium |
-| US-016 | UC-008 | FR-AI-001, FR-AI-002 | High |
-| US-017 | UC-009 | FR-AI-004 | High |
-| US-018 | - | FR-AI-005 | Medium |
-| US-019 | - | FR-AI-006 | Low |
-| US-020 | - | FR-AI-007 | High |
-| US-021 | UC-010 | FR-RE-001, FR-RE-003 | High |
-| US-022 | UC-007 | FR-RE-004 | High |
-| US-023 | UC-010 | FR-RE-006 | High |
-| US-024 | - | FR-RE-002 | Medium |
-| US-025 | UC-007 | FR-RE-004 | Medium |
+| User Story | Related Use Cases | Related FRs          | Priority |
+| ---------- | ----------------- | -------------------- | -------- |
+| US-001     | UC-001            | FR-OM-001            | High     |
+| US-002     | UC-002            | FR-OM-002            | High     |
+| US-003     | UC-003            | FR-OM-003            | High     |
+| US-004     | -                 | FR-OM-004            | Medium   |
+| US-005     | -                 | FR-OM-005            | Medium   |
+| US-006     | UC-004            | FR-AE-001            | High     |
+| US-007     | UC-004            | FR-AE-003            | High     |
+| US-008     | UC-004            | FR-AE-004            | High     |
+| US-009     | UC-004            | FR-AE-005            | Medium   |
+| US-010     | -                 | FR-AE-006            | Low      |
+| US-011     | UC-006            | FR-VS-001            | High     |
+| US-012     | UC-006            | FR-VS-002            | High     |
+| US-013     | UC-006            | FR-VS-003            | High     |
+| US-014     | -                 | FR-VS-006            | Medium   |
+| US-015     | -                 | FR-VS-004            | Medium   |
+| US-016     | UC-008            | FR-AI-001, FR-AI-002 | High     |
+| US-017     | UC-009            | FR-AI-004            | High     |
+| US-018     | -                 | FR-AI-005            | Medium   |
+| US-019     | -                 | FR-AI-006            | Low      |
+| US-020     | -                 | FR-AI-007            | High     |
+| US-021     | UC-010            | FR-RE-001, FR-RE-003 | High     |
+| US-022     | UC-007            | FR-RE-004            | High     |
+| US-023     | UC-010            | FR-RE-006            | High     |
+| US-024     | -                 | FR-RE-002            | Medium   |
+| US-025     | UC-007            | FR-RE-004            | Medium   |
 
 ---
 
@@ -3078,13 +3323,13 @@ See main SRS document Section 1.3 for comprehensive glossary.
 
 **Document Approval**:
 
-| Role | Name | Signature | Date |
-|------|------|-----------|------|
-| Product Owner | [Name] | __________ | ________ |
-| UX Lead | [Name] | __________ | ________ |
-| Development Lead | [Name] | __________ | ________ |
-| QA Lead | [Name] | __________ | ________ |
+| Role             | Name   | Signature    | Date         |
+| ---------------- | ------ | ------------ | ------------ |
+| Product Owner    | [Name] | ****\_\_**** | **\_\_\_\_** |
+| UX Lead          | [Name] | ****\_\_**** | **\_\_\_\_** |
+| Development Lead | [Name] | ****\_\_**** | **\_\_\_\_** |
+| QA Lead          | [Name] | ****\_\_**** | **\_\_\_\_** |
 
 ---
 
-*End of Use Cases and User Stories Document*
+_End of Use Cases and User Stories Document_

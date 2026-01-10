@@ -100,8 +100,10 @@ modern-ontology-editor/
 ## 👥 Team Roles
 
 ### Developer 1: Frontend Lead
+
 **Focus**: UI/UX, React components, styling
 **Primary Tasks**:
+
 - DEV-003: Design System
 - DEV-006: Main Layout
 - DEV-007: Class Tree
@@ -111,8 +113,10 @@ modern-ontology-editor/
 **Skills**: React, TypeScript, CSS, UI Design
 
 ### Developer 2: Backend Lead
+
 **Focus**: State management, parsing, APIs
 **Primary Tasks**:
+
 - DEV-004: State Management
 - DEV-008: Data Model
 - DEV-011: N3.js Parser
@@ -122,8 +126,10 @@ modern-ontology-editor/
 **Skills**: TypeScript, Data structures, APIs
 
 ### Developer 3: AI/Reasoning Specialist
+
 **Focus**: AI integration, reasoning, testing
 **Primary Tasks**:
+
 - DEV-005: Testing Setup
 - DEV-017: Tree-sitter Grammar
 - DEV-036: AI SDK Setup
@@ -136,21 +142,21 @@ modern-ontology-editor/
 
 ## 📅 Sprint Schedule
 
-| Sprint | Weeks | Focus | Deliverable |
-|--------|-------|-------|-------------|
-| **0** | 1-2 | Setup | Dev environment ready |
-| **1** | 3-4 | Infrastructure | App shell working |
-| **2** | 5-6 | File I/O | Import/export working |
-| **3** | 7-8 | Editor | Monaco with syntax highlighting |
-| **4** | 9-10 | Graph | Basic visualization |
-| **5** | 11-12 | Editing | CRUD operations |
-| **6** | 13-14 | Advanced Graph | Incremental loading |
-| **7** | 15-16 | AI Phase 1 | Basic generation |
-| **8** | 17-18 | AI Phase 2 | Property suggestions |
-| **9** | 19-20 | Reasoning | Consistency checking |
-| **10** | 21-22 | Advanced Reasoning | Explanations |
-| **11** | 23-24 | Polish | Performance, UX |
-| **12** | 25-26 | Testing | E2E tests, docs |
+| Sprint | Weeks | Focus              | Deliverable                     |
+| ------ | ----- | ------------------ | ------------------------------- |
+| **0**  | 1-2   | Setup              | Dev environment ready           |
+| **1**  | 3-4   | Infrastructure     | App shell working               |
+| **2**  | 5-6   | File I/O           | Import/export working           |
+| **3**  | 7-8   | Editor             | Monaco with syntax highlighting |
+| **4**  | 9-10  | Graph              | Basic visualization             |
+| **5**  | 11-12 | Editing            | CRUD operations                 |
+| **6**  | 13-14 | Advanced Graph     | Incremental loading             |
+| **7**  | 15-16 | AI Phase 1         | Basic generation                |
+| **8**  | 17-18 | AI Phase 2         | Property suggestions            |
+| **9**  | 19-20 | Reasoning          | Consistency checking            |
+| **10** | 21-22 | Advanced Reasoning | Explanations                    |
+| **11** | 23-24 | Polish             | Performance, UX                 |
+| **12** | 25-26 | Testing            | E2E tests, docs                 |
 
 **Total Duration**: 26 weeks (6 months)
 
@@ -161,12 +167,14 @@ modern-ontology-editor/
 ### Week 1: Environment Setup
 
 **Developer 1**:
+
 - [ ] DEV-003: Design System Setup (5 pts)
   - Install Shadcn/ui
   - Create theme
   - Set up base components
 
 **Developer 2**:
+
 - [ ] DEV-001: Project Initialization (3 pts)
   - Initialize Next.js
   - Configure TypeScript
@@ -179,6 +187,7 @@ modern-ontology-editor/
   - Persistence layer
 
 **Developer 3**:
+
 - [ ] DEV-005: Testing Infrastructure (5 pts)
   - Vitest setup
   - Playwright setup
@@ -187,6 +196,7 @@ modern-ontology-editor/
 ### Week 2: Validation
 
 **All Developers**:
+
 - [ ] Code review all Sprint 0 work
 - [ ] Run full test suite
 - [ ] Deploy to staging
@@ -194,6 +204,7 @@ modern-ontology-editor/
 - [ ] Plan Sprint 1
 
 **Success Criteria**:
+
 - ✅ All developers can run project locally
 - ✅ CI/CD pipeline working
 - ✅ Design system implemented
@@ -241,6 +252,7 @@ gh issue edit 1 --add-label "status: in-progress"
 ### PR Review Process
 
 **As Author**:
+
 1. Ensure tests pass locally
 2. Run `npm run validate`
 3. Create PR with clear description
@@ -248,6 +260,7 @@ gh issue edit 1 --add-label "status: in-progress"
 5. Request review from team
 
 **As Reviewer**:
+
 1. Review code within 24 hours
 2. Test locally if significant changes
 3. Provide constructive feedback
@@ -257,22 +270,26 @@ gh issue edit 1 --add-label "status: in-progress"
 ### Sprint Ceremonies
 
 **Sprint Planning** (Monday, Week 1):
+
 - Review sprint goals
 - Assign issues to developers
 - Estimate any remaining tasks
 - Duration: 2 hours
 
 **Daily Standup** (Every day, 15 min):
+
 - What did you do yesterday?
 - What will you do today?
 - Any blockers?
 
 **Sprint Review** (Friday, Week 2):
+
 - Demo completed features
 - Review metrics
 - Duration: 1 hour
 
 **Sprint Retrospective** (Friday, Week 2):
+
 - What went well?
 - What could improve?
 - Action items for next sprint
@@ -311,17 +328,19 @@ npm run test:coverage
 ### Test Types
 
 **Unit Tests** (required):
+
 ```typescript
 // Example
 describe('OWLClass', () => {
   it('should create class with valid IRI', () => {
-    const cls = new OWLClass('http://ex.org#Person');
-    expect(cls.iri).toBe('http://ex.org#Person');
-  });
-});
+    const cls = new OWLClass('http://ex.org#Person')
+    expect(cls.iri).toBe('http://ex.org#Person')
+  })
+})
 ```
 
 **Component Tests** (required for UI):
+
 ```typescript
 // Example
 describe('ClassNode', () => {
@@ -333,13 +352,14 @@ describe('ClassNode', () => {
 ```
 
 **E2E Tests** (for critical flows):
+
 ```typescript
 // Example
 test('user can create ontology', async ({ page }) => {
-  await page.goto('/');
-  await page.click('text=New Ontology');
+  await page.goto('/')
+  await page.click('text=New Ontology')
   // ... test steps
-});
+})
 ```
 
 ---
@@ -349,6 +369,7 @@ test('user can create ontology', async ({ page }) => {
 ### Sprint Metrics
 
 Track these weekly:
+
 - **Velocity**: Story points completed
 - **Cycle Time**: Issue open to close
 - **Bug Rate**: Bugs per sprint
@@ -358,6 +379,7 @@ Track these weekly:
 ### Project Metrics
 
 Track these monthly:
+
 - **Features Completed**: % of planned features
 - **Technical Debt**: Outstanding refactoring tasks
 - **Performance**: Load time, FPS, memory
@@ -396,6 +418,7 @@ Track these monthly:
 ### Required Reading
 
 Before starting development:
+
 1. [Next.js Documentation](https://nextjs.org/docs)
 2. [React 18 Features](https://react.dev/blog/2022/03/29/react-v18)
 3. [TypeScript Handbook](https://www.typescriptlang.org/docs/)
@@ -404,16 +427,19 @@ Before starting development:
 ### Recommended for Each Developer
 
 **Developer 1 (Frontend)**:
+
 - [Monaco Editor Docs](https://microsoft.github.io/monaco-editor/)
 - [React Flow Tutorial](https://reactflow.dev/learn)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 
 **Developer 2 (Backend)**:
+
 - [N3.js Documentation](https://github.com/rdfjs/N3.js)
 - [OWL 2 Specification](https://www.w3.org/TR/owl2-overview/)
 - [Zustand Advanced](https://docs.pmnd.rs/zustand/guides/typescript)
 
 **Developer 3 (AI/Reasoning)**:
+
 - [Vercel AI SDK](https://sdk.vercel.ai/docs)
 - [OpenAI API](https://platform.openai.com/docs)
 - [Playwright Testing](https://playwright.dev/)

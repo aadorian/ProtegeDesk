@@ -1,6 +1,7 @@
 # GitHub Issues for ProtegeDesk Development
 
 ## Team Structure
+
 - **Lead Developer**: Alex Chen (Frontend Architect, React/TypeScript specialist)
 - **Backend Engineer**: Sarah Johnson (WASM/Reasoning specialist)
 - **UI/UX Developer**: Miguel Rodriguez (React Flow/Visualization expert)
@@ -12,6 +13,7 @@
 ## High Priority Issues
 
 ### #1: Set up project structure with TypeScript/React/Next.js
+
 **Assignee**: Alex Chen (Lead Developer)  
 **Labels**: `infrastructure`, `setup`, `high-priority`  
 **Estimated Effort**: 2 days  
@@ -19,9 +21,11 @@
 
 ```markdown
 ## Description
+
 Initialize the project with proper TypeScript/React/Next.js structure following enterprise best practices.
 
 ## Tasks
+
 - [ ] Create Next.js 14+ project with TypeScript
 - [ ] Set up ESLint, Prettier, and Husky pre-commit hooks
 - [ ] Configure folder structure (components, services, types, utils)
@@ -29,12 +33,14 @@ Initialize the project with proper TypeScript/React/Next.js structure following 
 - [ ] Create basic README and contributing guidelines
 
 ## Acceptance Criteria
+
 - Project builds successfully with `npm run build`
 - TypeScript strict mode enabled
 - Code formatting enforced on commit
 - Folder structure follows scalable patterns
 
 ## Technical Requirements
+
 - Next.js 14+ with App Router
 - TypeScript 5+ with strict mode
 - ESLint + Prettier configuration
@@ -42,6 +48,7 @@ Initialize the project with proper TypeScript/React/Next.js structure following 
 ```
 
 ### #2: Install and configure core dependencies
+
 **Assignee**: Alex Chen (Lead Developer)  
 **Labels**: `infrastructure`, `dependencies`, `high-priority`  
 **Estimated Effort**: 1 day  
@@ -49,9 +56,11 @@ Initialize the project with proper TypeScript/React/Next.js structure following 
 
 ```markdown
 ## Description
+
 Install and configure all core dependencies required for the ontology editor.
 
 ## Tasks
+
 - [ ] Install Monaco Editor for code editing
 - [ ] Install React Flow (XyFlow) for graph visualization
 - [ ] Install ELK.js for graph layout algorithms
@@ -63,12 +72,14 @@ Install and configure all core dependencies required for the ontology editor.
 - [ ] Configure all dependencies with proper TypeScript types
 
 ## Acceptance Criteria
+
 - All dependencies installed with correct versions
 - TypeScript types resolved for all packages
 - Basic integration tests pass for each major dependency
 - Configuration files properly set up
 
 ## Technical Requirements
+
 - Monaco Editor 0.45+
 - @xyflow/react 12+
 - ELK.js 0.9+
@@ -78,6 +89,7 @@ Install and configure all core dependencies required for the ontology editor.
 ```
 
 ### #3: Implement ontology data model and state management
+
 **Assignee**: Alex Chen (Lead Developer)  
 **Labels**: `backend`, `state-management`, `high-priority`  
 **Estimated Effort**: 3 days  
@@ -85,9 +97,11 @@ Install and configure all core dependencies required for the ontology editor.
 
 ```markdown
 ## Description
+
 Create the core ontology data model and implement state management with Zustand.
 
 ## Tasks
+
 - [ ] Define TypeScript interfaces for OWL entities (Class, Property, Individual, Axiom)
 - [ ] Create ontology store structure with Zustand
 - [ ] Implement CRUD operations for ontology entities
@@ -97,6 +111,7 @@ Create the core ontology data model and implement state management with Zustand.
 - [ ] Add validation for ontology operations
 
 ## Acceptance Criteria
+
 - Complete type-safe ontology model
 - State persists across component re-renders
 - CRUD operations work correctly
@@ -104,6 +119,7 @@ Create the core ontology data model and implement state management with Zustand.
 - Performance tests pass with 1000+ entities
 
 ## Technical Requirements
+
 - Zustand store with middleware
 - Immer for immutable updates
 - TypeScript interfaces for all OWL constructs
@@ -111,6 +127,7 @@ Create the core ontology data model and implement state management with Zustand.
 ```
 
 ### #4: Create main application layout with resizable panels
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `frontend`, `ui`, `high-priority`  
 **Estimated Effort**: 3 days  
@@ -118,9 +135,11 @@ Create the core ontology data model and implement state management with Zustand.
 
 ```markdown
 ## Description
+
 Implement the main application layout with resizable panels following the SRS specifications.
 
 ## Tasks
+
 - [ ] Create main layout component with 4-panel structure
 - [ ] Implement resizable panel functionality
 - [ ] Add collapsible sidebar functionality
@@ -130,6 +149,7 @@ Implement the main application layout with resizable panels following the SRS sp
 - [ ] Create menu bar and toolbar
 
 ## Acceptance Criteria
+
 - Layout matches SRS specifications (left sidebar, center editor, right properties, bottom status)
 - Panels resize smoothly with mouse drag
 - Layout preferences persist across sessions
@@ -137,6 +157,7 @@ Implement the main application layout with resizable panels following the SRS sp
 - Accessibility compliant with keyboard navigation
 
 ## Technical Requirements
+
 - React with TypeScript
 - CSS Grid or Flexbox for layout
 - Mouse event handling for resize
@@ -145,6 +166,7 @@ Implement the main application layout with resizable panels following the SRS sp
 ```
 
 ### #5: Build hierarchical class tree sidebar component
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `frontend`, `ui`, `high-priority`  
 **Estimated Effort**: 4 days  
@@ -152,9 +174,11 @@ Implement the main application layout with resizable panels following the SRS sp
 
 ```markdown
 ## Description
+
 Create a hierarchical class tree sidebar for navigating ontology classes.
 
 ## Tasks
+
 - [ ] Build tree component with expand/collapse functionality
 - [ ] Implement lazy loading for large hierarchies
 - [ ] Add search and filter capabilities
@@ -164,6 +188,7 @@ Create a hierarchical class tree sidebar for navigating ontology classes.
 - [ ] Create custom tree node rendering
 
 ## Acceptance Criteria
+
 - Tree displays class hierarchy correctly
 - Expand/collapse works smoothly
 - Search filters tree and highlights matches
@@ -172,6 +197,7 @@ Create a hierarchical class tree sidebar for navigating ontology classes.
 - Keyboard navigation works without mouse
 
 ## Technical Requirements
+
 - React Tree component (custom or library)
 - Virtual scrolling for large trees
 - Search with debouncing
@@ -180,6 +206,7 @@ Create a hierarchical class tree sidebar for navigating ontology classes.
 ```
 
 ### #6: Implement axiom editor with Monaco Editor and Manchester Syntax
+
 **Assignee**: Alex Chen (Lead Developer)  
 **Labels**: `frontend`, `editor`, `high-priority`  
 **Estimated Effort**: 5 days  
@@ -187,9 +214,11 @@ Create a hierarchical class tree sidebar for navigating ontology classes.
 
 ```markdown
 ## Description
+
 Create an advanced axiom editor using Monaco Editor with Manchester Syntax support.
 
 ## Tasks
+
 - [ ] Integrate Monaco Editor into React component
 - [ ] Define Manchester Syntax language specification
 - [ ] Implement syntax highlighting with Tree-sitter
@@ -200,6 +229,7 @@ Create an advanced axiom editor using Monaco Editor with Manchester Syntax suppo
 - [ ] Create error diagnostics display
 
 ## Acceptance Criteria
+
 - Monaco Editor renders correctly in React
 - Manchester Syntax keywords highlighted properly
 - Autocomplete suggests ontology entities
@@ -208,6 +238,7 @@ Create an advanced axiom editor using Monaco Editor with Manchester Syntax suppo
 - Performance < 50ms latency for typing
 
 ## Technical Requirements
+
 - Monaco Editor 0.45+
 - Tree-sitter grammar for Manchester Syntax
 - Custom language provider
@@ -217,6 +248,7 @@ Create an advanced axiom editor using Monaco Editor with Manchester Syntax suppo
 ```
 
 ### #7: Build ontology graph visualization with React Flow and ELK.js
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `frontend`, `visualization`, `high-priority`  
 **Estimated Effort**: 6 days  
@@ -224,9 +256,11 @@ Create an advanced axiom editor using Monaco Editor with Manchester Syntax suppo
 
 ```markdown
 ## Description
+
 Create interactive ontology graph visualization using React Flow and ELK.js layout.
 
 ## Tasks
+
 - [ ] Integrate React Flow for graph rendering
 - [ ] Implement ELK.js automatic layout
 - [ ] Create custom node types (Class, Property, Individual)
@@ -238,6 +272,7 @@ Create interactive ontology graph visualization using React Flow and ELK.js layo
 - [ ] Optimize performance for 1000+ nodes
 
 ## Acceptance Criteria
+
 - Graph renders ontology structure correctly
 - Automatic layout arranges nodes clearly
 - Interactive nodes respond to mouse/keyboard
@@ -246,6 +281,7 @@ Create interactive ontology graph visualization using React Flow and ELK.js layo
 - Search highlights matching nodes
 
 ## Technical Requirements
+
 - @xyflow/react 12+
 - ELK.js 0.9+ for layout
 - Custom node/edge components
@@ -255,6 +291,7 @@ Create interactive ontology graph visualization using React Flow and ELK.js layo
 ```
 
 ### #8: Implement ontology import/export using N3.js
+
 **Assignee**: Alex Chen (Lead Developer)  
 **Labels**: `backend`, `io`, `high-priority`  
 **Estimated Effort**: 4 days  
@@ -262,9 +299,11 @@ Create interactive ontology graph visualization using React Flow and ELK.js layo
 
 ```markdown
 ## Description
+
 Implement ontology import/export functionality supporting multiple RDF formats.
 
 ## Tasks
+
 - [ ] Integrate N3.js for RDF parsing and serialization
 - [ ] Support Turtle (.ttl) format import/export
 - [ ] Support RDF/XML format import/export
@@ -276,6 +315,7 @@ Implement ontology import/export functionality supporting multiple RDF formats.
 - [ ] Handle import errors gracefully
 
 ## Acceptance Criteria
+
 - All specified formats import without data loss
 - Export produces valid RDF files
 - Round-trip testing passes
@@ -284,6 +324,7 @@ Implement ontology import/export functionality supporting multiple RDF formats.
 - Progress indicators work for long operations
 
 ## Technical Requirements
+
 - N3.js 1.17+
 - File System Access API
 - Stream processing for large files
@@ -294,6 +335,7 @@ Implement ontology import/export functionality supporting multiple RDF formats.
 ## Medium Priority Issues
 
 ### #9: Integrate client-side reasoning with EYE-JS WASM
+
 **Assignee**: Sarah Johnson (Backend Engineer)  
 **Labels**: `reasoning`, `wasm`, `medium-priority`  
 **Estimated Effort**: 5 days  
@@ -301,9 +343,11 @@ Implement ontology import/export functionality supporting multiple RDF formats.
 
 ```markdown
 ## Description
+
 Integrate EYE-JS WebAssembly reasoner for client-side ontology reasoning.
 
 ## Tasks
+
 - [ ] Integrate EYE-JS WASM module
 - [ ] Implement ontology serialization to Turtle
 - [ ] Create reasoner service facade
@@ -315,6 +359,7 @@ Integrate EYE-JS WebAssembly reasoner for client-side ontology reasoning.
 - [ ] Optimize performance for 500+ classes
 
 ## Acceptance Criteria
+
 - Consistency checking completes < 5s for 500 classes
 - Classification produces correct hierarchy
 - Inferences displayed in visualization
@@ -323,6 +368,7 @@ Integrate EYE-JS WebAssembly reasoner for client-side ontology reasoning.
 - Memory usage stays within limits
 
 ## Technical Requirements
+
 - EYE-JS WASM integration
 - WebAssembly loading and initialization
 - RDF serialization for reasoner input
@@ -331,6 +377,7 @@ Integrate EYE-JS WebAssembly reasoner for client-side ontology reasoning.
 ```
 
 ### #10: Implement AI co-pilot with command palette and LLM integration
+
 **Assignee**: Dr. Priya Patel (AI/ML Engineer)  
 **Labels**: `ai`, `llm`, `medium-priority`  
 **Estimated Effort**: 6 days  
@@ -338,9 +385,11 @@ Integrate EYE-JS WebAssembly reasoner for client-side ontology reasoning.
 
 ```markdown
 ## Description
+
 Create AI co-pilot functionality with command palette and LLM integration.
 
 ## Tasks
+
 - [ ] Implement command palette UI (⌘+K)
 - [ ] Integrate Vercel AI SDK
 - [ ] Create prompt templates for ontology generation
@@ -353,6 +402,7 @@ Create AI co-pilot functionality with command palette and LLM integration.
 - [ ] Handle rate limiting and errors
 
 ## Acceptance Criteria
+
 - Command palette opens with ⌘+K
 - AI generates valid ontology structures
 - Suggestions are relevant and useful
@@ -361,6 +411,7 @@ Create AI co-pilot functionality with command palette and LLM integration.
 - Response time < 10 seconds
 
 ## Technical Requirements
+
 - Vercel AI SDK 3+
 - OpenAI/Anthropic API integration
 - Prompt engineering
@@ -370,6 +421,7 @@ Create AI co-pilot functionality with command palette and LLM integration.
 ```
 
 ### #11: Add properties panel for entity details editing
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `frontend`, `ui`, `medium-priority`  
 **Estimated Effort**: 3 days  
@@ -377,9 +429,11 @@ Create AI co-pilot functionality with command palette and LLM integration.
 
 ```markdown
 ## Description
+
 Create a properties panel for viewing and editing entity details.
 
 ## Tasks
+
 - [ ] Create properties panel component
 - [ ] Implement class properties editor
 - [ ] Add property characteristics editor
@@ -390,6 +444,7 @@ Create a properties panel for viewing and editing entity details.
 - [ ] Create property change history
 
 ## Acceptance Criteria
+
 - Panel displays all entity properties
 - Editing updates ontology in real-time
 - Validation prevents invalid values
@@ -398,6 +453,7 @@ Create a properties panel for viewing and editing entity details.
 - History tracks all changes
 
 ## Technical Requirements
+
 - React forms with validation
 - Real-time state synchronization
 - Input validation and sanitization
@@ -406,6 +462,7 @@ Create a properties panel for viewing and editing entity details.
 ```
 
 ### #12: Implement auto-save and crash recovery with IndexedDB
+
 **Assignee**: James Wilson (DevOps Engineer)  
 **Labels**: `persistence`, `storage`, `medium-priority`  
 **Estimated Effort**: 4 days  
@@ -413,9 +470,11 @@ Create a properties panel for viewing and editing entity details.
 
 ```markdown
 ## Description
+
 Implement auto-save functionality and crash recovery using IndexedDB.
 
 ## Tasks
+
 - [ ] Set up IndexedDB database schema
 - [ ] Implement auto-save every 30 seconds
 - [ ] Create crash recovery mechanism
@@ -426,6 +485,7 @@ Implement auto-save functionality and crash recovery using IndexedDB.
 - [ ] Implement data cleanup and maintenance
 
 ## Acceptance Criteria
+
 - Auto-save works without user intervention
 - Crash recovery restores unsaved work
 - Manual save saves immediately
@@ -434,6 +494,7 @@ Implement auto-save functionality and crash recovery using IndexedDB.
 - Performance impact is minimal
 
 ## Technical Requirements
+
 - IndexedDB API
 - Background processing
 - Error handling and recovery
@@ -442,6 +503,7 @@ Implement auto-save functionality and crash recovery using IndexedDB.
 ```
 
 ### #13: Build comprehensive test suite
+
 **Assignee**: Lisa Zhang (QA Engineer)  
 **Labels**: `testing`, `quality`, `medium-priority`  
 **Estimated Effort**: 8 days  
@@ -449,9 +511,11 @@ Implement auto-save functionality and crash recovery using IndexedDB.
 
 ```markdown
 ## Description
+
 Create comprehensive test suite covering unit, integration, and E2E testing.
 
 ## Tasks
+
 - [ ] Set up testing framework (Jest, React Testing Library)
 - [ ] Write unit tests for all utility functions
 - [ ] Create component tests for UI components
@@ -463,6 +527,7 @@ Create comprehensive test suite covering unit, integration, and E2E testing.
 - [ ] Set up CI/CD pipeline with testing
 
 ## Acceptance Criteria
+
 - Code coverage ≥ 80%
 - All tests pass consistently
 - E2E tests cover critical user journeys
@@ -471,6 +536,7 @@ Create comprehensive test suite covering unit, integration, and E2E testing.
 - CI/CD runs tests automatically
 
 ## Technical Requirements
+
 - Jest + React Testing Library
 - Playwright for E2E
 - Axe for accessibility
@@ -481,6 +547,7 @@ Create comprehensive test suite covering unit, integration, and E2E testing.
 ## Low Priority Issues
 
 ### #14: Implement light/dark theme support
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `ui`, `theme`, `low-priority`  
 **Estimated Effort**: 2 days  
@@ -488,9 +555,11 @@ Create comprehensive test suite covering unit, integration, and E2E testing.
 
 ```markdown
 ## Description
+
 Implement light and dark theme support with system preference detection.
 
 ## Tasks
+
 - [ ] Create theme configuration with CSS variables
 - [ ] Implement theme toggle in settings
 - [ ] Add system preference detection
@@ -499,6 +568,7 @@ Implement light and dark theme support with system preference detection.
 - [ ] Create custom theme support
 
 ## Acceptance Criteria
+
 - Light/dark themes toggle smoothly
 - System preference respected
 - All components themed consistently
@@ -506,6 +576,7 @@ Implement light and dark theme support with system preference detection.
 - Custom themes can be added
 
 ## Technical Requirements
+
 - CSS custom properties
 - Theme context provider
 - System preference API
@@ -513,6 +584,7 @@ Implement light and dark theme support with system preference detection.
 ```
 
 ### #15: Add keyboard shortcuts and command palette
+
 **Assignee**: Miguel Rodriguez (UI/UX Developer)  
 **Labels**: `ui`, `accessibility`, `low-priority`  
 **Estimated Effort**: 3 days  
@@ -520,9 +592,11 @@ Implement light and dark theme support with system preference detection.
 
 ```markdown
 ## Description
+
 Implement comprehensive keyboard shortcuts and enhance command palette.
 
 ## Tasks
+
 - [ ] Define keyboard shortcut system
 - [ ] Implement shortcuts for all common actions
 - [ ] Add shortcut help overlay
@@ -531,6 +605,7 @@ Implement comprehensive keyboard shortcuts and enhance command palette.
 - [ ] Create customizable shortcuts
 
 ## Acceptance Criteria
+
 - 80%+ actions accessible via keyboard
 - Shortcuts work consistently
 - Help overlay shows all shortcuts
@@ -538,6 +613,7 @@ Implement comprehensive keyboard shortcuts and enhance command palette.
 - Shortcuts can be customized
 
 ## Technical Requirements
+
 - Keyboard event handling
 - Command pattern implementation
 - Fuzzy search algorithm
@@ -545,6 +621,7 @@ Implement comprehensive keyboard shortcuts and enhance command palette.
 ```
 
 ### #16: Ensure WCAG 2.1 Level AA accessibility compliance
+
 **Assignee**: Lisa Zhang (QA Engineer)  
 **Labels**: `accessibility`, `quality`, `low-priority`  
 **Estimated Effort**: 4 days  
@@ -552,9 +629,11 @@ Implement comprehensive keyboard shortcuts and enhance command palette.
 
 ```markdown
 ## Description
+
 Ensure the application meets WCAG 2.1 Level AA accessibility standards.
 
 ## Tasks
+
 - [ ] Conduct accessibility audit with axe
 - [ ] Fix color contrast issues
 - [ ] Ensure keyboard navigation works
@@ -565,6 +644,7 @@ Ensure the application meets WCAG 2.1 Level AA accessibility standards.
 - [ ] Create accessibility documentation
 
 ## Acceptance Criteria
+
 - axe audit passes with zero violations
 - Color contrast meets WCAG AA standards
 - All functionality accessible via keyboard
@@ -572,6 +652,7 @@ Ensure the application meets WCAG 2.1 Level AA accessibility standards.
 - Focus moves logically through interface
 
 ## Technical Requirements
+
 - axe-core for testing
 - ARIA attributes
 - Focus management
@@ -579,6 +660,7 @@ Ensure the application meets WCAG 2.1 Level AA accessibility standards.
 ```
 
 ### #17: Write comprehensive documentation and user guides
+
 **Assignee**: Emma Davis (Technical Writer)  
 **Labels**: `documentation`, `low-priority`  
 **Estimated Effort**: 5 days  
@@ -586,9 +668,11 @@ Ensure the application meets WCAG 2.1 Level AA accessibility standards.
 
 ```markdown
 ## Description
+
 Create comprehensive documentation for users and developers.
 
 ## Tasks
+
 - [ ] Write user manual and tutorials
 - [ ] Create developer documentation
 - [ ] Document API reference
@@ -599,6 +683,7 @@ Create comprehensive documentation for users and developers.
 - [ ] Set up documentation website
 
 ## Acceptance Criteria
+
 - User manual covers all features
 - Developer docs enable contributions
 - API reference is complete
@@ -606,6 +691,7 @@ Create comprehensive documentation for users and developers.
 - Tutorials guide new users
 
 ## Technical Requirements
+
 - Documentation framework (Docusaurus)
 - API documentation generation
 - Video recording tools
@@ -635,31 +721,37 @@ All Features → #17
 ## Sprint Planning
 
 ### Sprint 1 (Week 1-2): Foundation
+
 - #1: Project setup (Alex)
 - #2: Dependencies (Alex)
 - #3: Data model (Alex)
 
 ### Sprint 2 (Week 3-4): Core UI
+
 - #4: Main layout (Miguel)
 - #5: Class tree (Miguel)
 - #6: Axiom editor (Alex)
 
 ### Sprint 3 (Week 5-6): Visualization & I/O
+
 - #7: Graph visualization (Miguel)
 - #8: Import/export (Alex)
 
 ### Sprint 4 (Week 7-8): Advanced Features
+
 - #9: Reasoning (Sarah)
 - #10: AI co-pilot (Priya)
 - #11: Properties panel (Miguel)
 
 ### Sprint 5 (Week 9-10): Quality & Polish
+
 - #12: Persistence (James)
 - #13: Testing (Lisa)
 - #14: Themes (Miguel)
 - #15: Shortcuts (Miguel)
 
 ### Sprint 6 (Week 11-12): Final Polish
+
 - #16: Accessibility (Lisa)
 - #17: Documentation (Emma)
 - Bug fixes and optimization
@@ -667,40 +759,47 @@ All Features → #17
 ## Team Responsibilities
 
 ### Alex Chen (Lead Developer)
+
 - Project architecture and technical decisions
 - Core ontology model and state management
 - Axiom editor implementation
 - Code review and quality assurance
 
 ### Sarah Johnson (Backend Engineer)
+
 - WASM integration and reasoning engine
 - Performance optimization
 - API design and implementation
 
 ### Miguel Rodriguez (UI/UX Developer)
+
 - Graph visualization and layout
 - User interface components
 - Responsive design and interactions
 - Theme and accessibility implementation
 
 ### Dr. Priya Patel (AI/ML Engineer)
+
 - LLM integration and prompt engineering
 - AI co-pilot functionality
 - Natural language processing
 
 ### James Wilson (DevOps Engineer)
+
 - Build systems and CI/CD
 - Testing infrastructure
 - Deployment and monitoring
 - Persistence and storage
 
 ### Lisa Zhang (QA Engineer)
+
 - Test strategy and implementation
 - Accessibility compliance
 - Performance testing
 - Quality assurance processes
 
 ### Emma Davis (Technical Writer)
+
 - User documentation
 - Developer guides
 - API documentation

@@ -1,4 +1,5 @@
 # Software Requirements Specification (SRS)
+
 ## Modern TypeScript-Based Ontology Editor
 
 **Document Version:** 1.0  
@@ -39,6 +40,7 @@
 This Software Requirements Specification (SRS) document provides a comprehensive description of the requirements for a modern, TypeScript-based ontology editor system. The system aims to replicate and enhance the functionality of Protege, a widely-used ontology development tool, using contemporary web technologies and user interface paradigms.
 
 This document is intended for:
+
 - Development team members responsible for implementing the system
 - Project managers overseeing development
 - Quality assurance teams conducting testing
@@ -52,6 +54,7 @@ This document is intended for:
 **Product Description:** A web-based ontology engineering platform that enables users to create, edit, visualize, and reason over OWL (Web Ontology Language) ontologies using a modern TypeScript stack.
 
 **Key Capabilities:**
+
 - Advanced axiom editing using Manchester Syntax with intelligent code completion
 - Hierarchical visualization of ontology structures with automatic layout
 - Client-side and server-side reasoning capabilities
@@ -60,6 +63,7 @@ This document is intended for:
 - Collaborative ontology development features
 
 **Benefits:**
+
 - Modern, responsive user interface accessible through web browsers
 - Reduced learning curve through intelligent autocomplete and AI assistance
 - Improved performance through incremental loading and optimized rendering
@@ -67,36 +71,38 @@ This document is intended for:
 - Cross-platform compatibility without installation requirements
 
 **Out of Scope:**
+
 - Version control system integration (planned for future release)
 - Multi-user real-time collaboration (planned for future release)
 - Mobile application development (web-responsive only)
 
 ### 1.3 Definitions, Acronyms, and Abbreviations
 
-| Term | Definition |
-|------|------------|
-| **API** | Application Programming Interface |
-| **AI** | Artificial Intelligence |
-| **CSS** | Cascading Style Sheets |
-| **ELK** | Eclipse Layout Kernel - a graph layout algorithm library |
-| **IRI** | Internationalized Resource Identifier |
-| **JSON** | JavaScript Object Notation |
-| **LLM** | Large Language Model |
-| **LSP** | Language Server Protocol |
-| **Monaco** | The code editor that powers VS Code |
-| **N3** | Notation3 - a format for RDF data |
-| **NLP** | Natural Language Processing |
-| **OWL** | Web Ontology Language |
-| **RDF** | Resource Description Framework |
-| **SRS** | Software Requirements Specification |
-| **Tree-sitter** | An incremental parsing system for programming tools |
-| **TS** | TypeScript |
-| **TTL** | Turtle - Terse RDF Triple Language |
-| **UI/UX** | User Interface / User Experience |
-| **WASM** | WebAssembly |
-| **Zustand** | A state management library for React |
+| Term            | Definition                                               |
+| --------------- | -------------------------------------------------------- |
+| **API**         | Application Programming Interface                        |
+| **AI**          | Artificial Intelligence                                  |
+| **CSS**         | Cascading Style Sheets                                   |
+| **ELK**         | Eclipse Layout Kernel - a graph layout algorithm library |
+| **IRI**         | Internationalized Resource Identifier                    |
+| **JSON**        | JavaScript Object Notation                               |
+| **LLM**         | Large Language Model                                     |
+| **LSP**         | Language Server Protocol                                 |
+| **Monaco**      | The code editor that powers VS Code                      |
+| **N3**          | Notation3 - a format for RDF data                        |
+| **NLP**         | Natural Language Processing                              |
+| **OWL**         | Web Ontology Language                                    |
+| **RDF**         | Resource Description Framework                           |
+| **SRS**         | Software Requirements Specification                      |
+| **Tree-sitter** | An incremental parsing system for programming tools      |
+| **TS**          | TypeScript                                               |
+| **TTL**         | Turtle - Terse RDF Triple Language                       |
+| **UI/UX**       | User Interface / User Experience                         |
+| **WASM**        | WebAssembly                                              |
+| **Zustand**     | A state management library for React                     |
 
 **Domain-Specific Terms:**
+
 - **Axiom**: A statement or assertion in an ontology
 - **Class**: A concept or category in an ontology
 - **Individual**: An instance of a class
@@ -139,37 +145,44 @@ This SRS document is organized into five main sections:
 The Modern Ontology Editor (MOE) is a standalone web-based application that serves as a next-generation replacement for the desktop-based Protege ontology editor. The system operates within the following context:
 
 **System Interfaces:**
+
 - Web Browser: Primary interface for user interaction (Chrome, Firefox, Safari, Edge)
 - File System: Local file access for importing/exporting ontology files
 - Backend Services: Optional server-side reasoning and AI processing
 
 **User Interfaces:**
+
 - Web-based graphical user interface
 - Code editor interface for Manchester Syntax
 - Visual graph interface for ontology exploration
 - Command palette for AI-assisted operations
 
 **Hardware Interfaces:**
+
 - Standard desktop/laptop computers with modern browsers
 - Minimum 8GB RAM recommended for large ontologies
 - Graphics acceleration recommended for smooth visualization
 
 **Software Interfaces:**
+
 - Browser File System Access API for local file operations
 - WebAssembly for client-side reasoning
 - REST API for server-side reasoning services
 - LLM APIs (OpenAI, Anthropic) for AI assistance
 
 **Communication Interfaces:**
+
 - HTTPS for secure communication with backend services
 - WebSocket (future) for real-time collaboration
 - JSON-RPC for reasoning service communication
 
 **Memory Constraints:**
+
 - Browser memory limitations (typically 2-4GB per tab)
 - Ontology size limited by available client memory
 
 **Operations:**
+
 - Concurrent editing of multiple ontologies
 - Background reasoning operations
 - Asynchronous AI processing
@@ -223,24 +236,28 @@ The system provides the following major functions:
 ### 2.3 User Characteristics
 
 **Primary User Type: Ontology Engineers**
+
 - **Education Level:** Graduate degree in computer science, information science, or related field
 - **Technical Expertise:** High - familiar with semantic web technologies, logic, and knowledge representation
 - **Domain Knowledge:** Varies - experts in specific domains (healthcare, finance, etc.)
 - **Usage Frequency:** Daily - professional use for ontology development
 
 **Secondary User Type: Researchers**
+
 - **Education Level:** Graduate students or researchers
 - **Technical Expertise:** Medium - basic understanding of ontologies and semantic web
 - **Domain Knowledge:** High in specific research areas
 - **Usage Frequency:** Regular - for research projects and publications
 
 **Tertiary User Type: Knowledge Engineers**
+
 - **Education Level:** Undergraduate to graduate level
 - **Technical Expertise:** Medium - learning ontology development
 - **Domain Knowledge:** Developing
 - **Usage Frequency:** Learning phase - transitioning to regular use
 
 **User Needs:**
+
 - Intuitive interface with minimal learning curve
 - Fast performance with large ontologies
 - Reliable reasoning capabilities
@@ -250,40 +267,48 @@ The system provides the following major functions:
 ### 2.4 Constraints
 
 **Regulatory Constraints:**
+
 - Must comply with data privacy regulations (GDPR, CCPA) when handling user ontologies
 - Must adhere to W3C standards for OWL and RDF
 
 **Hardware Limitations:**
+
 - Performance dependent on client machine capabilities
 - Browser memory limits restrict maximum ontology size
 - Rendering performance varies by graphics hardware
 
 **Technology Constraints:**
+
 - Must run in modern web browsers (last 2 versions)
 - Dependent on browser support for File System Access API
 - WebAssembly required for client-side reasoning
 
 **Security Constraints:**
+
 - Cannot access server resources without proper authentication
 - Must sanitize user input to prevent injection attacks
 - Must secure API keys for LLM services
 
 **Interface Constraints:**
+
 - Must maintain compatibility with standard OWL formats
 - Must provide backward compatibility with Protege-generated ontologies
 
 **Development Constraints:**
+
 - Must use TypeScript for type safety
 - Must follow React best practices
 - Must maintain modular architecture for future extensions
 
 **Schedule Constraints:**
+
 - MVP delivery within 6 months
 - Phased feature rollout for complex capabilities
 
 ### 2.5 Assumptions and Dependencies
 
 **Assumptions:**
+
 1. Users have access to modern web browsers with JavaScript enabled
 2. Users have basic familiarity with ontology concepts
 3. Internet connectivity is available for AI features and server-side reasoning
@@ -293,6 +318,7 @@ The system provides the following major functions:
 **Dependencies:**
 
 **External Libraries:**
+
 - React 18+ for UI framework
 - TypeScript 5+ for development
 - Monaco Editor for code editing
@@ -306,17 +332,20 @@ The system provides the following major functions:
 - Vercel AI SDK for LLM integration
 
 **External Services:**
+
 - OpenAI API or Anthropic Claude API for AI assistance
 - Optional: Backend reasoning service (Spring Boot or FastAPI)
 - Optional: Cloud storage service for ontology persistence
 
 **Browser APIs:**
+
 - File System Access API (Chrome 86+, Edge 86+)
 - WebAssembly support
 - Local Storage API
 - IndexedDB for large ontology caching
 
 **Standards Compliance:**
+
 - W3C OWL 2 specification
 - W3C RDF 1.1 specification
 - Manchester OWL Syntax specification
@@ -330,6 +359,7 @@ The system provides the following major functions:
 #### 3.1.1 Ontology Management
 
 **FR-OM-001: Create New Ontology**
+
 - **Description:** The system shall allow users to create a new, empty ontology
 - **Priority:** High
 - **Inputs:** Ontology name, base IRI, optional metadata
@@ -338,6 +368,7 @@ The system provides the following major functions:
 - **Dependencies:** None
 
 **FR-OM-002: Import Ontology File**
+
 - **Description:** The system shall allow users to import ontology files from local storage
 - **Priority:** High
 - **Inputs:** File path, format specification (auto-detect or manual)
@@ -347,6 +378,7 @@ The system provides the following major functions:
 - **Supported Formats:** Turtle (.ttl), RDF/XML (.rdf, .owl), N-Triples (.nt)
 
 **FR-OM-003: Export Ontology File**
+
 - **Description:** The system shall allow users to export ontologies to local storage
 - **Priority:** High
 - **Inputs:** Target format, file location
@@ -355,6 +387,7 @@ The system provides the following major functions:
 - **Dependencies:** N3.js library, File System Access API
 
 **FR-OM-004: Save Ontology State**
+
 - **Description:** The system shall automatically save ontology editing state
 - **Priority:** Medium
 - **Inputs:** Current ontology state
@@ -363,6 +396,7 @@ The system provides the following major functions:
 - **Dependencies:** IndexedDB API
 
 **FR-OM-005: Manage Multiple Ontologies**
+
 - **Description:** The system shall allow users to work with multiple ontologies simultaneously
 - **Priority:** Medium
 - **Inputs:** Multiple ontology files
@@ -373,6 +407,7 @@ The system provides the following major functions:
 #### 3.1.2 Axiom Editor
 
 **FR-AE-001: Manchester Syntax Editing**
+
 - **Description:** The system shall provide a code editor supporting Manchester Syntax
 - **Priority:** High
 - **Inputs:** User text input
@@ -381,6 +416,7 @@ The system provides the following major functions:
 - **Dependencies:** Monaco Editor, Tree-sitter grammar
 
 **FR-AE-002: Syntax Highlighting**
+
 - **Description:** The system shall highlight Manchester Syntax keywords and structures
 - **Priority:** High
 - **Inputs:** Ontology axiom text
@@ -389,10 +425,11 @@ The system provides the following major functions:
 - **Keywords:** some, only, and, or, not, min, max, exactly, value, SubClassOf, EquivalentTo, DisjointWith
 
 **FR-AE-003: Intelligent Autocomplete**
+
 - **Description:** The system shall provide context-aware autocomplete suggestions
 - **Priority:** High
 - **Inputs:** Cursor position, partial text, ontology context
-- **Processing:** 
+- **Processing:**
   - Extract available classes, properties, and individuals from ontology
   - Filter based on partial input
   - Rank by relevance and usage frequency
@@ -401,6 +438,7 @@ The system provides the following major functions:
 - **Trigger:** User input or Ctrl+Space
 
 **FR-AE-004: Real-time Validation**
+
 - **Description:** The system shall validate axioms in real-time
 - **Priority:** High
 - **Inputs:** Axiom text
@@ -409,6 +447,7 @@ The system provides the following major functions:
 - **Dependencies:** Tree-sitter parser
 
 **FR-AE-005: Quick Fixes and Suggestions**
+
 - **Description:** The system shall offer quick fixes for common errors
 - **Priority:** Medium
 - **Inputs:** Error location and type
@@ -417,6 +456,7 @@ The system provides the following major functions:
 - **Examples:** Missing closing parenthesis, undefined entity reference
 
 **FR-AE-006: Entity Navigation**
+
 - **Description:** The system shall allow users to navigate to entity definitions
 - **Priority:** Medium
 - **Inputs:** Ctrl+Click or F12 on entity reference
@@ -427,10 +467,11 @@ The system provides the following major functions:
 #### 3.1.3 Visualization System
 
 **FR-VS-001: Hierarchical Graph Rendering**
+
 - **Description:** The system shall render ontology class hierarchies as interactive graphs
 - **Priority:** High
 - **Inputs:** Ontology class structure
-- **Processing:** 
+- **Processing:**
   - Convert classes to nodes
   - Convert subClassOf relationships to edges
   - Apply automatic layout algorithm
@@ -438,21 +479,23 @@ The system provides the following major functions:
 - **Dependencies:** React Flow, ELK.js
 
 **FR-VS-002: Automatic Layout**
+
 - **Description:** The system shall automatically arrange nodes for optimal readability
 - **Priority:** High
 - **Inputs:** Graph structure (nodes and edges)
 - **Processing:** Apply ELK layered layout algorithm
 - **Outputs:** Positioned nodes with minimal edge crossings
-- **Configuration:** 
+- **Configuration:**
   - Layout direction: TOP_DOWN (default), LEFT_RIGHT, BOTTOM_UP
   - Node spacing: configurable (default 80px)
   - Layer spacing: configurable
 
 **FR-VS-003: Incremental Loading**
+
 - **Description:** The system shall load large ontologies incrementally
 - **Priority:** High
 - **Inputs:** Ontology structure, viewport boundaries
-- **Processing:** 
+- **Processing:**
   - Load root nodes immediately
   - Load child nodes on expansion or viewport entry
   - Unload off-screen nodes when memory threshold reached
@@ -460,6 +503,7 @@ The system provides the following major functions:
 - **Performance Target:** < 100ms for viewport updates
 
 **FR-VS-004: Node Interaction**
+
 - **Description:** The system shall support interactive node operations
 - **Priority:** High
 - **Operations:**
@@ -470,6 +514,7 @@ The system provides the following major functions:
 - **Outputs:** Updated graph state and UI
 
 **FR-VS-005: Edge Visualization**
+
 - **Description:** The system shall display different edge types distinctly
 - **Priority:** Medium
 - **Edge Types:**
@@ -480,16 +525,18 @@ The system provides the following major functions:
 - **Outputs:** Color-coded, labeled edges
 
 **FR-VS-006: Search and Filter**
+
 - **Description:** The system shall allow users to search and filter the graph
 - **Priority:** Medium
 - **Inputs:** Search query, filter criteria
-- **Processing:** 
+- **Processing:**
   - Text search across class names and IRIs
   - Filter by namespace, property, or annotation
   - Highlight matching nodes
 - **Outputs:** Filtered/highlighted graph view
 
 **FR-VS-007: Zoom and Pan**
+
 - **Description:** The system shall support smooth zoom and pan operations
 - **Priority:** Medium
 - **Inputs:** Mouse wheel (zoom), mouse drag (pan), pinch gesture (zoom on touch)
@@ -498,6 +545,7 @@ The system provides the following major functions:
 - **Range:** 10% to 400% zoom level
 
 **FR-VS-008: Entity Color Coding**
+
 - **Description:** The system shall use consistent colors for entity types
 - **Priority:** Low
 - **Color Scheme:**
@@ -508,6 +556,7 @@ The system provides the following major functions:
 - **Outputs:** Visually distinct entity types
 
 **FR-VS-009: Export Visualization**
+
 - **Description:** The system shall allow users to export graph visualizations
 - **Priority:** Low
 - **Formats:** PNG, SVG, PDF
@@ -518,6 +567,7 @@ The system provides the following major functions:
 #### 3.1.4 Reasoning Engine
 
 **FR-RE-001: Client-Side Reasoning**
+
 - **Description:** The system shall perform reasoning operations in the browser
 - **Priority:** High
 - **Inputs:** Ontology axioms
@@ -527,10 +577,11 @@ The system provides the following major functions:
 - **Dependencies:** EYE-JS library
 
 **FR-RE-002: Server-Side Reasoning**
+
 - **Description:** The system shall support external reasoning services for complex operations
 - **Priority:** Medium
 - **Inputs:** Serialized ontology (Turtle or OWL/XML)
-- **Processing:** 
+- **Processing:**
   - Send ontology to reasoning service endpoint
   - Wait for response with inferred axioms
   - Merge results back into ontology state
@@ -539,16 +590,18 @@ The system provides the following major functions:
 - **Communication:** REST API with JSON/Turtle payload
 
 **FR-RE-003: Consistency Checking**
+
 - **Description:** The system shall check ontology consistency
 - **Priority:** High
 - **Inputs:** Complete ontology
-- **Processing:** 
+- **Processing:**
   - Run reasoner over all axioms
   - Detect contradictions and unsatisfiable classes
 - **Outputs:** Consistency status, list of problems
 - **Trigger:** Manual or automatic (on save)
 
 **FR-RE-004: Class Classification**
+
 - **Description:** The system shall compute the class hierarchy
 - **Priority:** High
 - **Inputs:** Class axioms
@@ -557,6 +610,7 @@ The system provides the following major functions:
 - **Visualization:** Dashed lines for inferred relationships
 
 **FR-RE-005: Instance Realization**
+
 - **Description:** The system shall infer types of individuals
 - **Priority:** Medium
 - **Inputs:** Individual assertions and class definitions
@@ -564,6 +618,7 @@ The system provides the following major functions:
 - **Outputs:** Complete individual types including inferred ones
 
 **FR-RE-006: Explanation Generation**
+
 - **Description:** The system shall explain reasoning results
 - **Priority:** Medium
 - **Inputs:** Inferred axiom
@@ -572,6 +627,7 @@ The system provides the following major functions:
 - **Format:** Dependency tree or step-by-step derivation
 
 **FR-RE-007: Reasoning Configuration**
+
 - **Description:** The system shall allow users to configure reasoning parameters
 - **Priority:** Low
 - **Parameters:** Reasoner selection, timeout limits, inference types
@@ -580,6 +636,7 @@ The system provides the following major functions:
 #### 3.1.5 AI Co-Pilot
 
 **FR-AI-001: Command Palette Interface**
+
 - **Description:** The system shall provide a command palette for AI interactions
 - **Priority:** High
 - **Inputs:** Keyboard shortcut (⌘/Ctrl+K)
@@ -588,6 +645,7 @@ The system provides the following major functions:
 - **Dependencies:** Shadcn Command component
 
 **FR-AI-002: Natural Language Ontology Generation**
+
 - **Description:** The system shall generate ontology structures from natural language descriptions
 - **Priority:** High
 - **Inputs:** Domain description (e.g., "Create an ontology for a smart home")
@@ -601,16 +659,18 @@ The system provides the following major functions:
   - "Create properties linking rooms to devices"
 
 **FR-AI-003: Class Hierarchy Suggestion**
+
 - **Description:** The system shall suggest class hierarchies for specific domains
 - **Priority:** High
 - **Inputs:** Domain name or description
-- **Processing:** 
+- **Processing:**
   - Query LLM for typical class structure
   - Present suggestions with confidence scores
 - **Outputs:** List of suggested classes with parent-child relationships
 - **User Action:** Accept all, select individual classes, or reject
 
 **FR-AI-004: Property Recommendation**
+
 - **Description:** The system shall recommend properties for selected classes
 - **Priority:** Medium
 - **Inputs:** Selected class
@@ -621,6 +681,7 @@ The system provides the following major functions:
 - **Example:** For "Person" class, suggest "hasAge", "hasName", "worksFor"
 
 **FR-AI-005: Axiom Generation**
+
 - **Description:** The system shall generate complex axioms from natural language
 - **Priority:** Medium
 - **Inputs:** Natural language constraint description
@@ -629,15 +690,17 @@ The system provides the following major functions:
 - **Example:** "A vegetarian pizza has no meat toppings" → "VegetarianPizza SubClassOf Pizza and (hasTopping only (not MeatTopping))"
 
 **FR-AI-006: Ontology Review and Suggestions**
+
 - **Description:** The system shall analyze ontologies and suggest improvements
 - **Priority:** Low
 - **Inputs:** Complete ontology
-- **Processing:** 
+- **Processing:**
   - Identify potential issues (missing properties, inconsistent naming)
   - Suggest design pattern improvements
 - **Outputs:** List of recommendations with explanations
 
 **FR-AI-007: API Key Management**
+
 - **Description:** The system shall securely manage LLM API keys
 - **Priority:** High
 - **Storage:** Browser local storage (encrypted)
@@ -647,27 +710,30 @@ The system provides the following major functions:
 #### 3.1.6 Class Tree Sidebar
 
 **FR-CT-001: Hierarchical Class Display**
+
 - **Description:** The system shall display classes in a collapsible tree structure
 - **Priority:** High
 - **Inputs:** Ontology class hierarchy
 - **Processing:** Render tree with expand/collapse controls
 - **Outputs:** Navigable class tree
-- **Features:** 
+- **Features:**
   - Root node: owl:Thing
   - Indentation indicates hierarchy level
   - Icons indicate expandable nodes
 
 **FR-CT-002: Class Selection**
+
 - **Description:** The system shall allow users to select classes from the tree
 - **Priority:** High
 - **Inputs:** Click on class name
 - **Processing:** Update application state with selected class
-- **Outputs:** 
+- **Outputs:**
   - Highlight selected class
   - Display class details in properties panel
   - Center class in graph view
 
 **FR-CT-003: Quick Class Creation**
+
 - **Description:** The system shall allow users to quickly add classes
 - **Priority:** Medium
 - **Inputs:** Right-click menu or keyboard shortcut
@@ -675,6 +741,7 @@ The system provides the following major functions:
 - **Outputs:** New class added as child of selected class
 
 **FR-CT-004: Class Search**
+
 - **Description:** The system shall provide search functionality in the class tree
 - **Priority:** Medium
 - **Inputs:** Search query
@@ -682,6 +749,7 @@ The system provides the following major functions:
 - **Outputs:** Filtered tree view with matches highlighted
 
 **FR-CT-005: Class Drag and Drop**
+
 - **Description:** The system shall allow users to reorganize classes via drag and drop
 - **Priority:** Low
 - **Inputs:** Drag class to new parent
@@ -693,38 +761,45 @@ The system provides the following major functions:
 #### 3.2.1 Performance Requirements
 
 **NFR-PERF-001: Editor Responsiveness**
+
 - **Requirement:** The axiom editor shall provide real-time feedback with < 50ms latency
 - **Measurement:** Time from keystroke to syntax highlighting update
 - **Priority:** High
 
 **NFR-PERF-002: Graph Rendering Performance**
+
 - **Requirement:** The visualization system shall render graphs with up to 1,000 nodes at ≥30 FPS
 - **Measurement:** Frames per second during pan and zoom operations
 - **Priority:** High
 
 **NFR-PERF-003: Incremental Loading Time**
+
 - **Requirement:** The system shall load additional graph nodes in < 100ms
 - **Measurement:** Time from expand action to node appearance
 - **Priority:** High
 
 **NFR-PERF-004: Reasoning Response Time**
+
 - **Requirement:** Client-side consistency checking shall complete in < 5 seconds for ontologies with 500 classes
 - **Measurement:** Time from reasoning start to result display
 - **Priority:** Medium
 - **Fallback:** Offer server-side reasoning for larger ontologies
 
 **NFR-PERF-005: File Import Speed**
+
 - **Requirement:** The system shall import ontology files at a rate of ≥ 1,000 axioms per second
 - **Measurement:** Total axioms / import time
 - **Priority:** Medium
 
 **NFR-PERF-006: AI Response Time**
+
 - **Requirement:** AI-generated suggestions shall return in < 10 seconds
 - **Measurement:** Time from request submission to result display
 - **Priority:** Medium
 - **Dependencies:** LLM API response time
 
 **NFR-PERF-007: Memory Efficiency**
+
 - **Requirement:** The system shall operate within 2GB browser memory for ontologies up to 10,000 axioms
 - **Measurement:** Peak memory usage during editing session
 - **Priority:** Medium
@@ -732,21 +807,25 @@ The system provides the following major functions:
 #### 3.2.2 Reliability Requirements
 
 **NFR-REL-001: Availability**
+
 - **Requirement:** The client application shall maintain 99.9% availability
 - **Measurement:** Uptime excluding browser crashes
 - **Priority:** High
 
 **NFR-REL-002: Data Integrity**
+
 - **Requirement:** The system shall prevent data loss during editing sessions
 - **Mechanism:** Auto-save every 30 seconds, crash recovery
 - **Priority:** Critical
 
 **NFR-REL-003: Error Recovery**
+
 - **Requirement:** The system shall recover gracefully from parsing errors
 - **Behavior:** Display error message, preserve valid data, allow correction
 - **Priority:** High
 
 **NFR-REL-004: State Consistency**
+
 - **Requirement:** The system shall maintain consistent state across all views
 - **Mechanism:** Centralized state management with Zustand
 - **Priority:** High
@@ -754,27 +833,32 @@ The system provides the following major functions:
 #### 3.2.3 Usability Requirements
 
 **NFR-USE-001: Learning Curve**
+
 - **Requirement:** New users with basic ontology knowledge shall create a simple ontology within 30 minutes
 - **Measurement:** User study timing
 - **Priority:** High
 - **Support:** Provide interactive tutorials and examples
 
 **NFR-USE-002: Accessibility**
+
 - **Requirement:** The system shall comply with WCAG 2.1 Level AA standards
 - **Features:** Keyboard navigation, screen reader support, color contrast
 - **Priority:** Medium
 
 **NFR-USE-003: Responsive Design**
+
 - **Requirement:** The interface shall adapt to screen sizes from 1280x720 to 3840x2160
 - **Behavior:** Resize panels, adjust font sizes, maintain usability
 - **Priority:** High
 
 **NFR-USE-004: Error Messages**
+
 - **Requirement:** Error messages shall be clear, specific, and actionable
 - **Format:** "[Location]: [Problem] - [Suggested Action]"
 - **Priority:** Medium
 
 **NFR-USE-005: Keyboard Shortcuts**
+
 - **Requirement:** The system shall provide keyboard shortcuts for common operations
 - **Coverage:** ≥ 80% of frequent actions accessible via keyboard
 - **Priority:** Medium
@@ -782,27 +866,32 @@ The system provides the following major functions:
 #### 3.2.4 Security Requirements
 
 **NFR-SEC-001: Input Validation**
+
 - **Requirement:** The system shall validate and sanitize all user inputs
 - **Mechanism:** Whitelist validation for IRIs, escape special characters
 - **Priority:** High
 - **Protection Against:** XSS, injection attacks
 
 **NFR-SEC-002: API Key Protection**
+
 - **Requirement:** LLM API keys shall be stored encrypted in browser storage
 - **Mechanism:** Browser Crypto API for encryption
 - **Priority:** High
 
 **NFR-SEC-003: Secure Communication**
+
 - **Requirement:** All external API calls shall use HTTPS/TLS 1.3+
 - **Scope:** LLM APIs, reasoning services
 - **Priority:** High
 
 **NFR-SEC-004: Content Security Policy**
+
 - **Requirement:** The application shall implement strict CSP headers
 - **Policy:** No inline scripts, whitelist external domains
 - **Priority:** Medium
 
 **NFR-SEC-005: Authentication (Future)**
+
 - **Requirement:** Server-side components shall require authentication
 - **Mechanism:** JWT tokens, OAuth 2.0
 - **Priority:** Low (planned for cloud version)
@@ -810,26 +899,31 @@ The system provides the following major functions:
 #### 3.2.5 Maintainability Requirements
 
 **NFR-MAIN-001: Code Quality**
+
 - **Requirement:** All TypeScript code shall have type coverage ≥ 95%
 - **Measurement:** TypeScript compiler strictness checks
 - **Priority:** High
 
 **NFR-MAIN-002: Modularity**
+
 - **Requirement:** The system shall be organized into independent, reusable modules
 - **Architecture:** Feature-based folder structure, clear interfaces
 - **Priority:** High
 
 **NFR-MAIN-003: Documentation**
+
 - **Requirement:** All public APIs and components shall have JSDoc documentation
 - **Coverage:** 100% of exported functions and components
 - **Priority:** Medium
 
 **NFR-MAIN-004: Testing**
+
 - **Requirement:** The system shall have ≥ 80% code coverage with automated tests
 - **Types:** Unit tests, integration tests, E2E tests
 - **Priority:** High
 
 **NFR-MAIN-005: Dependency Management**
+
 - **Requirement:** External dependencies shall be kept up-to-date and minimal
 - **Policy:** Review and update quarterly, audit for vulnerabilities
 - **Priority:** Medium
@@ -837,17 +931,20 @@ The system provides the following major functions:
 #### 3.2.6 Portability Requirements
 
 **NFR-PORT-001: Browser Compatibility**
+
 - **Requirement:** The system shall support the last 2 versions of major browsers
 - **Browsers:** Chrome, Firefox, Safari, Edge
 - **Testing:** Automated cross-browser testing
 - **Priority:** High
 
 **NFR-PORT-002: Operating System Independence**
+
 - **Requirement:** The system shall function identically across operating systems
 - **OS:** Windows, macOS, Linux
 - **Priority:** High
 
 **NFR-PORT-003: Format Interoperability**
+
 - **Requirement:** The system shall import/export standard OWL formats without data loss
 - **Validation:** Round-trip testing with reference ontologies
 - **Priority:** High
@@ -857,6 +954,7 @@ The system provides the following major functions:
 #### 3.3.1 User Interface Requirements
 
 **UIR-001: Main Window Layout**
+
 - **Description:** The main window shall consist of:
   - Top: Menu bar and toolbar
   - Left: Class tree sidebar (collapsible, 250-400px)
@@ -867,24 +965,28 @@ The system provides the following major functions:
 - **Persistence:** Layout preferences saved to local storage
 
 **UIR-002: Theme Support**
+
 - **Description:** The system shall provide light and dark themes
 - **Switching:** Theme toggle in settings, respects OS preference
 - **Coverage:** All UI components themed consistently
 
 **UIR-003: Command Palette**
+
 - **Description:** A searchable command palette accessible via ⌘/Ctrl+K
-- **Features:** 
+- **Features:**
   - Fuzzy search across all commands
   - Recent commands history
   - AI co-pilot integration
 - **Position:** Centered overlay
 
 **UIR-004: Context Menus**
+
 - **Description:** Right-click shall display context-appropriate menus
 - **Locations:** Graph nodes, tree items, editor
 - **Contents:** Relevant actions based on selected entity type
 
 **UIR-005: Modal Dialogs**
+
 - **Description:** Modal dialogs for confirming destructive actions
 - **Style:** Centered, semi-transparent backdrop, escape to close
 - **Accessibility:** Trap focus within modal
@@ -892,16 +994,19 @@ The system provides the following major functions:
 #### 3.3.2 Hardware Interface Requirements
 
 **HIR-001: Display Requirements**
+
 - **Minimum Resolution:** 1280x720
 - **Recommended Resolution:** 1920x1080 or higher
 - **Color Depth:** 24-bit (16.7 million colors)
 
 **HIR-002: Input Devices**
+
 - **Keyboard:** Standard 101-key or equivalent
 - **Mouse/Trackpad:** Two-button with scroll wheel
 - **Touch Support:** Optional for touch-enabled displays
 
 **HIR-003: Graphics Acceleration**
+
 - **Requirement:** Hardware acceleration for WebGL rendering
 - **Fallback:** Software rendering for non-accelerated systems
 - **Performance Impact:** Graph rendering may be slower without acceleration
@@ -909,6 +1014,7 @@ The system provides the following major functions:
 #### 3.3.3 Software Interface Requirements
 
 **SIR-001: Browser Requirements**
+
 - **Minimum Versions:**
   - Chrome/Edge: 86+
   - Firefox: 82+
@@ -916,26 +1022,31 @@ The system provides the following major functions:
 - **Required Features:** ES2020, WebAssembly, File System Access API
 
 **SIR-002: Monaco Editor Integration**
+
 - **Version:** 0.45.0 or later
 - **Configuration:** Custom language definition for OWL Manchester Syntax
 - **API Usage:** Language services, completion providers, diagnostics
 
 **SIR-003: React Flow Integration**
+
 - **Version:** @xyflow/react 12.0.0 or later
 - **Configuration:** Custom node types, edge types, layout plugin
 - **API Usage:** Node positioning, event handling, viewport controls
 
 **SIR-004: ELK.js Integration**
+
 - **Version:** 0.9.0 or later
 - **Algorithm:** Layered layout algorithm
 - **Configuration:** Direction, spacing, port constraints
 
 **SIR-005: N3.js Integration**
+
 - **Version:** 1.17.0 or later
 - **Usage:** Parsing and serialization of Turtle, N-Triples, RDF/XML
 - **API:** Parser, Writer, Store interfaces
 
 **SIR-006: LLM API Integration**
+
 - **Providers:** OpenAI GPT-4, Anthropic Claude
 - **SDK:** Vercel AI SDK 3.0 or later
 - **Protocol:** HTTPS REST API
@@ -943,6 +1054,7 @@ The system provides the following major functions:
 - **Rate Limiting:** Respect provider limits (e.g., 10 requests/minute)
 
 **SIR-007: Reasoning Service API (Optional)**
+
 - **Protocol:** REST over HTTPS
 - **Request Format:** JSON with base64-encoded Turtle
 - **Response Format:** JSON with inferred axioms array
@@ -954,25 +1066,29 @@ The system provides the following major functions:
 #### 3.3.4 Communication Interface Requirements
 
 **CIR-001: HTTP/HTTPS Protocol**
+
 - **Usage:** All external service communication
 - **Version:** HTTP/2 or HTTP/3
 - **Security:** TLS 1.3 minimum
 
 **CIR-002: File System Communication**
+
 - **API:** File System Access API
 - **Permissions:** User-granted per-file access
 - **Operations:** Read, write, watch for changes
 
 **CIR-003: IndexedDB Communication**
+
 - **Usage:** Local ontology caching and state persistence
 - **Database Name:** "ontology-editor-db"
 - **Stores:** "ontologies", "preferences", "history"
 
 ### 3.4 Performance Requirements
 
-*(See Section 3.2.1 for detailed performance requirements)*
+_(See Section 3.2.1 for detailed performance requirements)_
 
 **Summary:**
+
 - Editor latency: < 50ms
 - Graph rendering: ≥30 FPS for 1,000 nodes
 - Incremental loading: < 100ms
@@ -984,6 +1100,7 @@ The system provides the following major functions:
 ### 3.5 Design Constraints
 
 **DC-001: Technology Stack**
+
 - **Frontend Framework:** React 18+
 - **Language:** TypeScript 5+
 - **Build Tool:** Next.js 14+ or Vite
@@ -992,22 +1109,26 @@ The system provides the following major functions:
 - **Justification:** Modern, type-safe, performant, maintainable
 
 **DC-002: Standards Compliance**
+
 - **OWL Specification:** W3C OWL 2
 - **RDF Specification:** W3C RDF 1.1
 - **Manchester Syntax:** W3C OWL 2 Manchester Syntax
 - **Justification:** Interoperability with existing tools and ontologies
 
 **DC-003: Architecture Pattern**
+
 - **Pattern:** Component-based architecture with unidirectional data flow
 - **State Management:** Centralized store with immutable updates
 - **Justification:** Predictable state management, easier testing
 
 **DC-004: Browser-Based Deployment**
+
 - **Constraint:** Application must run entirely in web browser
 - **Implication:** Limited to browser capabilities and APIs
 - **Justification:** Cross-platform compatibility, no installation required
 
 **DC-005: Open Source Dependencies**
+
 - **Constraint:** Prefer MIT or Apache 2.0 licensed libraries
 - **Justification:** Licensing compatibility, community support
 
@@ -1031,6 +1152,7 @@ The axiom editor provides a sophisticated code editing experience specifically t
 #### 4.1.3 Implementation Details
 
 **Component Structure:**
+
 ```
 components/
   AxiomEditor/
@@ -1042,11 +1164,13 @@ components/
 ```
 
 **Key Technologies:**
+
 - Monaco Editor for core editing functionality
 - Tree-sitter grammar for syntax parsing
 - Custom completion provider for ontology-aware suggestions
 
 **Configuration:**
+
 ```typescript
 {
   language: 'owl-ms',
@@ -1066,6 +1190,7 @@ components/
 #### 4.1.4 User Scenarios
 
 **Scenario 1: Defining a Complex Class**
+
 1. User opens axiom editor for "Pizza" class
 2. User types "Pizza SubClassOf"
 3. System suggests "Food", "EdibleEntity" from ontology
@@ -1076,6 +1201,7 @@ components/
 8. User saves axiom
 
 **Scenario 2: Correcting a Syntax Error**
+
 1. User types "Pizza SubClassOf and (hasTopping some Cheese)"
 2. System detects missing operand before "and"
 3. Red squiggle appears under "and"
@@ -1100,6 +1226,7 @@ The visualization system renders ontology structures as interactive, hierarchica
 #### 4.2.3 Implementation Details
 
 **Component Structure:**
+
 ```
 components/
   OntologyGraph/
@@ -1112,17 +1239,20 @@ components/
 ```
 
 **Node Types:**
+
 - ClassNode: Displays class name, icon, subclass count
 - PropertyNode: Displays property name, domain, range
 - IndividualNode: Displays individual name, types
 
 **Edge Types:**
+
 - SubClassOfEdge: Solid arrow, hierarchical
 - ObjectPropertyEdge: Dashed arrow with label
 - DataPropertyEdge: Dotted arrow with label
 - EquivalentClassEdge: Double-headed arrow
 
 **Layout Configuration:**
+
 ```typescript
 {
   'elk.algorithm': 'layered',
@@ -1136,6 +1266,7 @@ components/
 #### 4.2.4 User Scenarios
 
 **Scenario 1: Exploring a Large Ontology**
+
 1. User imports ontology with 2,000 classes
 2. System loads root nodes (owl:Thing and direct children)
 3. User double-clicks "Animal" node
@@ -1146,6 +1277,7 @@ components/
 8. System adjusts label sizes for readability
 
 **Scenario 2: Finding a Specific Class**
+
 1. User opens search (Ctrl+F)
 2. User types "cardiac"
 3. System highlights "CardiacMuscle" node
@@ -1169,6 +1301,7 @@ The AI co-pilot leverages Large Language Models to assist users in ontology deve
 #### 4.3.3 Implementation Details
 
 **Component Structure:**
+
 ```
 components/
   AIAssistant/
@@ -1181,7 +1314,8 @@ components/
 
 **Prompt Templates:**
 
-*Generate Class Hierarchy:*
+_Generate Class Hierarchy:_
+
 ```
 You are an ontology engineering assistant. Generate a class hierarchy for {domain}.
 
@@ -1199,7 +1333,8 @@ Format your response as JSON:
 }
 ```
 
-*Recommend Properties:*
+_Recommend Properties:_
+
 ```
 Given the class "{className}" in a {domain} ontology, suggest appropriate:
 1. Object properties (relationships to other entities)
@@ -1217,6 +1352,7 @@ Format as JSON array.
 #### 4.3.4 User Scenarios
 
 **Scenario 1: Generating a Smart Home Ontology**
+
 1. User presses ⌘+K to open command palette
 2. User types "Generate smart home ontology"
 3. System sends prompt to LLM API
@@ -1228,6 +1364,7 @@ Format as JSON array.
 9. User refines generated structure as needed
 
 **Scenario 2: Adding Properties to a Class**
+
 1. User selects "Sensor" class in tree
 2. User right-clicks and selects "AI: Suggest Properties"
 3. System prompts AI for Sensor properties
@@ -1252,6 +1389,7 @@ The reasoning engine performs logical inference over ontology axioms to derive n
 #### 4.4.3 Implementation Details
 
 **Component Structure:**
+
 ```
 services/
   reasoning/
@@ -1263,6 +1401,7 @@ services/
 ```
 
 **Reasoning Pipeline:**
+
 1. Serialize ontology to Turtle format
 2. Send to reasoner (client or server)
 3. Receive inferred axioms
@@ -1272,6 +1411,7 @@ services/
 7. Generate explanations on demand
 
 **Client-Side Configuration:**
+
 ```typescript
 {
   reasoner: 'eye-js',
@@ -1282,6 +1422,7 @@ services/
 ```
 
 **Server-Side API Contract:**
+
 ```json
 Request:
 POST /api/reason
@@ -1311,6 +1452,7 @@ Response:
 #### 4.4.4 User Scenarios
 
 **Scenario 1: Checking Ontology Consistency**
+
 1. User completes ontology edits
 2. User clicks "Check Consistency" button
 3. System serializes ontology
@@ -1322,6 +1464,7 @@ Response:
 9. User corrects axiom
 
 **Scenario 2: Discovering Inferred Relationships**
+
 1. User defines:
    - "Mammal SubClassOf Animal"
    - "Dog SubClassOf Mammal"
@@ -1389,26 +1532,27 @@ Response:
 
 ### Appendix B: Technology Stack Summary
 
-| Component | Technology | Version | Purpose |
-|-----------|-----------|---------|---------|
-| **Framework** | React | 18+ | UI component library |
-| **Language** | TypeScript | 5+ | Type-safe development |
-| **Build Tool** | Next.js / Vite | 14+ / 5+ | Build and dev server |
-| **State Management** | Zustand | 4+ | Application state |
-| **Immutability** | Immer | 10+ | Immutable updates |
-| **Styling** | Tailwind CSS | 3+ | Utility-first CSS |
-| **Icons** | Lucide React | Latest | Icon library |
-| **Code Editor** | Monaco Editor | 0.45+ | Axiom editing |
-| **Graph Visualization** | React Flow | 12+ | Ontology graphs |
-| **Graph Layout** | ELK.js | 0.9+ | Auto-layout |
-| **RDF Parsing** | N3.js | 1.17+ | Ontology I/O |
-| **Reasoning (Client)** | EYE-JS | Latest | WASM reasoner |
-| **AI Integration** | Vercel AI SDK | 3+ | LLM interactions |
-| **UI Components** | Shadcn/ui | Latest | Accessible components |
+| Component               | Technology     | Version  | Purpose               |
+| ----------------------- | -------------- | -------- | --------------------- |
+| **Framework**           | React          | 18+      | UI component library  |
+| **Language**            | TypeScript     | 5+       | Type-safe development |
+| **Build Tool**          | Next.js / Vite | 14+ / 5+ | Build and dev server  |
+| **State Management**    | Zustand        | 4+       | Application state     |
+| **Immutability**        | Immer          | 10+      | Immutable updates     |
+| **Styling**             | Tailwind CSS   | 3+       | Utility-first CSS     |
+| **Icons**               | Lucide React   | Latest   | Icon library          |
+| **Code Editor**         | Monaco Editor  | 0.45+    | Axiom editing         |
+| **Graph Visualization** | React Flow     | 12+      | Ontology graphs       |
+| **Graph Layout**        | ELK.js         | 0.9+     | Auto-layout           |
+| **RDF Parsing**         | N3.js          | 1.17+    | Ontology I/O          |
+| **Reasoning (Client)**  | EYE-JS         | Latest   | WASM reasoner         |
+| **AI Integration**      | Vercel AI SDK  | 3+       | LLM interactions      |
+| **UI Components**       | Shadcn/ui      | Latest   | Accessible components |
 
 ### Appendix C: Manchester Syntax Quick Reference
 
 **Class Expressions:**
+
 ```
 ClassName                    # Atomic class
 Thing, Nothing              # Top and bottom classes
@@ -1418,6 +1562,7 @@ not C                       # Complement
 ```
 
 **Property Restrictions:**
+
 ```
 P some C                    # Existential (∃P.C)
 P only C                    # Universal (∀P.C)
@@ -1429,18 +1574,19 @@ P exactly n C               # Exact cardinality
 ```
 
 **Axiom Patterns:**
+
 ```
 Class: C
   SubClassOf: D
   EquivalentTo: E
   DisjointWith: F
-  
+
 ObjectProperty: P
   Domain: C
   Range: D
   SubPropertyOf: Q
   Characteristics: Functional, Transitive
-  
+
 Individual: i
   Types: C, D
   Facts: P value j, Q value "literal"
@@ -1455,6 +1601,7 @@ Individual: i
 **Goal:** Create an ontology representing cardiovascular diseases and treatments
 
 **Steps:**
+
 1. User creates new ontology "Cardio-Ontology"
 2. User uses AI assistant to generate disease hierarchy
 3. AI creates: CardiovascularDisease, HeartDisease, VascularDisease, ArterialDisease
@@ -1471,6 +1618,7 @@ Individual: i
 **Goal:** Add new classes to the Pizza ontology
 
 **Steps:**
+
 1. User imports pizza.owl file
 2. System displays class hierarchy with Pizza, Topping, Base
 3. User selects "Pizza" in tree
@@ -1490,6 +1638,7 @@ Individual: i
 **Goal:** Identify and fix logical errors
 
 **Steps:**
+
 1. User imports ontology with 500 classes
 2. User runs consistency check
 3. Reasoner reports: "Inconsistency: VegetarianPizza is unsatisfiable"
@@ -1509,41 +1658,48 @@ Individual: i
 ### Appendix E: Future Enhancements (Out of Scope for v1.0)
 
 **Collaborative Editing:**
+
 - Real-time multi-user editing
 - Conflict resolution for concurrent edits
 - User presence indicators
 - Comment threads on entities
 
 **Version Control:**
+
 - Git-like version history for ontologies
 - Branch and merge support
 - Diff visualization for ontology changes
 - Rollback to previous versions
 
 **Advanced Visualization:**
+
 - 3D graph visualization
 - Force-directed layout option
 - Heatmap overlay for entity usage
 - Animation of reasoning steps
 
 **Import/Export:**
+
 - Support for SPARQL endpoints
 - Import from databases and APIs
 - Export to visualizations (Graphviz, Mermaid)
 - Integration with ontology repositories (BioPortal, OntoHub)
 
 **Enhanced AI Features:**
+
 - Ontology alignment and merging
 - Automated refactoring suggestions
 - Pattern mining from large ontologies
 - Natural language querying over ontology
 
 **Mobile Support:**
+
 - Native mobile applications (iOS, Android)
 - Touch-optimized interfaces
 - Offline editing capabilities
 
 **Enterprise Features:**
+
 - User authentication and authorization
 - Team workspaces
 - Audit logs
@@ -1579,30 +1735,33 @@ Individual: i
 
 ### Appendix G: Risk Assessment
 
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| Browser API unavailability | Low | High | Provide fallback mechanisms, clear error messages |
-| LLM API rate limiting | Medium | Medium | Implement request queuing, user API key support |
-| Performance issues with large ontologies | Medium | High | Incremental loading, server-side reasoning fallback |
-| Tree-sitter grammar limitations | Low | Medium | Maintain custom grammar, contribute upstream |
-| WebAssembly reasoner incompleteness | Medium | Medium | Hybrid client/server approach |
-| Dependency vulnerabilities | Medium | Medium | Automated dependency scanning, regular updates |
-| Browser memory limitations | High | High | Aggressive memory management, ontology chunking |
-| User learning curve | Medium | Medium | Interactive tutorials, comprehensive documentation |
+| Risk                                     | Probability | Impact | Mitigation                                          |
+| ---------------------------------------- | ----------- | ------ | --------------------------------------------------- |
+| Browser API unavailability               | Low         | High   | Provide fallback mechanisms, clear error messages   |
+| LLM API rate limiting                    | Medium      | Medium | Implement request queuing, user API key support     |
+| Performance issues with large ontologies | Medium      | High   | Incremental loading, server-side reasoning fallback |
+| Tree-sitter grammar limitations          | Low         | Medium | Maintain custom grammar, contribute upstream        |
+| WebAssembly reasoner incompleteness      | Medium      | Medium | Hybrid client/server approach                       |
+| Dependency vulnerabilities               | Medium      | Medium | Automated dependency scanning, regular updates      |
+| Browser memory limitations               | High        | High   | Aggressive memory management, ontology chunking     |
+| User learning curve                      | Medium      | Medium | Interactive tutorials, comprehensive documentation  |
 
 ### Appendix H: References and Resources
 
 **Standards:**
+
 - W3C OWL 2 Web Ontology Language: https://www.w3.org/TR/owl2-overview/
 - W3C RDF 1.1: https://www.w3.org/TR/rdf11-concepts/
 - Manchester OWL Syntax: https://www.w3.org/TR/owl2-manchester-syntax/
 
 **Research Papers:**
+
 - Adorjan, A. (2023). Towards a Researcher-in-the-loop Driven Curation Approach for Quantitative and Qualitative Research Methods
 - Johnson, R. B., & Onwuegbuzie, A. J. (2004). Mixed Methods Research: A Research Paradigm Whose Time Has Come
 - Creswell, J. W., & Plano Clark, V. L. (2017). Designing and Conducting Mixed Methods Research
 
 **External Tools Referenced:**
+
 - Protege Desktop: https://protege.stanford.edu/
 - Elicit: https://elicit.com/
 - Research Rabbit: https://app.researchrabbit.ai/
@@ -1611,6 +1770,7 @@ Individual: i
 - Consensus App: https://consensus.app/
 
 **Technical Documentation:**
+
 - React: https://react.dev/
 - TypeScript: https://www.typescriptlang.org/
 - Monaco Editor: https://microsoft.github.io/monaco-editor/
@@ -1623,21 +1783,21 @@ Individual: i
 
 **Document Approval:**
 
-| Role | Name | Signature | Date |
-|------|------|-----------|------|
-| Product Owner | [Name] | __________ | ________ |
-| Lead Developer | [Name] | __________ | ________ |
-| QA Manager | [Name] | __________ | ________ |
-| Project Manager | [Name] | __________ | ________ |
+| Role            | Name   | Signature    | Date         |
+| --------------- | ------ | ------------ | ------------ |
+| Product Owner   | [Name] | ****\_\_**** | **\_\_\_\_** |
+| Lead Developer  | [Name] | ****\_\_**** | **\_\_\_\_** |
+| QA Manager      | [Name] | ****\_\_**** | **\_\_\_\_** |
+| Project Manager | [Name] | ****\_\_**** | **\_\_\_\_** |
 
 ---
 
 **Revision History:**
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | 2025-12-29 | [Author] | Initial release |
+| Version | Date       | Author   | Changes         |
+| ------- | ---------- | -------- | --------------- |
+| 1.0     | 2025-12-29 | [Author] | Initial release |
 
 ---
 
-*End of Software Requirements Specification*
+_End of Software Requirements Specification_

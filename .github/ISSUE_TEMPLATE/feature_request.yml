@@ -1,0 +1,128 @@
+name: "✨ Feature Request"
+description: Suggest a new feature for ProtegeDesk
+title: "[FEATURE] "
+labels: ["type: feature", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature for ProtegeDesk!
+        Please fill out the sections below to help us understand your request.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A clear and concise description of the feature you'd like to see.
+      placeholder: Describe the feature...
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: Describe who would benefit and why.
+      placeholder: |
+        As a **[type of user]**, 
+        I want **[goal]** 
+        so that **[benefit]**.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What needs to be true for this feature to be considered complete?
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-requirements
+    attributes:
+      label: Technical Requirements
+      description: Any technical implementation details or constraints.
+      placeholder: Technical notes, API changes, dependencies...
+    validations:
+      required: false
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Design Mockups
+      description: Attach any mockups, wireframes, or screenshots that illustrate the feature.
+      placeholder: Drag and drop images here or provide links...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of the application does this affect?
+      options:
+        - UI/Layout
+        - Axiom Editor
+        - Graph Visualization
+        - Reasoner
+        - AI Co-pilot
+        - Parser/Serializer
+        - State Management
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Suggested Priority
+      description: How important is this feature?
+      options:
+        - Critical - Blocking release
+        - High - Important for next milestone
+        - Medium - Nice to have soon
+        - Low - Can wait
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated Effort
+      description: How much work do you think this would take?
+      options:
+        - XS (1-2 hours)
+        - S (Half day)
+        - M (1-2 days)
+        - L (3-5 days)
+        - XL (1 week+)
+        - Unknown
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Are there any other issues that need to be resolved first?
+      placeholder: |
+        - Depends on #XX
+        - Blocked by #YY
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues to ensure this feature hasn't been requested.
+          required: true
+        - label: I would be willing to help implement this feature.
+          required: false
+

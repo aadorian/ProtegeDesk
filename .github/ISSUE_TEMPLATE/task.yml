@@ -1,0 +1,99 @@
+name: "📋 Task"
+description: A development task or technical improvement
+title: "[TASK] "
+labels: ["type: enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for development tasks, technical improvements, or internal work items.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A clear description of what needs to be done.
+      placeholder: What is the task?
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: Break down the work into smaller tasks.
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: What must be true for this task to be considered complete?
+      value: |
+        - [ ] Code complete and compiles
+        - [ ] Tests written and passing
+        - [ ] Documentation updated
+        - [ ] Code reviewed and approved
+        - [ ] No linting errors
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical Notes
+      description: Implementation details, architecture decisions, or technical constraints.
+      placeholder: Technical notes...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of the application does this affect?
+      options:
+        - UI/Layout
+        - Axiom Editor
+        - Graph Visualization
+        - Reasoner
+        - AI Co-pilot
+        - Parser/Serializer
+        - State Management
+        - Testing
+        - Infrastructure
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: Estimated Effort
+      description: How much work do you think this would take?
+      options:
+        - XS (1-2 hours)
+        - S (Half day)
+        - M (1-2 days)
+        - L (3-5 days)
+        - XL (1 week+)
+    validations:
+      required: true
+
+  - type: textarea
+    id: related
+    attributes:
+      label: Related Issues
+      description: Link to any related issues or PRs.
+      placeholder: |
+        - Related to #XX
+        - Closes #YY
+    validations:
+      required: false
+

@@ -1,31 +1,241 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { useOntology } from "@/lib/ontology/context"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import React, { useCallback, useMemo, useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useOntology } from '@/lib/ontology/context'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Button } from '@/components/ui/button'
+import {
+  Item,
+  ItemGroup,
+  ItemMedia,
+  ItemContent,
+  ItemTitle,
+  ItemDescription,
+  ItemActions,
+} from '@/components/ui/item'
+import { Copy, ChevronRight, Home, Plus } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
+import { cn } from '@/lib/utils'
+import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
+import { Badge } from '../ui/badge'
 
-export function ClassDetails() {
-  const { selectedClass, ontology } = useOntology()
+interface ClassElementItemProps {
+  id: string
+  label: string
+  description?: string
+  isSelected?: boolean
+  variant?: 'class' | 'restriction' | 'axiom'
+  onClick?: () => void
+  onDoubleClick?: () => void
+}
+
+const ClassElementItem: React.FC<ClassElementItemProps> = React.memo(
+  ({ id, label, description, isSelected, variant = 'class', onClick, onDoubleClick }) => {
+    const indicatorColor = useMemo(() => {
+      switch (variant) {
+        case 'restriction':
+          return 'bg-amber-500'
+        case 'axiom':
+          return 'bg-purple-500'
+        default:
+          return 'bg-amber-400'
+      }
+    }, [variant])
+
+    return (
+      <Item
+        variant="ghost"
+        size="xs"
+        selected={isSelected}
+        className={cn(
+          'cursor-pointer rounded-sm',
+          isSelected ? 'bg-primary text-primary-foreground' : 'hover:bg-muted/80'
+        )}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+        role="option"
+        aria-selected={isSelected}
+        tabIndex={0}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onClick?.()
+          }
+        }}
+      >
+        <ItemMedia variant="indicator" className={indicatorColor} />
+        <ItemContent>
+          <ItemTitle className={cn('font-mono text-sm', isSelected && 'text-primary-foreground')}>
+            {label}
+          </ItemTitle>
+          {description && (
+            <ItemDescription className={cn(isSelected && 'text-primary-foreground/80')}>
+              {description}
+            </ItemDescription>
+          )}
+        </ItemContent>
+      </Item>
+    )
+  }
+)
+ClassElementItem.displayName = 'ClassElementItem'
+
+interface SectionHeaderProps {
+  title: string
+  onAdd?: () => void
+  count?: number
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = React.memo(({ title, onAdd, count }) => (
+  <div className="flex items-center justify-between py-2">
+    <span className="text-muted-foreground text-sm font-medium">
+      {title}
+      {count !== undefined && count > 0 && <span className="ml-1 text-xs">({count})</span>}
+    </span>
+    {onAdd && (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="text-muted-foreground hover:text-foreground h-6 w-6"
+        onClick={onAdd}
+        aria-label={`Add ${title}`}
+      >
+        <Plus className="h-4 w-4" />
+      </Button>
+    )}
+  </div>
+))
+SectionHeader.displayName = 'SectionHeader'
+
+interface ClassDetailsProps {
+  isModalView?: boolean
+}
+export function ClassDetails({ isModalView }: ClassDetailsProps) {
+  const { selectedClass, ontology, selectClass } = useOntology()
+  const { toast } = useToast()
+  const [selectedElement, setSelectedElement] = useState<string | null>(null)
+  const { copy, copied } = useCopyToClipboard('')
+
+  const handleElementClick = useCallback((elementId: string) => {
+    setSelectedElement(prev => (prev === elementId ? null : elementId))
+  }, [])
+
+  const handleElementDoubleClick = useCallback(
+    (classId: string) => {
+      if (ontology?.classes.has(classId)) {
+        selectClass(classId)
+      }
+    },
+    [ontology, selectClass]
+  )
+
+  const breadcrumbs = useMemo(() => {
+    if (!selectedClass || !ontology) {
+      return []
+    }
+
+    const path: { id: string; label: string }[] = []
+    let currentId = selectedClass.id
+    const visited = new Set<string>()
+
+    while (currentId && currentId !== 'owl:Thing' && !visited.has(currentId)) {
+      visited.add(currentId)
+      const cls = ontology.classes.get(currentId)
+      if (cls) {
+        path.unshift({ id: cls.id, label: cls.label || cls.name })
+        currentId = cls.superClasses[0]
+      } else {
+        break
+      }
+    }
+
+    path.unshift({ id: 'owl:Thing', label: 'owl:Thing' })
+    return path
+  }, [selectedClass, ontology])
+
+  const subclasses = useMemo(
+    () =>
+      Array.from(ontology?.classes.values() || []).filter(ontologyClass =>
+        ontologyClass.superClasses.includes(selectedClass?.id || '')
+      ),
+    [ontology, selectedClass?.id]
+  )
+
+  const instances = useMemo(
+    () =>
+      Array.from(ontology?.individuals.values() || []).filter(individual =>
+        individual.types.includes(selectedClass?.id || '')
+      ),
+    [ontology, selectedClass?.id]
+  )
 
   if (!selectedClass) {
     return (
-      <div className="flex items-center justify-center h-full text-muted-foreground text-sm">
+      <div className="text-muted-foreground flex h-full items-center justify-center text-sm">
         Select a class to view details
       </div>
     )
   }
 
-  const subclasses = Array.from(ontology?.classes.values() || []).filter((c) =>
-    c.superClasses.includes(selectedClass.id),
-  )
+  if (isModalView) {
+    // Lightweight modal view with selected details
+    return (
+      <ScrollArea className="h-full p-4">
+        {/* Basic Class Info */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Class Info</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 text-sm">
+            <div>
+              <b>Name:</b> {selectedClass.name}
+            </div>
+            <div>
+              <b>Label:</b> {selectedClass.label || '-'}
+            </div>
+            <div>
+              <b>Description:</b> {selectedClass.description || '-'}
+            </div>
+            <div>
+              <b>Superclasses:</b>{' '}
+              {selectedClass.superClasses.length > 0 ? selectedClass.superClasses.join(', ') : '-'}
+            </div>
+            <div>
+              <b>Instance Count:</b> {instances.length}
+            </div>
+          </CardContent>
+        </Card>
+      </ScrollArea>
+    )
+  }
 
   return (
     <ScrollArea className="h-full">
-      <div className="p-4 space-y-4">
+      <div className="space-y-4 p-4">
+        {/* Breadcrumbs */}
+        <div className="text-muted-foreground bg-muted/30 border-border/50 flex flex-wrap items-center gap-1 rounded-md border p-2 text-xs">
+          <Home className="mr-1 h-3 w-3" />
+          {breadcrumbs.map((crumb, index) => (
+            <div key={crumb.id} className="flex items-center">
+              {index > 0 && <ChevronRight className="mx-0.5 h-3 w-3" />}
+              <button
+                onClick={() => crumb.id !== 'owl:Thing' && selectClass(crumb.id)}
+                className={cn(
+                  'hover:text-primary decoration-primary/30 underline-offset-2 transition-colors hover:underline',
+                  crumb.id === selectedClass.id && 'text-foreground font-semibold',
+                  crumb.id === 'owl:Thing' && 'cursor-default hover:no-underline'
+                )}
+              >
+                {crumb.label}
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Class Information */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Class Information</CardTitle>
@@ -35,7 +245,36 @@ export function ClassDetails() {
               <Label htmlFor="class-id" className="text-xs">
                 ID
               </Label>
-              <Input id="class-id" value={selectedClass.id} readOnly className="font-mono text-xs" />
+              <div className="flex items-center gap-2">
+                <Input
+                  id="class-id"
+                  value={selectedClass.id}
+                  readOnly
+                  className="flex-1 font-mono text-xs"
+                />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8 shrink-0"
+                  onClick={async () => {
+                    const success = await copy(selectedClass.id)
+
+                    if (success) {
+                      toast({
+                        title: 'Copied',
+                        description: 'The entity IRI has been copied',
+                      })
+                    } else {
+                      toast({
+                        title: 'Copy failed',
+                        variant: 'destructive',
+                      })
+                    }
+                  }}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="class-name" className="text-xs">
@@ -47,7 +286,12 @@ export function ClassDetails() {
               <Label htmlFor="class-label" className="text-xs">
                 Label
               </Label>
-              <Input id="class-label" value={selectedClass.label || ""} readOnly className="text-xs" />
+              <Input
+                id="class-label"
+                value={selectedClass.label || ''}
+                readOnly
+                className="text-xs"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="class-description" className="text-xs">
@@ -55,7 +299,7 @@ export function ClassDetails() {
               </Label>
               <Textarea
                 id="class-description"
-                value={selectedClass.description || ""}
+                value={selectedClass.description || ''}
                 readOnly
                 rows={3}
                 className="text-xs"
@@ -64,95 +308,220 @@ export function ClassDetails() {
           </CardContent>
         </Card>
 
+        {/* Class Axioms - Protégé Style */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Hierarchy</CardTitle>
+            <CardTitle className="text-base">Class Axioms</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label className="text-xs">Superclasses</Label>
-              <div className="flex flex-wrap gap-2">
-                {selectedClass.superClasses.length > 0 ? (
-                  selectedClass.superClasses.map((superClass) => (
-                    <Badge key={superClass} variant="secondary" className="text-xs font-mono">
-                      {superClass}
-                    </Badge>
-                  ))
-                ) : (
-                  <span className="text-xs text-muted-foreground">None</span>
-                )}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-xs">Subclasses ({subclasses.length})</Label>
-              <div className="flex flex-wrap gap-2">
-                {subclasses.length > 0 ? (
-                  subclasses.map((subClass) => (
-                    <Badge key={subClass.id} variant="outline" className="text-xs font-mono">
-                      {subClass.name}
-                    </Badge>
-                  ))
-                ) : (
-                  <span className="text-xs text-muted-foreground">None</span>
-                )}
-              </div>
-            </div>
+          <CardContent className="space-y-1">
+            {/* Equivalent To */}
+            <SectionHeader title="Equivalent To" onAdd={() => {}} />
+            <ItemGroup role="listbox" aria-label="Equivalent classes">
+              {selectedClass.equivalentTo.length > 0 ? (
+                selectedClass.equivalentTo.map(equiv => (
+                  <ClassElementItem
+                    key={`equiv-${equiv}`}
+                    id={`equiv-${equiv}`}
+                    label={equiv}
+                    variant="restriction"
+                    isSelected={selectedElement === `equiv-${equiv}`}
+                    onClick={() => handleElementClick(`equiv-${equiv}`)}
+                    onDoubleClick={() => handleElementDoubleClick(equiv)}
+                  />
+                ))
+              ) : (
+                <span className="text-muted-foreground py-1 text-xs italic">
+                  No equivalent classes
+                </span>
+              )}
+            </ItemGroup>
+
+            {/* SubClass Of */}
+            <SectionHeader
+              title="SubClass Of"
+              count={selectedClass.superClasses.length}
+              onAdd={() => {}}
+            />
+            <ItemGroup role="listbox" aria-label="Superclasses">
+              {selectedClass.superClasses.length > 0 ? (
+                selectedClass.superClasses.map(superClass => {
+                  const isRestriction =
+                    superClass.includes(' some ') || superClass.includes(' only ')
+                  return (
+                    <ClassElementItem
+                      key={`super-${superClass}`}
+                      id={`super-${superClass}`}
+                      label={superClass}
+                      variant={isRestriction ? 'restriction' : 'class'}
+                      isSelected={selectedElement === `super-${superClass}`}
+                      onClick={() => handleElementClick(`super-${superClass}`)}
+                      onDoubleClick={() => handleElementDoubleClick(superClass)}
+                    />
+                  )
+                })
+              ) : (
+                <span className="text-muted-foreground py-1 text-xs italic">No superclasses</span>
+              )}
+            </ItemGroup>
+
+            {/* General class axioms */}
+            <SectionHeader title="General class axioms" onAdd={() => {}} />
+            <span className="text-muted-foreground py-1 text-xs italic">
+              No general class axioms
+            </span>
+
+            {/* SubClass Of (Anonymous Ancestor) */}
+            <SectionHeader title="SubClass Of (Anonymous Ancestor)" />
+            <span className="text-muted-foreground py-1 text-xs italic">
+              No anonymous ancestors
+            </span>
           </CardContent>
         </Card>
 
+        {/* Instances */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Instances</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-1">
+            <SectionHeader title="Instances" count={instances.length} onAdd={() => {}} />
+            <ItemGroup role="listbox" aria-label="Class instances">
+              {instances.length > 0 ? (
+                instances.map(instance => (
+                  <ClassElementItem
+                    key={`inst-${instance.id}`}
+                    id={`inst-${instance.id}`}
+                    label={instance.label || instance.name}
+                    variant="class"
+                    isSelected={selectedElement === `inst-${instance.id}`}
+                    onClick={() => handleElementClick(`inst-${instance.id}`)}
+                  />
+                ))
+              ) : (
+                <span className="text-muted-foreground py-1 text-xs italic">No instances</span>
+              )}
+            </ItemGroup>
+          </CardContent>
+        </Card>
+
+        {/* Target for Key */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Target for Key</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <SectionHeader title="Target for Key" onAdd={() => {}} />
+            <span className="text-muted-foreground py-1 text-xs italic">No keys defined</span>
+          </CardContent>
+        </Card>
+
+        {/* Disjoint With */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Relationships</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label className="text-xs">Disjoint With</Label>
-              <div className="flex flex-wrap gap-2">
-                {selectedClass.disjointWith.length > 0 ? (
-                  selectedClass.disjointWith.map((disjoint) => (
-                    <Badge key={disjoint} variant="destructive" className="text-xs font-mono">
-                      {disjoint}
-                    </Badge>
-                  ))
-                ) : (
-                  <span className="text-xs text-muted-foreground">None</span>
-                )}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-xs">Properties ({selectedClass.properties.length})</Label>
-              <div className="flex flex-wrap gap-2">
-                {selectedClass.properties.length > 0 ? (
-                  selectedClass.properties.map((prop) => (
-                    <Badge key={prop} className="text-xs font-mono">
-                      {prop}
-                    </Badge>
-                  ))
-                ) : (
-                  <span className="text-xs text-muted-foreground">None</span>
-                )}
-              </div>
-            </div>
+          <CardContent className="space-y-1">
+            <SectionHeader
+              title="Disjoint With"
+              count={selectedClass.disjointWith.length}
+              onAdd={() => {}}
+            />
+            <ItemGroup role="listbox" aria-label="Disjoint classes">
+              {selectedClass.disjointWith.length > 0 ? (
+                selectedClass.disjointWith.map(disjoint => (
+                  <ClassElementItem
+                    key={`disj-${disjoint}`}
+                    id={`disj-${disjoint}`}
+                    label={disjoint}
+                    variant="class"
+                    isSelected={selectedElement === `disj-${disjoint}`}
+                    onClick={() => handleElementClick(`disj-${disjoint}`)}
+                    onDoubleClick={() => handleElementDoubleClick(disjoint)}
+                  />
+                ))
+              ) : (
+                <span className="text-muted-foreground py-1 text-xs italic">
+                  No disjoint classes
+                </span>
+              )}
+            </ItemGroup>
+
+            {/* Properties */}
+            <SectionHeader
+              title="Properties"
+              count={selectedClass.properties.length}
+              onAdd={() => {}}
+            />
+            <ItemGroup role="listbox" aria-label="Class properties">
+              {selectedClass.properties.length > 0 ? (
+                selectedClass.properties.map(prop => (
+                  <ClassElementItem
+                    key={`prop-${prop}`}
+                    id={`prop-${prop}`}
+                    label={prop}
+                    variant="axiom"
+                    isSelected={selectedElement === `prop-${prop}`}
+                    onClick={() => handleElementClick(`prop-${prop}`)}
+                  />
+                ))
+              ) : (
+                <span className="text-muted-foreground py-1 text-xs italic">No properties</span>
+              )}
+            </ItemGroup>
           </CardContent>
         </Card>
 
+        {/* Annotations */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Annotations</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2">
+            <SectionHeader
+              title="Annotations"
+              count={selectedClass.annotations.length}
+              onAdd={() => {}}
+            />
+            <ItemGroup>
               {selectedClass.annotations.length > 0 ? (
                 selectedClass.annotations.map((annotation, index) => (
-                  <div key={index} className="flex gap-2 text-xs">
-                    <span className="font-mono text-primary">{annotation.property}:</span>
-                    <span className="text-muted-foreground">{annotation.value}</span>
-                  </div>
+                  <Item
+                    key={index}
+                    variant="ghost"
+                    size="xs"
+                    className={cn(
+                      'cursor-pointer rounded-sm',
+                      selectedElement === `ann-${index}`
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover:bg-muted/80'
+                    )}
+                    onClick={() => handleElementClick(`ann-${index}`)}
+                  >
+                    <ItemMedia variant="indicator" className="bg-blue-500" />
+                    <ItemContent>
+                      <ItemTitle
+                        className={cn(
+                          'font-mono text-sm',
+                          selectedElement === `ann-${index}` && 'text-primary-foreground'
+                        )}
+                      >
+                        {annotation.property}
+                      </ItemTitle>
+                      <ItemDescription
+                        className={cn(
+                          selectedElement === `ann-${index}` && 'text-primary-foreground/80'
+                        )}
+                      >
+                        {annotation.value}
+                        {annotation.language && ` @${annotation.language}`}
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
                 ))
               ) : (
-                <span className="text-xs text-muted-foreground">No annotations</span>
+                <span className="text-muted-foreground py-1 text-xs italic">No annotations</span>
               )}
-            </div>
+            </ItemGroup>
           </CardContent>
         </Card>
       </div>

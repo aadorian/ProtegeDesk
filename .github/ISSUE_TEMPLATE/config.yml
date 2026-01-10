@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://github.com/aadorian/ProtegeDesk/wiki
+    about: Check the wiki for documentation and guides
+  - name: 💬 Discussions
+    url: https://github.com/aadorian/ProtegeDesk/discussions
+    about: Ask questions or share ideas in discussions
+  - name: 🚀 Good First Issues
+    url: https://github.com/aadorian/ProtegeDesk/labels/good%20first%20issue
+    about: Looking to contribute? Start here!
+

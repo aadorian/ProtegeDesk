@@ -1,0 +1,131 @@
+# Troubleshooting: Common Setup Issues
+This page documents common installation and setup problems and how to resolve them.
+If you face an issue not listed here, please open a new issue or update this page.
+
+## 1. Node.js Version Issues
+### Problem
+
+- Application fails to start or build
+
+- Errors like Unsupported engine, SyntaxError, or build failures
+
+### Cause
+
+- An incompatible Node.js version is installed
+
+### Solution
+
+1. Check your Node.js version:
+```
+node -v
+```
+
+2. Verify the required Node.js version from the project documentation.
+
+3. Install and use the correct version (recommended: nvm):
+```
+nvm install <required-version>
+nvm use <required-version>
+```
+
+4. Reinstall dependencies:
+```
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## 2. Dependency Conflicts
+### Problem
+
+- Errors during npm install or npm run build
+
+- Messages like ERESOLVE or peer dependency conflict
+
+### Cause
+
+- Conflicting package versions or corrupted dependencies
+
+### Solution
+
+1. Remove existing dependencies:
+```
+rm -rf node_modules package-lock.json
+```
+
+2. Reinstall dependencies:
+```
+npm install
+```
+
+3. If the issue persists:
+```
+npm install --legacy-peer-deps
+```
+
+4. Use only one package manager (do not mix npm and yarn).
+
+## 3. Environment Variable Setup
+### Problem
+
+- App runs but features don’t work
+
+- Errors related to missing configuration
+
+### Cause
+
+- Required environment variables are not set
+
+### Solution
+
+1. Locate .env.example in the repository.
+
+2. Create a .env file:
+```
+cp .env.example .env
+```
+
+3. Fill in all required values.
+
+4. Restart the development server:
+```
+npm run dev
+```
+## 4. Build or Runtime Errors
+### Problem
+
+- App builds but crashes at runtime
+
+- Blank screen or unexpected behavior
+
+### Cause
+
+- Cached builds or outdated dependencies
+
+### Solution
+
+1. Stop the server.
+
+2. Clean and rebuild:
+```
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+npm run dev
+```
+
+3. Check browser console and terminal logs for details.
+
+## 5. General Tips
+
+1. Read error messages carefully—they usually point to the root cause.
+
+2. Ensure your local setup matches the project documentation.
+
+3. When asking for help, include:
+
+- Node.js version
+
+- Error logs
+
+- Steps to reproduce the issue
+

@@ -5,17 +5,20 @@ Welcome to the **ProtegeDesk** documentation! ProtegeDesk is a modern, web-based
 ## Quick Links
 
 ### Getting Started
+
 - [Introduction](Introduction) - Overview and key capabilities
 - [Quick Start Guide](Quick-Start-Guide) - Get up and running in minutes
 - [Installation](Installation) - Setup and configuration
 
 ### Core Features
+
 - [Axiom Editor](Axiom-Editor) - Manchester Syntax editing with intelligent autocomplete
 - [Graph Visualization](Graph-Visualization) - Interactive ontology visualization
 - [AI Co-Pilot](AI-Co-Pilot) - LLM-powered ontology generation
 - [Reasoning Engine](Reasoning-Engine) - Client and server-side reasoning
 
 ### User Guide
+
 - [Creating Ontologies](Creating-Ontologies) - How to build ontologies from scratch
 - [Importing and Exporting](Import-Export) - Working with ontology files
 - [Managing Classes](Managing-Classes) - Class hierarchy and properties
@@ -23,6 +26,7 @@ Welcome to the **ProtegeDesk** documentation! ProtegeDesk is a modern, web-based
 - [Keyboard Shortcuts](Keyboard-Shortcuts) - Productivity tips
 
 ### Developer Documentation
+
 - [Architecture](Architecture) - System design and components
 - [Technology Stack](Technology-Stack) - Libraries and frameworks
 - [API Reference](API-Reference) - Public APIs and interfaces
@@ -30,6 +34,7 @@ Welcome to the **ProtegeDesk** documentation! ProtegeDesk is a modern, web-based
 - [Development Setup](Development-Setup) - Setting up your dev environment
 
 ### Reference
+
 - [Manchester Syntax Reference](Manchester-Syntax-Reference) - Complete syntax guide
 - [OWL2 Concepts](OWL2-Concepts) - Ontology fundamentals
 - [Glossary](Glossary) - Terms and definitions
@@ -75,6 +80,7 @@ ProtegeDesk is a next-generation ontology editor that brings the power of Proté
 ## Contributing
 
 We welcome contributions! See our [Contributing Guide](Contributing) for details on:
+
 - Code contributions
 - Bug reports
 - Feature requests

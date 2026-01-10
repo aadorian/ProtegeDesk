@@ -103,6 +103,7 @@ Press `Ctrl+Space` (or start typing) to trigger autocomplete. The editor suggest
 ```
 
 Autocomplete is **context-aware**:
+
 - After `SubClassOf:`, suggests only classes
 - After `hasTopping some`, suggests classes in the property range
 - After `hasAge value`, suggests numeric literals or data values
@@ -112,12 +113,14 @@ Autocomplete is **context-aware**:
 The editor validates your axioms as you type:
 
 **Syntax Errors** are marked with red squiggles:
+
 - Missing parentheses
 - Undefined entities
 - Invalid keyword usage
 - Type mismatches
 
 **Warnings** are marked with yellow squiggles:
+
 - Potentially circular definitions
 - Unusual patterns
 - Style recommendations
@@ -162,17 +165,17 @@ Right-click in the editor for context menus:
 
 ## Keyboard Shortcuts
 
-| Action | Shortcut (Windows/Linux) | Shortcut (Mac) |
-|--------|-------------------------|----------------|
-| Autocomplete | `Ctrl+Space` | `Cmd+Space` |
-| Go to Definition | `F12` | `F12` |
-| Find References | `Shift+F12` | `Shift+F12` |
-| Quick Fix | `Ctrl+.` | `Cmd+.` |
-| Format Document | `Shift+Alt+F` | `Shift+Option+F` |
-| Comment Line | `Ctrl+/` | `Cmd+/` |
-| Multi-cursor | `Ctrl+Alt+Down/Up` | `Cmd+Option+Down/Up` |
-| Find | `Ctrl+F` | `Cmd+F` |
-| Replace | `Ctrl+H` | `Cmd+H` |
+| Action           | Shortcut (Windows/Linux) | Shortcut (Mac)       |
+| ---------------- | ------------------------ | -------------------- |
+| Autocomplete     | `Ctrl+Space`             | `Cmd+Space`          |
+| Go to Definition | `F12`                    | `F12`                |
+| Find References  | `Shift+F12`              | `Shift+F12`          |
+| Quick Fix        | `Ctrl+.`                 | `Cmd+.`              |
+| Format Document  | `Shift+Alt+F`            | `Shift+Option+F`     |
+| Comment Line     | `Ctrl+/`                 | `Cmd+/`              |
+| Multi-cursor     | `Ctrl+Alt+Down/Up`       | `Cmd+Option+Down/Up` |
+| Find             | `Ctrl+F`                 | `Cmd+F`              |
+| Replace          | `Ctrl+H`                 | `Cmd+H`              |
 
 See [Keyboard Shortcuts](Keyboard-Shortcuts) for a complete list.
 
@@ -302,6 +305,7 @@ The editor is optimized for responsiveness:
 ---
 
 **Related Pages:**
+
 - [Manchester Syntax Reference](Manchester-Syntax-Reference)
 - [Working with Axioms](Working-with-Axioms)
 - [Keyboard Shortcuts](Keyboard-Shortcuts)

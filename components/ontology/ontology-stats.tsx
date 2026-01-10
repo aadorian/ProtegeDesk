@@ -1,25 +1,73 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { useOntology } from "@/lib/ontology/context"
-import { Box, Link2, User } from "lucide-react"
+import { useEffect, useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useOntology } from '@/lib/ontology/context'
+import { Box, Link2, User } from 'lucide-react'
+import { useToast } from '@/hooks/use-toast'
+import { Toaster } from '@/components/ui/toaster'
+import { Button } from '../ui/button'
+import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
+import { formatRelativeTime, formatAbsoluteTime } from '@/lib/utils'
 
 export function OntologyStats() {
   const { ontology } = useOntology()
+  const [, setUpdateTrigger] = useState(0)
 
-  if (!ontology) return null
+  const classCount = ontology?.classes.size ?? 0
+  const propertyCount = ontology?.properties.size ?? 0
+  const individualCount = ontology?.individuals.size ?? 0
+  const { toast } = useToast()
+  const { copy, copied } = useCopyToClipboard('')
 
-  const classCount = ontology.classes.size
-  const propertyCount = ontology.properties.size
-  const individualCount = ontology.individuals.size
+  // Debug logging when ontology changes
+  useEffect(() => {
+    if (ontology) {
+      // console.log('[OntologyStats] Ontology updated:', {
+      //   name: ontology.name,
+      //   classes: classCount,
+      //   properties: propertyCount,
+      //   individuals: individualCount,
+      // })
+    }
+  }, [ontology, classCount, propertyCount, individualCount])
+
+  // Update relative time display every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setUpdateTrigger(prev => prev + 1)
+    }, 10000) // Update every 10 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!ontology) {
+    return null
+  }
+
+  const onClickHandler = async () => {
+    const success = await copy(ontology.id)
+
+    if (success) {
+      toast({
+        title: 'Copied',
+        description: 'Ontology IRI copied to clipboard',
+      })
+    } else {
+      toast({
+        title: 'Copy failed',
+        variant: 'destructive',
+      })
+    }
+  }
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold px-1">Ontology Statistics</h3>
+      <h3 className="px-1 text-sm font-semibold">Ontology Statistics</h3>
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Box className="h-4 w-4 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <Box className="text-primary h-4 w-4" />
             Classes
           </CardTitle>
         </CardHeader>
@@ -30,8 +78,8 @@ export function OntologyStats() {
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Link2 className="h-4 w-4 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <Link2 className="text-primary h-4 w-4" />
             Properties
           </CardTitle>
         </CardHeader>
@@ -42,8 +90,8 @@ export function OntologyStats() {
 
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <User className="h-4 w-4 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <User className="text-primary h-4 w-4" />
             Individuals
           </CardTitle>
         </CardHeader>
@@ -60,11 +108,23 @@ export function OntologyStats() {
           <div>
             <div className="text-muted-foreground">IRI:</div>
             <div className="font-mono break-all">{ontology.id}</div>
+            <Button aria-label="Copy IRI" title="Copy IRI" onClick={onClickHandler} size="sm">
+              Copy IRI
+            </Button>
+            <Toaster />
           </div>
           {ontology.version && (
             <div>
               <div className="text-muted-foreground">Version:</div>
               <div className="font-mono">{ontology.version}</div>
+            </div>
+          )}
+          {ontology.lastModified && (
+            <div>
+              <div className="text-muted-foreground">Last Modified:</div>
+              <div className="cursor-default" title={formatAbsoluteTime(ontology.lastModified)}>
+                {formatRelativeTime(ontology.lastModified)}
+              </div>
             </div>
           )}
         </CardContent>

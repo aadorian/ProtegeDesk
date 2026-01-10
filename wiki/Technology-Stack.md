@@ -4,22 +4,22 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 
 ## Overview
 
-| Component | Technology | Version | Purpose |
-|-----------|-----------|---------|---------|
-| **Framework** | React | 18+ | UI component library |
-| **Language** | TypeScript | 5+ | Type-safe development |
-| **Build Tool** | Next.js / Vite | 14+ / 5+ | Build and dev server |
-| **State Management** | Zustand | 4+ | Application state |
-| **Immutability** | Immer | 10+ | Immutable updates |
-| **Styling** | Tailwind CSS | 3+ | Utility-first CSS |
-| **Icons** | Lucide React | Latest | Icon library |
-| **Code Editor** | Monaco Editor | 0.45+ | Axiom editing |
-| **Graph Visualization** | React Flow | 12+ | Ontology graphs |
-| **Graph Layout** | ELK.js | 0.9+ | Auto-layout |
-| **RDF Parsing** | N3.js | 1.17+ | Ontology I/O |
-| **Reasoning (Client)** | EYE-JS | Latest | WASM reasoner |
-| **AI Integration** | Vercel AI SDK | 3+ | LLM interactions |
-| **UI Components** | Shadcn/ui | Latest | Accessible components |
+| Component               | Technology     | Version  | Purpose               |
+| ----------------------- | -------------- | -------- | --------------------- |
+| **Framework**           | React          | 18+      | UI component library  |
+| **Language**            | TypeScript     | 5+       | Type-safe development |
+| **Build Tool**          | Next.js / Vite | 14+ / 5+ | Build and dev server  |
+| **State Management**    | Zustand        | 4+       | Application state     |
+| **Immutability**        | Immer          | 10+      | Immutable updates     |
+| **Styling**             | Tailwind CSS   | 3+       | Utility-first CSS     |
+| **Icons**               | Lucide React   | Latest   | Icon library          |
+| **Code Editor**         | Monaco Editor  | 0.45+    | Axiom editing         |
+| **Graph Visualization** | React Flow     | 12+      | Ontology graphs       |
+| **Graph Layout**        | ELK.js         | 0.9+     | Auto-layout           |
+| **RDF Parsing**         | N3.js          | 1.17+    | Ontology I/O          |
+| **Reasoning (Client)**  | EYE-JS         | Latest   | WASM reasoner         |
+| **AI Integration**      | Vercel AI SDK  | 3+       | LLM interactions      |
+| **UI Components**       | Shadcn/ui      | Latest   | Accessible components |
 
 ## Frontend Stack
 
@@ -28,6 +28,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 **Purpose**: UI framework for building component-based interfaces
 
 **Why React?**
+
 - Component-based architecture promotes reusability
 - Virtual DOM for efficient updates
 - Large ecosystem and community support
@@ -35,6 +36,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 - Concurrent features for better UX
 
 **Key Features Used:**
+
 - Hooks (useState, useEffect, useCallback, useMemo)
 - Context API for theme and settings
 - Suspense for code splitting
@@ -45,6 +47,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 **Purpose**: Type-safe JavaScript development
 
 **Why TypeScript?**
+
 - Catches errors at compile time
 - Excellent IDE support with autocomplete
 - Self-documenting code with type annotations
@@ -52,6 +55,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 - Better collaboration in teams
 
 **Configuration:**
+
 ```json
 {
   "compilerOptions": {
@@ -71,6 +75,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 **Purpose**: React framework with routing, building, and optimization
 
 **Why Next.js?**
+
 - App Router for modern routing
 - Built-in optimization (code splitting, image optimization)
 - Server components for improved performance
@@ -78,6 +83,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 - Excellent developer experience
 
 **Alternative: Vite**
+
 - Faster development builds with ESBuild
 - Simpler configuration
 - Great for client-only applications
@@ -89,6 +95,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 **Purpose**: Lightweight state management
 
 **Why Zustand?**
+
 - Minimal boilerplate compared to Redux
 - No providers needed
 - TypeScript-first API
@@ -96,6 +103,7 @@ ProtegeDesk is built with modern, proven technologies optimized for performance,
 - Good performance with selective subscriptions
 
 **Example:**
+
 ```typescript
 import create from 'zustand'
 
@@ -106,15 +114,17 @@ interface OntologyStore {
   selectClass: (id: string) => void
 }
 
-export const useOntologyStore = create<OntologyStore>((set) => ({
+export const useOntologyStore = create<OntologyStore>(set => ({
   classes: [],
   selectedClass: null,
-  addClass: (cls) => set((state) => ({
-    classes: [...state.classes, cls]
-  })),
-  selectClass: (id) => set((state) => ({
-    selectedClass: state.classes.find(c => c.id === id)
-  })),
+  addClass: cls =>
+    set(state => ({
+      classes: [...state.classes, cls],
+    })),
+  selectClass: id =>
+    set(state => ({
+      selectedClass: state.classes.find(c => c.id === id),
+    })),
 }))
 ```
 
@@ -123,18 +133,22 @@ export const useOntologyStore = create<OntologyStore>((set) => ({
 **Purpose**: Immutable state updates with mutable syntax
 
 **Why Immer?**
+
 - Write simpler update logic
 - Immutability guaranteed
 - Integrates seamlessly with Zustand
 - Better performance than manual spread operations
 
 **Example:**
+
 ```typescript
 import { produce } from 'immer'
 
-set(produce((state) => {
-  state.classes[0].name = "NewName" // Looks mutable, but creates new state
-}))
+set(
+  produce(state => {
+    state.classes[0].name = 'NewName' // Looks mutable, but creates new state
+  })
+)
 ```
 
 ## UI and Styling
@@ -144,6 +158,7 @@ set(produce((state) => {
 **Purpose**: Utility-first CSS framework
 
 **Why Tailwind?**
+
 - Rapid prototyping with utility classes
 - Consistent design system
 - Smaller CSS bundle (PurgeCSS removes unused styles)
@@ -151,8 +166,9 @@ set(produce((state) => {
 - Easy responsive design
 
 **Example:**
+
 ```tsx
-<div className="flex items-center justify-between p-4 bg-gray-100 dark:bg-gray-800">
+<div className="flex items-center justify-between bg-gray-100 p-4 dark:bg-gray-800">
   <h1 className="text-2xl font-bold">Ontology Editor</h1>
 </div>
 ```
@@ -162,6 +178,7 @@ set(produce((state) => {
 **Purpose**: Accessible, customizable UI components
 
 **Why Shadcn/ui?**
+
 - Built on Radix UI primitives (accessibility)
 - Styled with Tailwind
 - Copy components directly into project (no dependency)
@@ -169,6 +186,7 @@ set(produce((state) => {
 - Follows best practices
 
 **Components Used:**
+
 - Command (command palette)
 - Dialog (modals)
 - DropdownMenu (context menus)
@@ -180,6 +198,7 @@ set(produce((state) => {
 **Purpose**: Icon library
 
 **Why Lucide?**
+
 - Clean, consistent icon design
 - Tree-shakeable (only import what you use)
 - Customizable size and color
@@ -193,6 +212,7 @@ set(produce((state) => {
 **Purpose**: Code editor for Manchester Syntax
 
 **Why Monaco?**
+
 - Powers VS Code (proven quality)
 - Excellent TypeScript support
 - Extensible with language providers
@@ -200,6 +220,7 @@ set(produce((state) => {
 - IntelliSense and diagnostics support
 
 **Features Used:**
+
 - Custom language definition
 - Completion provider
 - Diagnostics provider
@@ -207,6 +228,7 @@ set(produce((state) => {
 - Command palette
 
 **Configuration:**
+
 ```typescript
 monaco.languages.register({ id: 'owl-manchester' })
 monaco.languages.setMonarchTokensProvider('owl-manchester', {
@@ -220,6 +242,7 @@ monaco.languages.setMonarchTokensProvider('owl-manchester', {
 **Purpose**: Incremental parsing for syntax analysis
 
 **Why Tree-sitter?**
+
 - Fast, incremental parsing
 - Error-tolerant (handles incomplete code)
 - Used by many modern editors
@@ -232,6 +255,7 @@ monaco.languages.setMonarchTokensProvider('owl-manchester', {
 **Purpose**: Interactive node-based graphs
 
 **Why React Flow?**
+
 - Built for React (not a wrapper)
 - High performance (1000+ nodes)
 - Customizable nodes and edges
@@ -239,6 +263,7 @@ monaco.languages.setMonarchTokensProvider('owl-manchester', {
 - TypeScript support
 
 **Features Used:**
+
 - Custom node components
 - Custom edge components
 - Background and controls
@@ -246,6 +271,7 @@ monaco.languages.setMonarchTokensProvider('owl-manchester', {
 - Selection and interaction
 
 **Example:**
+
 ```typescript
 import { ReactFlow, Node, Edge } from '@xyflow/react'
 
@@ -266,17 +292,20 @@ const edges: Edge[] = [
 **Purpose**: Automatic graph layout
 
 **Why ELK.js?**
+
 - Industry-standard layout algorithms
 - Hierarchical layouts perfect for ontologies
 - WebAssembly for performance
 - Highly configurable
 
 **Layout Algorithm:**
+
 - **Layered**: Classes organized in hierarchical layers
 - **Force-directed**: Alternative layout based on graph forces
 - **Stress**: Optimizes node distances
 
 **Configuration:**
+
 ```typescript
 {
   'elk.algorithm': 'layered',
@@ -293,6 +322,7 @@ const edges: Edge[] = [
 **Purpose**: RDF parsing and serialization
 
 **Why N3.js?**
+
 - Supports multiple RDF formats
 - Streaming API for large files
 - In-memory store for querying
@@ -300,6 +330,7 @@ const edges: Edge[] = [
 - Good TypeScript types
 
 **Formats Supported:**
+
 - Turtle (.ttl)
 - N-Triples (.nt)
 - N-Quads (.nq)
@@ -307,6 +338,7 @@ const edges: Edge[] = [
 - TriG (.trig)
 
 **Example:**
+
 ```typescript
 import { Parser, Writer, Store } from 'n3'
 
@@ -329,12 +361,14 @@ writer.end((error, result) => console.log(result))
 **Purpose**: Client-side reasoning in the browser
 
 **Why EYE-JS?**
+
 - Runs in browser (no server needed)
 - WebAssembly for near-native performance
 - Supports OWL 2 reasoning
 - N3 logic rules
 
 **Limitations:**
+
 - Limited to medium-sized ontologies
 - Some OWL 2 features not supported
 - Performance varies by ontology complexity
@@ -348,6 +382,7 @@ writer.end((error, result) => console.log(result))
 **Purpose**: Integrate with LLM APIs
 
 **Why Vercel AI SDK?**
+
 - Unified API for multiple LLM providers
 - Streaming responses
 - Token usage tracking
@@ -355,12 +390,14 @@ writer.end((error, result) => console.log(result))
 - Edge runtime support
 
 **Providers Supported:**
+
 - OpenAI (GPT-4, GPT-3.5)
 - Anthropic (Claude)
 - Google (Gemini)
 - Open-source models via Ollama
 
 **Example:**
+
 ```typescript
 import { generateText } from 'ai'
 
@@ -377,6 +414,7 @@ const { text } = await generateText({
 **Purpose**: Read/write local files
 
 **Browser Support:**
+
 - Chrome 86+
 - Edge 86+
 - Safari 15.2+ (partial)
@@ -389,6 +427,7 @@ const { text } = await generateText({
 **Purpose**: Client-side database for ontology caching
 
 **Why IndexedDB?**
+
 - Large storage capacity (>50MB)
 - Async API
 - Transactions for data integrity
@@ -399,6 +438,7 @@ const { text } = await generateText({
 **Purpose**: Run compiled code in browser
 
 **Use Cases:**
+
 - EYE-JS reasoner
 - Tree-sitter parser
 - ELK.js layout (optional)
@@ -410,6 +450,7 @@ const { text } = await generateText({
 **Purpose**: JavaScript/TypeScript linting
 
 **Configuration:**
+
 - Airbnb style guide base
 - React and React Hooks rules
 - TypeScript-specific rules
@@ -420,6 +461,7 @@ const { text } = await generateText({
 **Purpose**: Code formatting
 
 **Configuration:**
+
 ```json
 {
   "semi": false,
@@ -434,6 +476,7 @@ const { text } = await generateText({
 **Purpose**: Git hooks
 
 **Hooks:**
+
 - `pre-commit`: Run ESLint and Prettier
 - `pre-push`: Run tests
 - `commit-msg`: Validate commit message format
@@ -443,6 +486,7 @@ const { text } = await generateText({
 **Purpose**: Testing
 
 **Test Types:**
+
 - Unit tests for utilities and hooks
 - Component tests for UI
 - Integration tests for workflows
@@ -492,12 +536,14 @@ npm run preview # Preview production build
 ## Version Requirements
 
 **Minimum Versions:**
+
 - Node.js: 18.0.0
 - npm: 9.0.0
 - TypeScript: 5.0.0
 - React: 18.0.0
 
 **Browser Requirements:**
+
 - Chrome/Edge: 86+
 - Firefox: 82+
 - Safari: 14+
@@ -512,6 +558,7 @@ npm run preview # Preview production build
 ---
 
 **Related Pages:**
+
 - [Architecture](Architecture)
 - [Development Setup](Development-Setup)
 - [API Reference](API-Reference)

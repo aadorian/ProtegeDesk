@@ -21,6 +21,7 @@ Thank you for your interest in contributing to Modern Ontology Editor! This docu
 ### Our Pledge
 
 We are committed to providing a welcoming and inclusive environment for everyone, regardless of:
+
 - Age, body size, disability, ethnicity, gender identity and expression
 - Level of experience, education, socio-economic status
 - Nationality, personal appearance, race, religion
@@ -29,6 +30,7 @@ We are committed to providing a welcoming and inclusive environment for everyone
 ### Our Standards
 
 **Positive behaviors**:
+
 - Using welcoming and inclusive language
 - Being respectful of differing viewpoints
 - Gracefully accepting constructive criticism
@@ -36,6 +38,7 @@ We are committed to providing a welcoming and inclusive environment for everyone
 - Showing empathy towards others
 
 **Unacceptable behaviors**:
+
 - Harassment, trolling, or derogatory comments
 - Publishing others' private information
 - Spam or excessive self-promotion
@@ -59,8 +62,9 @@ Violations can be reported to [conduct@example.com]. All complaints will be revi
 ### First-Time Contributors
 
 Looking for a good first issue? Check out:
-- [good-first-issue](https://github.com/yourusername/modern-ontology-editor/labels/good-first-issue) label
-- [help-wanted](https://github.com/yourusername/modern-ontology-editor/labels/help-wanted) label
+
+- [good-first-issue](https://github.com/aadorian/ProtegeDesk/issues?q=is%3Aissue%20state%3Aopen%20label%3Agood-first-issue) label
+- [help-wanted](https://github.com/aadorian/ProtegeDesk/issues?q=is%3Aissue%20state%3Aopen%20label%3Ahelp-wanted) label
 
 ---
 
@@ -160,6 +164,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 **Types**:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -216,12 +221,13 @@ git push origin develop
 - **Use types** for unions and primitives
 
 **Good**:
+
 ```typescript
 interface OntologyClass {
-  id: string;
-  label: string;
-  parent?: string;
-  annotations: Record<string, string>;
+  id: string
+  label: string
+  parent?: string
+  annotations: Record<string, string>
 }
 
 function createClass(data: OntologyClass): void {
@@ -230,8 +236,10 @@ function createClass(data: OntologyClass): void {
 ```
 
 **Bad**:
+
 ```typescript
-function createClass(data: any) {  // ❌ No any
+function createClass(data: any) {
+  // ❌ No any
   // Implementation
 }
 ```
@@ -245,6 +253,7 @@ function createClass(data: any) {  // ❌ No any
 - **Custom hooks** for reusable logic
 
 **Good**:
+
 ```typescript
 interface ClassNodeProps {
   id: string;
@@ -252,10 +261,10 @@ interface ClassNodeProps {
   onSelect: (id: string) => void;
 }
 
-const ClassNode: React.FC<ClassNodeProps> = ({ 
-  id, 
-  label, 
-  onSelect 
+const ClassNode: React.FC<ClassNodeProps> = ({
+  id,
+  label,
+  onSelect
 }) => {
   const handleClick = useCallback(() => {
     onSelect(id);
@@ -321,11 +330,13 @@ npm run lint:fix
 ```
 
 **Key rules**:
+
 - **2 spaces** for indentation
 - **Single quotes** for strings
 - **Semicolons** required
 - **Trailing commas** in multiline
 - **Max line length**: 100 characters
+- **Constants in one file**: No magic numbers outside of lib/constants.ts
 
 ---
 
@@ -363,24 +374,24 @@ npm run test:coverage
 
 ```typescript
 // src/lib/ontology/OWLClass.test.ts
-import { describe, it, expect } from 'vitest';
-import { OWLClass } from './OWLClass';
+import { describe, it, expect } from 'vitest'
+import { OWLClass } from './OWLClass'
 
 describe('OWLClass', () => {
   it('should create a class with valid IRI', () => {
-    const cls = new OWLClass('http://example.org#Person');
-    expect(cls.iri).toBe('http://example.org#Person');
-  });
+    const cls = new OWLClass('http://example.org#Person')
+    expect(cls.iri).toBe('http://example.org#Person')
+  })
 
   it('should extract label from IRI', () => {
-    const cls = new OWLClass('http://example.org#Person');
-    expect(cls.getLabel()).toBe('Person');
-  });
+    const cls = new OWLClass('http://example.org#Person')
+    expect(cls.getLabel()).toBe('Person')
+  })
 
   it('should throw error for invalid IRI', () => {
-    expect(() => new OWLClass('invalid')).toThrow();
-  });
-});
+    expect(() => new OWLClass('invalid')).toThrow()
+  })
+})
 ```
 
 ### Writing Component Tests
@@ -394,10 +405,10 @@ import ClassNode from './ClassNode';
 describe('ClassNode', () => {
   it('renders class label', () => {
     render(
-      <ClassNode 
-        id="1" 
-        label="Person" 
-        onSelect={() => {}} 
+      <ClassNode
+        id="1"
+        label="Person"
+        onSelect={() => {}}
       />
     );
     expect(screen.getByText('Person')).toBeInTheDocument();
@@ -406,13 +417,13 @@ describe('ClassNode', () => {
   it('calls onSelect when clicked', () => {
     const handleSelect = vi.fn();
     render(
-      <ClassNode 
-        id="1" 
-        label="Person" 
-        onSelect={handleSelect} 
+      <ClassNode
+        id="1"
+        label="Person"
+        onSelect={handleSelect}
       />
     );
-    
+
     fireEvent.click(screen.getByText('Person'));
     expect(handleSelect).toHaveBeenCalledWith('1');
   });
@@ -423,24 +434,24 @@ describe('ClassNode', () => {
 
 ```typescript
 // tests/e2e/ontology-creation.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test('user can create a new ontology', async ({ page }) => {
-  await page.goto('http://localhost:3000');
-  
+  await page.goto('http://localhost:3000')
+
   // Click New Ontology
-  await page.click('text=New Ontology');
-  
+  await page.click('text=New Ontology')
+
   // Fill in form
-  await page.fill('input[name="name"]', 'TestOntology');
-  await page.fill('input[name="iri"]', 'http://test.org/ontology#');
-  
+  await page.fill('input[name="name"]', 'TestOntology')
+  await page.fill('input[name="iri"]', 'http://test.org/ontology#')
+
   // Submit
-  await page.click('text=Create');
-  
+  await page.click('text=Create')
+
   // Verify ontology created
-  await expect(page.locator('text=TestOntology')).toBeVisible();
-});
+  await expect(page.locator('text=TestOntology')).toBeVisible()
+})
 ```
 
 ---
@@ -468,23 +479,28 @@ test('user can create a new ontology', async ({ page }) => {
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Related Issues
+
 Closes #123
 
 ## Testing
+
 - [ ] Added unit tests
 - [ ] Added integration tests
 - [ ] Manual testing completed
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-review completed
 - [ ] Documentation updated
@@ -504,6 +520,7 @@ Closes #123
 
 1. **Delete your branch** (GitHub will prompt)
 2. **Update your fork**:
+
 ```bash
 git checkout develop
 git pull upstream develop
@@ -525,6 +542,7 @@ git push origin develop
 Use the [bug report template](https://github.com/yourusername/modern-ontology-editor/issues/new?template=bug_report.md)
 
 **Include**:
+
 - Clear description of the bug
 - Steps to reproduce
 - Expected behavior
@@ -538,6 +556,7 @@ Use the [bug report template](https://github.com/yourusername/modern-ontology-ed
 Use the [feature request template](https://github.com/yourusername/modern-ontology-editor/issues/new?template=feature_request.md)
 
 **Include**:
+
 - Clear description of feature
 - Use case / motivation
 - Proposed solution
@@ -547,6 +566,7 @@ Use the [feature request template](https://github.com/yourusername/modern-ontolo
 ### Questions
 
 For questions, use:
+
 - [GitHub Discussions](https://github.com/yourusername/modern-ontology-editor/discussions)
 - [Discord/Slack](link) for real-time chat
 - Stack Overflow with tag `modern-ontology-editor`
@@ -572,6 +592,7 @@ For questions, use:
 ### Recognition
 
 Contributors are recognized in:
+
 - [CONTRIBUTORS.md](CONTRIBUTORS.md) file
 - Release notes for significant contributions
 - Annual contributor highlights
@@ -599,12 +620,12 @@ Contributors are recognized in:
 
 ```typescript
 // Enable debug logging
-localStorage.setItem('debug', 'moe:*');
+localStorage.setItem('debug', 'moe:*')
 
 // In code
-import debug from 'debug';
-const log = debug('moe:component:ClassTree');
-log('Rendering tree with %d nodes', nodeCount);
+import debug from 'debug'
+const log = debug('moe:component:ClassTree')
+log('Rendering tree with %d nodes', nodeCount)
 ```
 
 ### Performance Profiling
@@ -625,6 +646,7 @@ import { Profiler } from 'react';
 ### Versioning
 
 We use [Semantic Versioning](https://semver.org/):
+
 - **MAJOR**: Breaking changes
 - **MINOR**: New features (backward compatible)
 - **PATCH**: Bug fixes
@@ -647,6 +669,7 @@ We use [Semantic Versioning](https://semver.org/):
 ## Questions?
 
 If you have questions about contributing, please:
+
 1. Check this guide
 2. Read the [documentation](docs/)
 3. Ask in [GitHub Discussions](https://github.com/yourusername/modern-ontology-editor/discussions)

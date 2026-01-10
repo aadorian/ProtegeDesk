@@ -78,6 +78,7 @@ The wiki is organized as follows:
 ## Content Source
 
 All wiki content is derived from:
+
 - **SRS.md** - Software Requirements Specification
 - **README.md** - Project README
 - **ROADMAP.md** - Development roadmap
@@ -120,6 +121,7 @@ Content...
 ---
 
 **Related Pages:**
+
 - [Related Page 1](Related-Page-1)
 - [Related Page 2](Related-Page-2)
 ```
@@ -135,6 +137,7 @@ Content...
 ## Questions?
 
 If you have questions about the wiki documentation:
+
 - Open an issue at https://github.com/aadorian/ProtegeDesk/issues
 - Tag with `documentation` label
 - Suggest improvements via pull request

@@ -1,0 +1,250 @@
+# ProtegeDesk - Cursor AI Development Rules
+
+You are an expert TypeScript/React/Next.js developer working on ProtegeDesk, a modern web-based ontology editor.
+
+## Project Context
+
+**ProtegeDesk** is a Next.js 16 + React 19 + TypeScript 5 ontology engineering platform with:
+- **State Management**: React Context API (OntologyContext)
+- **Styling**: Tailwind CSS 4, Shadcn/ui components, Radix UI
+- **Ontology Processing**: Custom HermiT-inspired reasoner, RDF/OWL support
+- **Testing**: Jest, React Testing Library, ts-jest
+- **Code Quality**: ESLint, Prettier, strict TypeScript
+
+## Core Principles
+
+1. **Type Safety First**: Always use TypeScript with strict mode. Never use `any` - use proper types or `unknown`
+2. **Component Architecture**: Functional components with hooks, follow React best practices
+3. **Performance**: Optimize for large ontologies (1000+ classes). Use memoization, virtualization, and lazy loading
+4. **Standards Compliance**: Adhere to W3C OWL 2 and RDF 1.1 specifications
+5. **Accessibility**: Target WCAG 2.1 Level AA compliance (proper ARIA labels, keyboard navigation)
+6. **Testing**: Write tests alongside code. Maintain ≥80% coverage for utilities/services
+
+## Code Style & Conventions
+
+### TypeScript
+- Use strict TypeScript with proper type definitions
+- Define interfaces/types before implementation
+- Use type imports: `import type { ... }` for types only
+- Prefer interfaces for object shapes, types for unions/intersections
+- Export types alongside implementations
+
+### React Components
+- Use functional components with TypeScript
+- Define props interfaces with descriptive names (e.g., `ClassNodeProps`)
+- Use `React.FC<PropsType>` or explicit function signatures
+- Hooks order: useState → useEffect → useMemo → useCallback → custom hooks
+- Memoize expensive computations with `useMemo`
+- Wrap callbacks with `useCallback` when passed as props
+- Use `React.memo` for list items and frequently re-rendered components
+
+### File Organization
+- **Components**: `PascalCase.tsx` (e.g., `ClassTree.tsx`)
+- **Hooks**: `camelCase.ts` with `use` prefix (e.g., `useOntologyStore.ts`)
+- **Services/Utils**: `camelCase.ts` (e.g., `ontologyParser.ts`)
+- **Types**: Co-located or in `lib/ontology/types.ts`
+- Place components in `components/` directory
+- Place hooks in `hooks/` directory
+- Place utilities in `lib/` directory
+
+### Naming Conventions
+- Components: PascalCase
+- Functions/variables: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Types/Interfaces: PascalCase
+- Files: Match export (PascalCase for components, camelCase for others)
+
+## Architecture Patterns
+
+### Component Structure
+```typescript
+import React, { useCallback, useMemo } from 'react';
+import type { ComponentProps } from './types';
+
+/**
+ * Component description
+ */
+export const ComponentName: React.FC<ComponentProps> = ({
+  prop1,
+  prop2,
+  ...rest
+}) => {
+  // Hooks
+  const [state, setState] = useState();
+  
+  // Memoized values
+  const computed = useMemo(() => compute(), [deps]);
+  
+  // Callbacks
+  const handleAction = useCallback(() => {
+    // handler logic
+  }, [deps]);
+  
+  // Effects
+  useEffect(() => {
+    // side effects
+  }, [deps]);
+  
+  return (
+    <div {...rest}>
+      {/* JSX */}
+    </div>
+  );
+};
+
+ComponentName.displayName = 'ComponentName';
+```
+
+### State Management
+- Use React Context API via `lib/ontology/context.tsx`
+- Access ontology state via `useOntology()` hook
+- Keep state updates immutable
+- Extract complex state logic into custom hooks
+
+### Error Handling
+- Always handle errors gracefully
+- Use try/catch for async operations
+- Provide user-friendly error messages
+- Log errors for debugging (use console.error in development)
+
+### Performance Optimization
+- Use `React.memo` for components that receive stable props
+- Memoize expensive computations with `useMemo`
+- Debounce/throttle user inputs (search, resize, etc.)
+- Implement virtual scrolling for large lists (100+ items)
+- Lazy load heavy components with `React.lazy` and `Suspense`
+- Consider Web Workers for CPU-intensive tasks
+
+## Testing Standards
+
+### Unit Tests
+- Write tests alongside implementation
+- Use Jest and React Testing Library
+- Test behavior, not implementation details
+- Aim for ≥80% coverage on utilities/services
+- Follow patterns in `lib/ontology/__tests__/` and `hooks/__tests__/`
+
+### Component Tests
+- Test user interactions (clicks, typing, navigation)
+- Test accessibility (keyboard navigation, ARIA attributes)
+- Test edge cases and error states
+- Use `@testing-library/user-event` for interactions
+
+### Test Structure
+```typescript
+import { describe, it, expect, beforeEach } from '@jest/globals';
+import { render, screen } from '@testing-library/react';
+
+describe('ComponentName', () => {
+  it('should render correctly', () => {
+    render(<ComponentName />);
+    expect(screen.getByText('Expected Text')).toBeInTheDocument();
+  });
+});
+```
+
+## Common Patterns
+
+### Shadcn/ui Components
+- Use components from `components/ui/` directory
+- Follow Shadcn patterns for customization
+- Maintain consistent styling with Tailwind CSS
+
+### Tailwind CSS
+- Use utility classes for styling
+- Follow existing patterns for spacing, colors, and typography
+- Use dark mode classes when appropriate (via next-themes)
+- Keep className lists organized and readable
+
+### Import Organization
+1. React and React-related imports
+2. Third-party library imports
+3. Internal component imports
+4. Hook imports
+5. Type imports (with `import type`)
+6. Utility imports
+7. Relative imports
+
+## When Writing Code
+
+### Before Implementing
+1. Check existing code for similar patterns
+2. Review `CURSOR_GUIDELINES.md` for detailed patterns
+3. Consider performance implications
+4. Plan error handling approach
+
+### During Implementation
+1. Write types/interfaces first
+2. Implement incrementally
+3. Add error handling early
+4. Write tests alongside code
+5. Consider accessibility from the start
+
+### After Implementation
+1. Run type checking: `npm run type-check`
+2. Run linter: `npm run lint`
+3. Run tests: `npm test`
+4. Verify accessibility (keyboard navigation, screen readers)
+5. Check performance with large datasets
+
+## Ontology-Specific Guidelines
+
+### Ontology Types
+- Use types from `lib/ontology/types.ts`
+- Follow OWL 2 and RDF 1.1 specifications
+- Handle IRI formatting correctly (full IRIs vs prefixed names)
+- Support multiple ontology formats (Turtle, RDF/XML, OWL/XML)
+
+### Reasoning
+- Use the custom reasoner from `lib/ontology/reasoner.ts`
+- Handle reasoning errors gracefully
+- Show progress indicators for long-running operations
+- Cache reasoning results when appropriate
+
+### Data Validation
+- Validate IRI format
+- Validate Manchester Syntax when applicable
+- Provide clear error messages for invalid data
+- Use Zod schemas for form validation
+
+## Security
+
+- Never commit API keys or secrets
+- Sanitize user inputs to prevent XSS
+- Use React's built-in XSS protection (automatic escaping)
+- Validate all inputs from external sources
+- Use environment variables for configuration
+
+## Documentation
+
+- Add JSDoc comments for public APIs
+- Document complex algorithms and business logic
+- Keep README and wiki pages updated
+- Comment "why" not "what" (code should be self-explanatory)
+
+## Code Review Checklist
+
+When suggesting code, ensure:
+- ✅ TypeScript types are properly defined
+- ✅ Components follow React best practices
+- ✅ Error handling is implemented
+- ✅ Performance considerations are addressed
+- ✅ Accessibility is maintained (ARIA, keyboard nav)
+- ✅ Tests are included or updated
+- ✅ Code follows existing patterns
+- ✅ No console.logs in production code
+- ✅ Imports are organized correctly
+
+## References
+
+- Project Guidelines: `CURSOR_GUIDELINES.md`
+- Architecture: `SRS.md`, `wiki/`
+- Testing: `TESTING.md`
+- Contributing: `CONTRIBUTING.md`
+- TypeScript config: `tsconfig.json`
+- ESLint config: `eslint.config.mjs`
+
+---
+
+**Remember**: Write code that is type-safe, performant, accessible, and maintainable. When in doubt, check existing code patterns and documentation.
+

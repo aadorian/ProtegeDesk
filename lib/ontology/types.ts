@@ -17,7 +17,7 @@ export type OntologyProperty = {
   name: string
   label?: string
   description?: string
-  type: "ObjectProperty" | "DataProperty" | "AnnotationProperty"
+  type: 'ObjectProperty' | 'DataProperty' | 'AnnotationProperty'
   domain: string[]
   range: string[]
   superProperties: string[]
@@ -27,13 +27,13 @@ export type OntologyProperty = {
 }
 
 export type PropertyCharacteristic =
-  | "Functional"
-  | "InverseFunctional"
-  | "Transitive"
-  | "Symmetric"
-  | "Asymmetric"
-  | "Reflexive"
-  | "Irreflexive"
+  | 'Functional'
+  | 'InverseFunctional'
+  | 'Transitive'
+  | 'Symmetric'
+  | 'Asymmetric'
+  | 'Reflexive'
+  | 'Irreflexive'
 
 export type Individual = {
   id: string
@@ -67,6 +67,7 @@ export type Ontology = {
   properties: Map<string, OntologyProperty>
   individuals: Map<string, Individual>
   annotations: Annotation[]
+  lastModified?: Date
 }
 
 export type OntologyStats = {
@@ -74,4 +75,16 @@ export type OntologyStats = {
   propertyCount: number
   individualCount: number
   axiomCount: number
+}
+
+export interface IndividualItemProps {
+  individual: Individual
+  isSelected: boolean
+  onSelect: (id: string) => void
+}
+
+export interface PropertyItemProps {
+  property: OntologyProperty
+  isSelected: boolean
+  onSelect: (id: string) => void
 }

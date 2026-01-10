@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useOntology } from "@/lib/ontology/context"
-import { runReasoner, type ReasoningResult } from "@/lib/ontology/reasoner"
-import { Button } from "@/components/ui/button"
+import { useState } from 'react'
+import { useOntology } from '@/lib/ontology/context'
+import { runReasoner, type ReasoningResult } from '@/lib/ontology/reasoner'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -11,20 +11,25 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Brain, CheckCircle2, XCircle, AlertTriangle, Clock, Loader2 } from "lucide-react"
+} from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Brain, CheckCircle2, XCircle, AlertTriangle, Clock, Loader2 } from 'lucide-react'
+import { REASONER_DIALOG_TIME_DELAY_MS } from '../../lib/constants'
+import { useToast } from '@/hooks/use-toast'
 
 export function ReasonerDialog() {
   const { ontology } = useOntology()
   const [open, setOpen] = useState(false)
   const [result, setResult] = useState<ReasoningResult | null>(null)
   const [isReasoning, setIsReasoning] = useState(false)
+  const { toast } = useToast()
 
   const handleReason = () => {
-    if (!ontology) return
+    if (!ontology) {
+      return
+    }
 
     setIsReasoning(true)
     // Simulate async reasoning with setTimeout
@@ -32,18 +37,27 @@ export function ReasonerDialog() {
       const reasoningResult = runReasoner(ontology)
       setResult(reasoningResult)
       setIsReasoning(false)
-    }, 500)
+
+      toast({
+        title: 'Reasoning completed',
+        description: reasoningResult.consistent
+          ? 'Ontology is logically consistent'
+          : `${reasoningResult.errors.length} errors, ${reasoningResult.warnings.length} warnings`,
+        variant: reasoningResult.consistent ? 'default' : 'destructive',
+        duration: 4000,
+      })
+    }, REASONER_DIALOG_TIME_DELAY_MS)
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm">
-          <Brain className="h-4 w-4 mr-2" />
+          <Brain className="mr-2 h-4 w-4" />
           Reasoner
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl max-h-[80vh]">
+      <DialogContent className="max-h-[80vh] max-w-3xl">
         <DialogHeader>
           <DialogTitle>HermiT Reasoner</DialogTitle>
           <DialogDescription>
@@ -56,19 +70,19 @@ export function ReasonerDialog() {
             <Button onClick={handleReason} disabled={!ontology || isReasoning}>
               {isReasoning ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Reasoning...
                 </>
               ) : (
                 <>
-                  <Brain className="h-4 w-4 mr-2" />
+                  <Brain className="mr-2 h-4 w-4" />
                   Start Reasoner
                 </>
               )}
             </Button>
 
             {result && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4" />
                 {result.duration.toFixed(2)}ms
               </div>
@@ -77,7 +91,7 @@ export function ReasonerDialog() {
 
           {result && (
             <ScrollArea className="h-[500px] rounded-md border">
-              <div className="p-4 space-y-4">
+              <div className="space-y-4 p-4">
                 {/* Consistency Status */}
                 <Card>
                   <CardHeader>
@@ -96,8 +110,8 @@ export function ReasonerDialog() {
                     </CardTitle>
                     <CardDescription>
                       {result.consistent
-                        ? "No logical contradictions found in the ontology"
-                        : "Logical contradictions detected. Please review the errors below."}
+                        ? 'No logical contradictions found in the ontology'
+                        : 'Logical contradictions detected. Please review the errors below.'}
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -114,7 +128,7 @@ export function ReasonerDialog() {
                     <CardContent>
                       <div className="space-y-3">
                         {result.errors.map((error, idx) => (
-                          <div key={idx} className="rounded-lg bg-red-500/10 p-3 space-y-2">
+                          <div key={idx} className="space-y-2 rounded-lg bg-red-500/10 p-3">
                             <div className="flex items-start justify-between">
                               <p className="text-sm font-medium text-red-500">{error.message}</p>
                               <Badge variant="destructive" className="ml-2">
@@ -122,7 +136,7 @@ export function ReasonerDialog() {
                               </Badge>
                             </div>
                             <div className="flex flex-wrap gap-1">
-                              {error.affectedEntities.map((entity) => (
+                              {error.affectedEntities.map(entity => (
                                 <Badge key={entity} variant="outline" className="text-xs">
                                   {ontology?.classes.get(entity)?.name || entity}
                                 </Badge>
@@ -149,7 +163,7 @@ export function ReasonerDialog() {
                     </CardHeader>
                     <CardContent>
                       <div className="flex flex-wrap gap-2">
-                        {result.unsatisfiableClasses.map((classId) => (
+                        {result.unsatisfiableClasses.map(classId => (
                           <Badge key={classId} variant="secondary" className="bg-orange-500/10">
                             {ontology?.classes.get(classId)?.name || classId}
                           </Badge>
@@ -171,15 +185,20 @@ export function ReasonerDialog() {
                     <CardContent>
                       <div className="space-y-3">
                         {result.warnings.map((warning, idx) => (
-                          <div key={idx} className="rounded-lg bg-yellow-500/10 p-3 space-y-2">
+                          <div key={idx} className="space-y-2 rounded-lg bg-yellow-500/10 p-3">
                             <div className="flex items-start justify-between">
-                              <p className="text-sm text-yellow-600 dark:text-yellow-400">{warning.message}</p>
-                              <Badge variant="outline" className="ml-2 border-yellow-500 text-yellow-500">
+                              <p className="text-sm text-yellow-600 dark:text-yellow-400">
+                                {warning.message}
+                              </p>
+                              <Badge
+                                variant="outline"
+                                className="ml-2 border-yellow-500 text-yellow-500"
+                              >
                                 {warning.type}
                               </Badge>
                             </div>
                             <div className="flex flex-wrap gap-1">
-                              {warning.affectedEntities.map((entity) => (
+                              {warning.affectedEntities.map(entity => (
                                 <Badge key={entity} variant="outline" className="text-xs">
                                   {ontology?.classes.get(entity)?.name ||
                                     ontology?.properties.get(entity)?.name ||
@@ -198,27 +217,35 @@ export function ReasonerDialog() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                      <CheckCircle2 className="text-primary h-5 w-5" />
                       Inferred Class Hierarchy
                     </CardTitle>
-                    <CardDescription>Complete transitive closure of class inheritance relationships</CardDescription>
+                    <CardDescription>
+                      Complete transitive closure of class inheritance relationships
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
-                      {Array.from(result.inferredHierarchy.entries()).map(([classId, superClasses]) => {
-                        if (superClasses.length === 0) return null
-                        return (
-                          <div key={classId} className="text-sm">
-                            <span className="font-medium text-foreground">
-                              {ontology?.classes.get(classId)?.name || classId}
-                            </span>
-                            <span className="text-muted-foreground"> ⊑ </span>
-                            <span className="text-muted-foreground">
-                              {superClasses.map((sc) => ontology?.classes.get(sc)?.name || sc).join(", ")}
-                            </span>
-                          </div>
-                        )
-                      })}
+                      {Array.from(result.inferredHierarchy.entries()).map(
+                        ([classId, superClasses]) => {
+                          if (superClasses.length === 0) {
+                            return null
+                          }
+                          return (
+                            <div key={classId} className="text-sm">
+                              <span className="text-foreground font-medium">
+                                {ontology?.classes.get(classId)?.name || classId}
+                              </span>
+                              <span className="text-muted-foreground"> ⊑ </span>
+                              <span className="text-muted-foreground">
+                                {superClasses
+                                  .map(sc => ontology?.classes.get(sc)?.name || sc)
+                                  .join(', ')}
+                              </span>
+                            </div>
+                          )
+                        }
+                      )}
                     </div>
                   </CardContent>
                 </Card>

@@ -1,12 +1,13 @@
-"use client"
+'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ClassTree } from "./class-tree"
-import { PropertyList } from "./property-list"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ClassTree } from './class-tree'
+import { PropertyList } from './property-list'
+import { IndividualList } from './individual-list'
 
 export function TabsNavigation() {
   return (
-    <Tabs defaultValue="classes" className="flex flex-col h-full">
+    <Tabs defaultValue="classes" className="flex h-full flex-col">
       <TabsList className="mx-3 mt-2">
         <TabsTrigger value="classes" className="text-xs">
           Classes
@@ -19,18 +20,16 @@ export function TabsNavigation() {
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="classes" className="flex-1 overflow-hidden mt-0">
+      <TabsContent value="classes" className="mt-0 flex-1 overflow-hidden">
         <ClassTree />
       </TabsContent>
 
-      <TabsContent value="properties" className="flex-1 overflow-hidden mt-0">
+      <TabsContent value="properties" className="mt-0 flex-1 overflow-hidden">
         <PropertyList />
       </TabsContent>
 
-      <TabsContent value="individuals" className="flex-1 overflow-hidden mt-0">
-        <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
-          Individuals view coming soon...
-        </div>
+      <TabsContent value="individuals" className="mt-0 flex-1 overflow-hidden">
+        <IndividualList />
       </TabsContent>
     </Tabs>
   )

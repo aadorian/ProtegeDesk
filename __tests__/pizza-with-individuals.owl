@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
+     xml:base="http://www.co-ode.org/ontologies/pizza/pizza.owl"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#">
+    <owl:Ontology rdf:about="">
+        <rdfs:comment xml:lang="en">Pizza ontology with sample individuals for testing</rdfs:comment>
+        <owl:versionInfo>Test version with individuals</owl:versionInfo>
+    </owl:Ontology>
+
+    <!-- Classes -->
+    <owl:Class rdf:about="#Pizza">
+        <rdfs:label>Pizza</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PizzaTopping">
+        <rdfs:label>Pizza Topping</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CheeseTopping">
+        <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
+        <rdfs:label>Cheese Topping</rdfs:label>
+    </owl:Class>
+
+    <!-- Object Properties -->
+    <owl:ObjectProperty rdf:about="#hasTopping">
+        <rdfs:label>has topping</rdfs:label>
+        <rdfs:domain rdf:resource="#Pizza"/>
+        <rdfs:range rdf:resource="#PizzaTopping"/>
+    </owl:ObjectProperty>
+
+    <!-- Individuals - Using owl:NamedIndividual -->
+    <owl:NamedIndividual rdf:about="#MyMargherita">
+        <rdf:type rdf:resource="#Pizza"/>
+        <rdfs:label>My Margherita Pizza</rdfs:label>
+        <hasTopping rdf:resource="#MozzarellaTopping1"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#MozzarellaTopping1">
+        <rdf:type rdf:resource="#CheeseTopping"/>
+        <rdfs:label>Mozzarella</rdfs:label>
+    </owl:NamedIndividual>
+
+    <!-- Individual using typed element notation -->
+    <Pizza rdf:about="#MyPepperoni">
+        <rdfs:label>My Pepperoni Pizza</rdfs:label>
+    </Pizza>
+
+    <!-- Individual using rdf:Description -->
+    <rdf:Description rdf:about="#MyVeggie">
+        <rdf:type rdf:resource="#Pizza"/>
+        <rdfs:label>My Veggie Pizza</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>
