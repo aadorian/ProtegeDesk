@@ -467,6 +467,48 @@ export function GraphView() {
     setZoom(prev => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev * delta)))
   }
 
+  const resetView = () => {
+    setZoom(1)
+    setOffset({ x: 0, y: 0 })
+  }
+
+  const fitToView = useCallback(() => {
+    if (nodes.length === 0 || !canvasRef.current) {
+      return
+    }
+
+    // Find bounding box
+    let minX = Infinity,
+      maxX = -Infinity,
+      minY = Infinity,
+      maxY = -Infinity
+    nodes.forEach(node => {
+      minX = Math.min(minX, node.x - node.radius)
+      maxX = Math.max(maxX, node.x + node.radius)
+      minY = Math.min(minY, node.y - node.radius)
+      maxY = Math.max(maxY, node.y + node.radius)
+    })
+
+    const contentWidth = maxX - minX + FIT_VIEW_PADDING
+    const contentHeight = maxY - minY + FIT_VIEW_PADDING
+
+    const rect = canvasRef.current.getBoundingClientRect()
+    const containerWidth = rect.width
+    const containerHeight = rect.height
+
+    const newZoom = Math.min(
+      containerWidth / contentWidth,
+      containerHeight / contentHeight,
+      MAX_FIT_ZOOM
+    )
+
+    setZoom(newZoom)
+    setOffset({
+      x: (-(minX + maxX) / CENTER_DIVIDER) * newZoom,
+      y: (-(minY + maxY) / CENTER_DIVIDER) * newZoom,
+    })
+  }, [nodes])
+
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -589,48 +631,6 @@ export function GraphView() {
       setClickPosition(null)
     }
   }
-
-  const resetView = () => {
-    setZoom(1)
-    setOffset({ x: 0, y: 0 })
-  }
-
-  const fitToView = useCallback(() => {
-    if (nodes.length === 0 || !canvasRef.current) {
-      return
-    }
-
-    // Find bounding box
-    let minX = Infinity,
-      maxX = -Infinity,
-      minY = Infinity,
-      maxY = -Infinity
-    nodes.forEach(node => {
-      minX = Math.min(minX, node.x - node.radius)
-      maxX = Math.max(maxX, node.x + node.radius)
-      minY = Math.min(minY, node.y - node.radius)
-      maxY = Math.max(maxY, node.y + node.radius)
-    })
-
-    const contentWidth = maxX - minX + FIT_VIEW_PADDING
-    const contentHeight = maxY - minY + FIT_VIEW_PADDING
-
-    const rect = canvasRef.current.getBoundingClientRect()
-    const containerWidth = rect.width
-    const containerHeight = rect.height
-
-    const newZoom = Math.min(
-      containerWidth / contentWidth,
-      containerHeight / contentHeight,
-      MAX_FIT_ZOOM
-    )
-
-    setZoom(newZoom)
-    setOffset({
-      x: (-(minX + maxX) / CENTER_DIVIDER) * newZoom,
-      y: (-(minY + maxY) / CENTER_DIVIDER) * newZoom,
-    })
-  }, [nodes])
 
   const graphToScreen = (x: number, y: number) => {
     if (!canvasRef.current) {
