@@ -55,6 +55,17 @@ import { PropertyDetails } from './property-details'
 import { IndividualDetails } from './individual-details'
 import { NodeHoverCard } from './node-hover-card'
 import { NewEntityDialog } from './new-entity-dialog'
+=======
+import { useEffect, useRef, useState } from "react"
+import { useOntology } from "@/lib/ontology/context"
+import { Button } from "@/components/ui/button"
+import { ZoomIn, ZoomOut, Maximize, Download } from "lucide-react"
+import {
+  calculateNodeAngle,
+  calculateCircularPosition,
+} from "@/lib/graph-utils"
+
+>>>>>>> 7410103 (refactor: extract graph layout utilities)
 
 type Node = {
   id: string
@@ -226,13 +237,17 @@ export function GraphView() {
   }, [ontology, selectedNode])
 
   useEffect(() => {
+
     if (!ontology) {
       return
     }
 
-    // Convert ontology to graph data
-    const graphNodes: Node[] = []
-    const graphEdges: Edge[] = []
+  if (!ontology) return
+ (refactor: extract graph layout utilities)
+
+  const graphNodes: Node[] = []
+  const graphEdges: Edge[] = []
+
 
     // Add class nodes
     Array.from(ontology.classes.values()).forEach((owlClass, index) => {
@@ -286,6 +301,72 @@ export function GraphView() {
 
       // Add edges from properties to their domain/range
       prop.domain.forEach(domainClass => {
+
+  // ---------- Classes ----------
+  Array.from(ontology.classes.values()).forEach((owlClass, index) => {
+    const angle = calculateNodeAngle(index, ontology.classes.size)
+    const radius = 250
+    const { x, y } = calculateCircularPosition(0, 0, radius, angle)
+
+    graphNodes.push({
+      id: owlClass.id,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      label: owlClass.label || owlClass.name,
+      type: "class",
+      radius: 35,
+      color: "rgb(147, 112, 219)",
+    })
+
+    // Superclass edges
+    owlClass.superClasses.forEach((superClass) => {
+      if (
+        superClass !== "owl:Thing" &&
+        graphNodes.some((n) => n.id === superClass)
+      ) {
+        graphEdges.push({
+          from: owlClass.id,
+          to: superClass,
+          type: "subclass",
+          label: "subClassOf",
+          color: "rgba(147, 112, 219, 0.5)",
+        })
+      }
+    })
+  })
+
+  // ---------- Properties ----------
+  Array.from(ontology.properties.values()).forEach((prop, index) => {
+    const angle =
+      calculateNodeAngle(index, ontology.properties.size) + Math.PI
+    const radius = 150
+    const { x, y } = calculateCircularPosition(0, 0, radius, angle)
+
+    const color =
+      prop.type === "ObjectProperty"
+        ? "rgb(99, 179, 237)"
+        : prop.type === "DataProperty"
+        ? "rgb(129, 199, 132)"
+        : "rgb(255, 152, 0)"
+
+    graphNodes.push({
+      id: prop.id,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      label: prop.label || prop.name,
+      type: "property",
+      radius: 28,
+      color,
+    })
+
+    // Domain edges
+    prop.domain.forEach((domainClass) => {
+      if (graphNodes.some((n) => n.id === domainClass)) {
+ (refactor: extract graph layout utilities)
         graphEdges.push({
           from: prop.id,
           to: domainClass,
@@ -293,8 +374,10 @@ export function GraphView() {
           label: 'domain',
           color: 'rgba(99, 179, 237, 0.3)',
         })
-      })
+      }
     })
+  })
+
 
     Array.from(ontology.individuals.values()).forEach((individual, index) => {
       const angle = (index / ontology.individuals.size) * FULL_CIRCLE_RADIANS
@@ -302,6 +385,27 @@ export function GraphView() {
         id: individual.id,
         x: Math.cos(angle) * INDIVIDUAL_LAYOUT_RADIUS + INDIVIDUAL_X_OFFSET,
         y: Math.sin(angle) * INDIVIDUAL_LAYOUT_RADIUS,
+
+  // ---------- Individuals ----------
+  Array.from(ontology.individuals.values()).forEach(
+    (individual, index) => {
+      const angle = calculateNodeAngle(
+        index,
+        ontology.individuals.size
+      )
+      const radius = 100
+      const { x, y } = calculateCircularPosition(
+        300,
+        0,
+        radius,
+        angle
+      )
+
+      graphNodes.push({
+        id: individual.id,
+        x,
+        y,
+(refactor: extract graph layout utilities)
         vx: 0,
         vy: 0,
         label: individual.label || individual.name,
@@ -319,13 +423,26 @@ export function GraphView() {
           label: 'instanceOf',
           color: 'rgba(244, 143, 177, 0.4)',
         })
+      individual.types.forEach((typeClass) => {
+        if (graphNodes.some((n) => n.id === typeClass)) {
+          graphEdges.push({
+            from: individual.id,
+            to: typeClass,
+            type: "instance",
+            label: "instanceOf",
+            color: "rgba(244, 143, 177, 0.4)",
+          })
+        }
+>>>>>>> 7410103 (refactor: extract graph layout utilities)
       })
-    })
+    }
+  )
 
-    setNodes(graphNodes)
-    setEdges(graphEdges)
-    setIsSimulating(true)
-  }, [ontology])
+  setNodes(graphNodes)
+  setEdges(graphEdges)
+  setIsSimulating(true)
+}, [ontology])
+
 
   useEffect(() => {
     if (!isSimulating || nodes.length === 0) {
