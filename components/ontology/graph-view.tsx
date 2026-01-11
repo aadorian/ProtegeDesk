@@ -162,7 +162,15 @@ function applyForces(nodes: Node[], edges: Edge[]) {
 }
 
 export function GraphView() {
-  const { ontology, selectClass } = useOntology()
+  const {
+    ontology,
+    selectClass,
+    selectProperty,
+    selectIndividual,
+    selectedClass,
+    selectedProperty,
+    selectedIndividual,
+  } = useOntology()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number | null>(null)
@@ -623,6 +631,10 @@ export function GraphView() {
       setIsDialogOpen(true)
       if (clickedNode.type === 'class') {
         selectClass(clickedNode.id)
+      } else if (clickedNode.type === "property") {
+        selectProperty(clickedNode.id)
+      } else if (clickedNode.type === "individual") {
+        selectIndividual(clickedNode.id)
       }
       setClickPosition({ x: e.clientX, y: e.clientY })
     } else {

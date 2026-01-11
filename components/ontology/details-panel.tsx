@@ -20,6 +20,10 @@ export function DetailsPanel() {
     return <ClassDetails />
   }
 
+  if (selectedIndividual) {
+    return <IndividualDetails />
+  }
+
   return (
     <div className="text-muted-foreground flex h-full items-center justify-center text-sm">
       Select an entity to view details
