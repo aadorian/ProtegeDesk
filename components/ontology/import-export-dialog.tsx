@@ -25,6 +25,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Kbd } from '@/components/ui/kbd'
 import { useOntology } from '@/lib/ontology/context'
 import {
   serializeToJSONLD,
@@ -213,12 +215,21 @@ export function ImportExportDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <Upload className="mr-2 h-4 w-4" />
-          Import/Export
-        </Button>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DialogTrigger asChild>
+            <Button variant="ghost" size="sm">
+              <Upload className="mr-2 h-4 w-4" />
+              Import/Export
+            </Button>
+          </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>
+            Import <Kbd>(Example + I)</Kbd> Export <Kbd>(Example + E)</Kbd> your ontology
+          </p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Import/Export Ontology</DialogTitle>

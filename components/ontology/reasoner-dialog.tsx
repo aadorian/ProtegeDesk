@@ -12,7 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
+import { Kbd } from '@/components/ui/kbd'
 
 const REASONER_TOAST_DURATION_MS = 4000
 const DURATION_DECIMAL_PLACES = 2
@@ -55,10 +57,22 @@ export function ReasonerDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <Brain className="mr-2 h-4 w-4" />
-          Reasoner
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <Brain className="mr-2 h-4 w-4" />
+                Reasoner
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>
+              Run <Kbd>(Example + R)</Kbd> ontology reasoner to check consistency and infer
+              relationships
+            </p>
+          </TooltipContent>
+        </Tooltip>
       </DialogTrigger>
       <DialogContent className="max-h-[80vh] max-w-3xl">
         <DialogHeader>
