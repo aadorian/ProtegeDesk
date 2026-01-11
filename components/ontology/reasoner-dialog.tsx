@@ -13,6 +13,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
+
+const REASONER_TOAST_DURATION_MS = 4000
+const DURATION_DECIMAL_PLACES = 2
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Brain, CheckCircle2, XCircle, AlertTriangle, Clock, Loader2 } from 'lucide-react'
@@ -44,7 +47,7 @@ export function ReasonerDialog() {
           ? 'Ontology is logically consistent'
           : `${reasoningResult.errors.length} errors, ${reasoningResult.warnings.length} warnings`,
         variant: reasoningResult.consistent ? 'default' : 'destructive',
-        duration: 4000,
+        duration: REASONER_TOAST_DURATION_MS,
       })
     }, REASONER_DIALOG_TIME_DELAY_MS)
   }
@@ -84,7 +87,7 @@ export function ReasonerDialog() {
             {result && (
               <div className="text-muted-foreground flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4" />
-                {result.duration.toFixed(2)}ms
+                {result.duration.toFixed(DURATION_DECIMAL_PLACES)}ms
               </div>
             )}
           </div>

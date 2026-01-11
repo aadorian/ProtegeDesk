@@ -111,8 +111,9 @@ export function serializeToJSONLD(ontology: Ontology): string {
     ],
   }
 
+  const JSON_INDENT_SPACES = 2
   // Pretty-print JSON for readability and easier debugging
-  return JSON.stringify(jsonld, null, 2)
+  return JSON.stringify(jsonld, null, JSON_INDENT_SPACES)
 }
 
 /**
@@ -358,7 +359,8 @@ function resolveIRI(iri: string, xmlBase: string): string {
   // WHY remove trailing #: Prevents double # in resolved IRI (e.g., base# + #Person)
   // EXAMPLE: "http://example.org/onto#" + "#Person" → "http://example.org/onto#Person"
   if (iri.startsWith('#')) {
-    const base = xmlBase.endsWith('#') ? xmlBase.slice(0, -1) : xmlBase
+    const HASH_SUFFIX_LENGTH = -1
+    const base = xmlBase.endsWith('#') ? xmlBase.slice(0, HASH_SUFFIX_LENGTH) : xmlBase
     return base + iri
   }
 
@@ -808,11 +810,15 @@ export function parseTurtle(content: string): Ontology {
       const labelMatch = line.match(/"([^"]+)"/)
       if (labelMatch) {
         if (currentType === 'class' && classes.has(currentSubject)) {
-          const cls = classes.get(currentSubject)!
-          cls.label = labelMatch[1]
+          const cls = classes.get(currentSubject)
+          if (cls) {
+            cls.label = labelMatch[1]
+          }
         } else if (currentType === 'property' && properties.has(currentSubject)) {
-          const prop = properties.get(currentSubject)!
-          prop.label = labelMatch[1]
+          const prop = properties.get(currentSubject)
+          if (prop) {
+            prop.label = labelMatch[1]
+          }
         }
       }
     }

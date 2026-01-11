@@ -2,7 +2,7 @@
 
 import type React from 'react'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useOntology } from '@/lib/ontology/context'
 import { Button } from '@/components/ui/button'
 import { ZoomIn, ZoomOut, Maximize, Download, RotateCcw } from 'lucide-react'
@@ -34,6 +34,18 @@ import {
   DEFAULT_ZOOM,
   FIT_VIEW_PADDING,
   MAX_FIT_ZOOM,
+  FULL_CIRCLE_RADIANS,
+  HALF_CIRCLE_RADIANS,
+  CENTER_DIVIDER,
+  ARROW_OFFSET_PX,
+  SELECTION_STROKE_WIDTH,
+  DEFAULT_NODE_STROKE_WIDTH,
+  HOVER_DELAY_MS,
+  DIALOG_POSITION_OFFSET,
+  TEXT_SHADOW_BLUR,
+  TYPE_INDICATOR_OFFSET,
+  TOOLTIP_OFFSET,
+  ZOOM_PERCENTAGE_MULTIPLIER,
 } from '../../lib/constants'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -177,7 +189,7 @@ export function GraphView() {
   const [contextNode, setContextNode] = useState<Node | null>(null)
   const [contextMenuPos, setContextMenuPos] = useState<{ x: number; y: number } | null>(null)
   const [createSubclassParent, setCreateSubclassParent] = useState<string | null>(null)
-  
+
   const selectedNodeData = useMemo(() => {
     if (!ontology || !selectedNode) {
       return null
@@ -224,7 +236,7 @@ export function GraphView() {
 
     // Add class nodes
     Array.from(ontology.classes.values()).forEach((owlClass, index) => {
-      const angle = (index / ontology.classes.size) * 2 * Math.PI
+      const angle = (index / ontology.classes.size) * FULL_CIRCLE_RADIANS
       graphNodes.push({
         id: owlClass.id,
         x: Math.cos(angle) * CLASS_LAYOUT_RADIUS,
@@ -252,7 +264,7 @@ export function GraphView() {
     })
 
     Array.from(ontology.properties.values()).forEach((prop, index) => {
-      const angle = (index / ontology.properties.size) * 2 * Math.PI + Math.PI
+      const angle = (index / ontology.properties.size) * FULL_CIRCLE_RADIANS + HALF_CIRCLE_RADIANS
       const color =
         prop.type === 'ObjectProperty'
           ? 'rgb(99, 179, 237)'
@@ -285,7 +297,7 @@ export function GraphView() {
     })
 
     Array.from(ontology.individuals.values()).forEach((individual, index) => {
-      const angle = (index / ontology.individuals.size) * 2 * Math.PI
+      const angle = (index / ontology.individuals.size) * FULL_CIRCLE_RADIANS
       graphNodes.push({
         id: individual.id,
         x: Math.cos(angle) * INDIVIDUAL_LAYOUT_RADIUS + INDIVIDUAL_X_OFFSET,
@@ -343,7 +355,7 @@ export function GraphView() {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [isSimulating, edges])
+  }, [isSimulating, edges, nodes.length])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -367,8 +379,8 @@ export function GraphView() {
     ctx.fillRect(0, 0, rect.width, rect.height)
 
     // Calculate center
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
+    const centerX = rect.width / CENTER_DIVIDER
+    const centerY = rect.height / CENTER_DIVIDER
 
     // Apply transformations
     ctx.save()
@@ -394,8 +406,8 @@ export function GraphView() {
 
         // Draw arrow
         const angle = Math.atan2(toNode.y - fromNode.y, toNode.x - fromNode.x)
-        const arrowX = toNode.x - Math.cos(angle) * (toNode.radius + 5)
-        const arrowY = toNode.y - Math.sin(angle) * (toNode.radius + 5)
+        const arrowX = toNode.x - Math.cos(angle) * (toNode.radius + ARROW_OFFSET_PX)
+        const arrowY = toNode.y - Math.sin(angle) * (toNode.radius + ARROW_OFFSET_PX)
 
         ctx.beginPath()
         ctx.moveTo(arrowX, arrowY)
@@ -409,32 +421,31 @@ export function GraphView() {
           arrowY - EDGE_ARROW_LENGTH * Math.sin(angle + EDGE_ARROW_ANGLE)
         )
         ctx.strokeStyle = edge.color
-        ctx.lineWidth = 2
+        ctx.lineWidth = DEFAULT_NODE_STROKE_WIDTH
         ctx.stroke()
         ctx.setLineDash([])
       }
     })
 
     nodes.forEach(node => {
-
       const isSelected = node.id === selectedNode
 
       // Draw selection highlight
       if (isSelected) {
         ctx.beginPath()
-        ctx.arc(node.x, node.y, node.radius + SELECTION_RADIUS_PADDING, 0, 2 * Math.PI)
+        ctx.arc(node.x, node.y, node.radius + SELECTION_RADIUS_PADDING, 0, FULL_CIRCLE_RADIANS)
         ctx.strokeStyle = 'rgb(255, 215, 0)'
-        ctx.lineWidth = 3
+        ctx.lineWidth = SELECTION_STROKE_WIDTH
         ctx.stroke()
       }
 
       // Draw node circle
       ctx.beginPath()
-      ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
+      ctx.arc(node.x, node.y, node.radius, 0, FULL_CIRCLE_RADIANS)
       ctx.fillStyle = node.color
       ctx.fill()
       ctx.strokeStyle = isSelected ? 'rgb(255, 215, 0)' : 'rgba(255, 255, 255, 0.3)'
-      ctx.lineWidth = isSelected ? SUBCLASS_EDGE_WIDTH : 2
+      ctx.lineWidth = isSelected ? SUBCLASS_EDGE_WIDTH : DEFAULT_NODE_STROKE_WIDTH
       ctx.stroke()
 
       // Draw label
@@ -445,14 +456,14 @@ export function GraphView() {
 
       // Text shadow for better readability
       ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'
-      ctx.shadowBlur = 4
+      ctx.shadowBlur = TEXT_SHADOW_BLUR
       ctx.fillText(node.label, node.x, node.y)
       ctx.shadowBlur = 0
 
       // Draw type indicator below node
       ctx.font = '9px sans-serif'
       ctx.fillStyle = 'rgb(160, 160, 160)'
-      ctx.fillText(node.type, node.x, node.y + node.radius + 12)
+      ctx.fillText(node.type, node.x, node.y + node.radius + TYPE_INDICATOR_OFFSET)
     })
 
     ctx.restore()
@@ -464,175 +475,12 @@ export function GraphView() {
     setZoom(prev => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, prev * delta)))
   }
 
-  // Handle keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey || e.metaKey) {
-        return
-      } // Avoid interfering with browser zoom
-
-      switch (e.key) {
-        case '+':
-        case '=':
-          setZoom(z => Math.min(MAX_ZOOM, z * ZOOM_IN_FACTOR))
-          break
-        case '-':
-        case '_':
-          setZoom(z => Math.max(MIN_ZOOM, z * ZOOM_OUT_FACTOR))
-          break
-        case '0':
-          resetView()
-          break
-        case 'f':
-          fitToView()
-          break
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true)
-    setDragStart({ x: e.clientX - offset.x, y: e.clientY - offset.y })
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) {
-      setOffset({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      })
-      return
-    }
-  
-    const canvas = canvasRef.current
-    if (!canvas) return
-  
-    const rect = canvas.getBoundingClientRect()
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-  
-    const x = (e.clientX - rect.left - centerX - offset.x) / zoom
-    const y = (e.clientY - rect.top - centerY - offset.y) / zoom
-  
-    const node =
-      nodes.find(n => {
-        const dx = x - n.x
-        const dy = y - n.y
-        return Math.sqrt(dx * dx + dy * dy) <= n.radius
-      }) ?? null
-  
-    // If hovering the same node, do nothing
-    if (node?.id === hoveredNode?.id) return
-  
-    // Clear any pending hover
-    if (hoverTimeoutRef.current) {
-      window.clearTimeout(hoverTimeoutRef.current)
-      hoverTimeoutRef.current = null
-    }
-  
-    // Immediately clear tooltip if no node
-    if (!node) {
-      setHoveredNode(null)
-      return
-    }
-  
-    // Delay tooltip appearance
-    hoverTimeoutRef.current = window.setTimeout(() => {
-      setHoveredNode(node)
-    }, 300)
-  }
-  
-  
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleClick = (e: React.MouseEvent) => {
-    const canvas = canvasRef.current
-    if (!canvas) {
-      return
-    }
-
-    const rect = canvas.getBoundingClientRect()
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-
-    const clickX = (e.clientX - rect.left - centerX - offset.x) / zoom
-    const clickY = (e.clientY - rect.top - centerY - offset.y) / zoom
-
-    // Find clicked node
-    const clickedNode = nodes.find(node => {
-      const dx = clickX - node.x
-      const dy = clickY - node.y
-      return Math.sqrt(dx * dx + dy * dy) <= node.radius
-    })
-
-    if (clickedNode) {
-      setSelectedNode(clickedNode.id)
-      setIsDialogOpen(true)
-      if (clickedNode.type === 'class') {
-        selectClass(clickedNode.id)
-      } else if (clickedNode.type === "property") {
-        selectProperty(clickedNode.id)
-      } else if (clickedNode.type === "individual") {
-        selectIndividual(clickedNode.id)
-      }
-      setClickPosition({ x: e.clientX, y: e.clientY })
-    } else {
-      setSelectedNode(null)
-      selectClass(null)
-      setClickPosition(null)
-    }
-  }
-
-  // Effect to sync selection from Panel -> Graph
-  useEffect(() => {
-    let targetNodeId: string | null = null
-
-    if (selectedClass) {
-      targetNodeId = selectedClass.id
-    } else if (selectedProperty) {
-      targetNodeId = selectedProperty.id
-    } else if (selectedIndividual) {
-      targetNodeId = selectedIndividual.id
-    }
-
-    if (targetNodeId && targetNodeId !== selectedNode) {
-      const node = nodes.find((n) => n.id === targetNodeId)
-      if (node) {
-        setSelectedNode(node.id)
-
-        // Center the view on the selected node
-        const box = containerRef.current?.getBoundingClientRect()
-        if (box) {
-          // Center of the container
-          // We want: node.x * zoom + offset.x = 0 (relative to center)
-          // Actually the transform is: x' = (x + offset.x) * zoom + centerX
-          // We want x' = centerX -> (x + offset.x) * zoom = 0 -> x + offset.x = 0 -> offset.x = -x
-
-          setOffset({
-            x: -node.x,
-            y: -node.y,
-          })
-          // Optional: Auto zoom?
-          setZoom(1.5)
-        }
-      }
-    } else if (!targetNodeId && selectedNode) {
-      setSelectedNode(null)
-    }
-  }, [selectedClass, selectedProperty, selectedIndividual, nodes])
-
   const resetView = () => {
     setZoom(1)
     setOffset({ x: 0, y: 0 })
   }
 
-  const fitToView = () => {
+  const fitToView = useCallback(() => {
     if (nodes.length === 0 || !canvasRef.current) {
       return
     }
@@ -664,23 +512,152 @@ export function GraphView() {
 
     setZoom(newZoom)
     setOffset({
-      x: (-(minX + maxX) / 2) * newZoom,
-      y: (-(minY + maxY) / 2) * newZoom,
+      x: (-(minX + maxX) / CENTER_DIVIDER) * newZoom,
+      y: (-(minY + maxY) / CENTER_DIVIDER) * newZoom,
     })
+  }, [nodes])
+
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        return
+      } // Avoid interfering with browser zoom
+
+      switch (e.key) {
+        case '+':
+        case '=':
+          setZoom(z => Math.min(MAX_ZOOM, z * ZOOM_IN_FACTOR))
+          break
+        case '-':
+        case '_':
+          setZoom(z => Math.max(MIN_ZOOM, z * ZOOM_OUT_FACTOR))
+          break
+        case '0':
+          resetView()
+          break
+        case 'f':
+          fitToView()
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [fitToView])
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true)
+    setDragStart({ x: e.clientX - offset.x, y: e.clientY - offset.y })
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      setOffset({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y,
+      })
+      return
+    }
+
+    const canvas = canvasRef.current
+    if (!canvas) {
+      return
+    }
+
+    const rect = canvas.getBoundingClientRect()
+    const centerX = rect.width / CENTER_DIVIDER
+    const centerY = rect.height / CENTER_DIVIDER
+
+    const x = (e.clientX - rect.left - centerX - offset.x) / zoom
+    const y = (e.clientY - rect.top - centerY - offset.y) / zoom
+
+    const node =
+      nodes.find(n => {
+        const dx = x - n.x
+        const dy = y - n.y
+        return Math.sqrt(dx * dx + dy * dy) <= n.radius
+      }) ?? null
+
+    // If hovering the same node, do nothing
+    if (node?.id === hoveredNode?.id) {
+      return
+    }
+
+    // Clear any pending hover
+    if (hoverTimeoutRef.current) {
+      window.clearTimeout(hoverTimeoutRef.current)
+      hoverTimeoutRef.current = null
+    }
+
+    // Immediately clear tooltip if no node
+    if (!node) {
+      setHoveredNode(null)
+      return
+    }
+
+    // Delay tooltip appearance
+    hoverTimeoutRef.current = window.setTimeout(() => {
+      setHoveredNode(node)
+    }, HOVER_DELAY_MS)
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleClick = (e: React.MouseEvent) => {
+    const canvas = canvasRef.current
+    if (!canvas) {
+      return
+    }
+
+    const rect = canvas.getBoundingClientRect()
+    const centerX = rect.width / CENTER_DIVIDER
+    const centerY = rect.height / CENTER_DIVIDER
+
+    const clickX = (e.clientX - rect.left - centerX - offset.x) / zoom
+    const clickY = (e.clientY - rect.top - centerY - offset.y) / zoom
+
+    // Find clicked node
+    const clickedNode = nodes.find(node => {
+      const dx = clickX - node.x
+      const dy = clickY - node.y
+      return Math.sqrt(dx * dx + dy * dy) <= node.radius
+    })
+
+    if (clickedNode) {
+      setSelectedNode(clickedNode.id)
+      setIsDialogOpen(true)
+      if (clickedNode.type === 'class') {
+        selectClass(clickedNode.id)
+      } else if (clickedNode.type === "property") {
+        selectProperty(clickedNode.id)
+      } else if (clickedNode.type === "individual") {
+        selectIndividual(clickedNode.id)
+      }
+      setClickPosition({ x: e.clientX, y: e.clientY })
+    } else {
+      setSelectedNode(null)
+      selectClass(null)
+      setClickPosition(null)
+    }
   }
 
   const graphToScreen = (x: number, y: number) => {
-    if (!canvasRef.current) return null
-  
+    if (!canvasRef.current) {
+      return null
+    }
+
     const rect = canvasRef.current.getBoundingClientRect()
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-  
+    const centerX = rect.width / CENTER_DIVIDER
+    const centerY = rect.height / CENTER_DIVIDER
+
     return {
       x: centerX + offset.x + x * zoom,
       y: centerY + offset.y + y * zoom,
     }
-  }  
+  }
 
   const exportGraph = () => {
     const canvas = canvasRef.current
@@ -756,7 +733,7 @@ export function GraphView() {
             <ZoomIn className="h-4 w-4" />
           </Button>
           <div className="border-border/50 flex h-8 items-center justify-center border-y text-[10px] font-medium">
-            {(zoom * 100).toFixed(0)}%
+            {(zoom * ZOOM_PERCENTAGE_MULTIPLIER).toFixed(0)}%
           </div>
           <Button
             variant="ghost"
@@ -854,8 +831,8 @@ export function GraphView() {
             className="max-w-md"
             style={{
               position: 'fixed',
-              top: clickPosition.y + 200,
-              left: clickPosition.x + 200,
+              top: clickPosition.y + DIALOG_POSITION_OFFSET,
+              left: clickPosition.x + DIALOG_POSITION_OFFSET,
               maxWidth: '300px',
               overflow: 'auto',
               borderRadius: '8px', // optional, keeps corners rounded
@@ -909,29 +886,31 @@ export function GraphView() {
         <NewEntityDialog
           open={true}
           parentClassId={createSubclassParent}
-          onOpenChange={(open) => {
+          onOpenChange={open => {
             if (!open) {
               setCreateSubclassParent(null)
             }
           }}
         />
       )}
+      {hoveredNode &&
+        (() => {
+          const screenPos = graphToScreen(hoveredNode.x, hoveredNode.y)
+          if (!screenPos) {
+            return null
+          }
 
-      {hoveredNode && (() => {
-        const screenPos = graphToScreen(hoveredNode.x, hoveredNode.y)
-        if (!screenPos) return null
-
-        return (
-          <NodeHoverCard
-            node={hoveredNode}
-            ontology={ontology}
-            style={{
-              left: screenPos.x,
-              top: screenPos.y - hoveredNode.radius - 12,
-            }}
-          />
-        )
-      })()}
+          return (
+            <NodeHoverCard
+              node={hoveredNode}
+              ontology={ontology}
+              style={{
+                left: screenPos.x,
+                top: screenPos.y - hoveredNode.radius - TOOLTIP_OFFSET,
+              }}
+            />
+          )
+        })()}
     </div>
   )
 }

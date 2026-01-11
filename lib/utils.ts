@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-
 /**
  * Utility to build a className string from multiple Tailwind classes,
  * including conditional ones, and automatically resolve conflicts.
@@ -14,20 +13,19 @@ import { twMerge } from 'tailwind-merge'
  * @example
  * ```ts
  * const isError = true
- * cn('text-lg', 'text-lg', { 'text-red-800': isError }) 
- * // => "text-lg text-red-800" 
+ * cn('text-lg', 'text-lg', { 'text-red-800': isError })
+ * // => "text-lg text-red-800"
  * ```
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
 /**
  * Utility to format a Date as a human-readable relative time string.
  *
- * Converts the provided date into phrases like "just now", 
- * "2 minutes ago", "1 hour ago", or "3 days ago" depending on 
+ * Converts the provided date into phrases like "just now",
+ * "2 minutes ago", "1 hour ago", or "3 days ago" depending on
  * the difference from the current time.
  *
  * @param date - The date to format relative to the current time.
@@ -46,29 +44,35 @@ export function cn(...inputs: ClassValue[]) {
  * ```
  */
 export function formatRelativeTime(date: Date): string {
+  const MS_PER_SECOND = 1000
+  const SECONDS_PER_MINUTE = 60
+  const MINUTES_PER_HOUR = 60
+  const HOURS_PER_DAY = 24
+  const JUST_NOW_THRESHOLD = 10
+
   const now = new Date()
   const diffMs = now.getTime() - date.getTime()
-  const diffSec = Math.floor(diffMs / 1000)
-  const diffMin = Math.floor(diffSec / 60)
-  const diffHour = Math.floor(diffMin / 60)
-  const diffDay = Math.floor(diffHour / 24)
+  const diffSec = Math.floor(diffMs / MS_PER_SECOND)
+  const diffMin = Math.floor(diffSec / SECONDS_PER_MINUTE)
+  const diffHour = Math.floor(diffMin / MINUTES_PER_HOUR)
+  const diffDay = Math.floor(diffHour / HOURS_PER_DAY)
 
-  if (diffSec < 10) {
+  if (diffSec < JUST_NOW_THRESHOLD) {
     return 'just now'
   }
-  if (diffSec < 60) {
+  if (diffSec < SECONDS_PER_MINUTE) {
     return `${diffSec} seconds ago`
   }
   if (diffMin === 1) {
     return '1 minute ago'
   }
-  if (diffMin < 60) {
+  if (diffMin < MINUTES_PER_HOUR) {
     return `${diffMin} minutes ago`
   }
   if (diffHour === 1) {
     return '1 hour ago'
   }
-  if (diffHour < 24) {
+  if (diffHour < HOURS_PER_DAY) {
     return `${diffHour} hours ago`
   }
   if (diffDay === 1) {
@@ -76,7 +80,6 @@ export function formatRelativeTime(date: Date): string {
   }
   return `${diffDay} days ago`
 }
-
 
 /**
  * Utility to format a Date as a human-readable absolute timestamp.

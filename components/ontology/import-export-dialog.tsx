@@ -234,7 +234,10 @@ export function ImportExportDialog() {
           <TabsContent value="export" className="space-y-4">
             <div className="space-y-2">
               <Label>Export Format</Label>
-              <Select value={exportFormat} onValueChange={v => setExportFormat(v as any)}>
+              <Select
+                value={exportFormat}
+                onValueChange={v => setExportFormat(v as 'jsonld' | 'turtle' | 'owlxml')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -301,7 +304,10 @@ export function ImportExportDialog() {
 
             <div className="space-y-2">
               <Label>Import Format</Label>
-              <Select value={importFormat} onValueChange={v => setImportFormat(v as any)}>
+              <Select
+                value={importFormat}
+                onValueChange={v => setImportFormat(v as 'auto' | 'jsonld' | 'turtle' | 'owlxml')}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

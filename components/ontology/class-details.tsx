@@ -15,13 +15,11 @@ import {
   ItemContent,
   ItemTitle,
   ItemDescription,
-  ItemActions,
 } from '@/components/ui/item'
 import { Copy, ChevronRight, Home, Plus } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
-import { Badge } from '../ui/badge'
 
 interface ClassElementItemProps {
   id: string
@@ -34,7 +32,7 @@ interface ClassElementItemProps {
 }
 
 const ClassElementItem: React.FC<ClassElementItemProps> = React.memo(
-  ({ id, label, description, isSelected, variant = 'class', onClick, onDoubleClick }) => {
+  ({ id: _id, label, description, isSelected, variant = 'class', onClick, onDoubleClick }) => {
     const indicatorColor = useMemo(() => {
       switch (variant) {
         case 'restriction':
@@ -117,7 +115,7 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
   const { selectedClass, ontology, selectClass } = useOntology()
   const { toast } = useToast()
   const [selectedElement, setSelectedElement] = useState<string | null>(null)
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   const handleElementClick = useCallback((elementId: string) => {
     setSelectedElement(prev => (prev === elementId ? null : elementId))
@@ -156,13 +154,7 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
     return path
   }, [selectedClass, ontology])
 
-  const subclasses = useMemo(
-    () =>
-      Array.from(ontology?.classes.values() || []).filter(ontologyClass =>
-        ontologyClass.superClasses.includes(selectedClass?.id || '')
-      ),
-    [ontology, selectedClass?.id]
-  )
+  // Removed unused subclasses variable
 
   const instances = useMemo(
     () =>

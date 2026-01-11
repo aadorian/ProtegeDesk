@@ -18,7 +18,7 @@ export function OntologyStats() {
   const propertyCount = ontology?.properties.size ?? 0
   const individualCount = ontology?.individuals.size ?? 0
   const { toast } = useToast()
-  const { copy, copied } = useCopyToClipboard('')
+  const { copy } = useCopyToClipboard('')
 
   // Debug logging when ontology changes
   useEffect(() => {
@@ -34,9 +34,10 @@ export function OntologyStats() {
 
   // Update relative time display every 10 seconds
   useEffect(() => {
+    const STATS_REFRESH_INTERVAL_MS = 10000
     const interval = setInterval(() => {
       setUpdateTrigger(prev => prev + 1)
-    }, 10000) // Update every 10 seconds
+    }, STATS_REFRESH_INTERVAL_MS) // Update every 10 seconds
 
     return () => clearInterval(interval)
   }, [])

@@ -1,5 +1,20 @@
 import type { Ontology, OntologyClass, OntologyProperty, Individual } from './types'
 
+// Scoring weights for different field types
+const SCORE_WEIGHT_NAME = 10
+const SCORE_WEIGHT_LABEL = 8
+const SCORE_WEIGHT_TYPE = 6
+const SCORE_WEIGHT_DESCRIPTION = 3
+const SCORE_WEIGHT_DOMAIN_RANGE = 2
+const SCORE_WEIGHT_TYPES = 5
+const SCORE_WEIGHT_ANNOTATION = 1
+
+// Match type multipliers
+const MULTIPLIER_EXACT_MATCH = 10
+const MULTIPLIER_PREFIX_MATCH = 5
+const MULTIPLIER_SUBSTRING_MATCH = 2
+const FUZZY_MATCH_THRESHOLD = 0.7
+
 /**
  * Search result with relevance scoring
  */
@@ -54,7 +69,10 @@ export class OntologySearch {
 
     const cacheKey = this.getCacheKey(query, options)
     if (this.cacheEnabled && this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!
+      const cached = this.cache.get(cacheKey)
+      if (cached) {
+        return cached
+      }
     }
 
     const normalizedQuery = options.caseSensitive ? query.trim() : query.trim().toLowerCase()
@@ -153,7 +171,7 @@ export class OntologySearch {
 
     // Name match (highest priority)
     if (searchableFields.includes('name')) {
-      const nameScore = this.scoreField(entity.name, query, options, 10)
+      const nameScore = this.scoreField(entity.name, query, options, SCORE_WEIGHT_NAME)
       if (nameScore > 0) {
         score += nameScore
         matchedFields.push('name')
@@ -162,7 +180,7 @@ export class OntologySearch {
 
     // Label match (high priority)
     if (searchableFields.includes('label') && entity.label) {
-      const labelScore = this.scoreField(entity.label, query, options, 8)
+      const labelScore = this.scoreField(entity.label, query, options, SCORE_WEIGHT_LABEL)
       if (labelScore > 0) {
         score += labelScore
         matchedFields.push('label')
@@ -171,7 +189,12 @@ export class OntologySearch {
 
     // Description match (medium priority)
     if (searchableFields.includes('description') && entity.description) {
-      const descScore = this.scoreField(entity.description, query, options, 3)
+      const descScore = this.scoreField(
+        entity.description,
+        query,
+        options,
+        SCORE_WEIGHT_DESCRIPTION
+      )
       if (descScore > 0) {
         score += descScore
         matchedFields.push('description')
@@ -182,7 +205,12 @@ export class OntologySearch {
     if (searchableFields.includes('annotations') && entity.annotations) {
       for (const annotation of entity.annotations) {
         if (annotation.value) {
-          const annScore = this.scoreField(annotation.value, query, options, 1)
+          const annScore = this.scoreField(
+            annotation.value,
+            query,
+            options,
+            SCORE_WEIGHT_ANNOTATION
+          )
           if (annScore > 0) {
             score += annScore
             matchedFields.push('annotations')
@@ -210,7 +238,7 @@ export class OntologySearch {
 
     // Name match (highest priority)
     if (searchableFields.includes('name')) {
-      const nameScore = this.scoreField(entity.name, query, options, 10)
+      const nameScore = this.scoreField(entity.name, query, options, SCORE_WEIGHT_NAME)
       if (nameScore > 0) {
         score += nameScore
         matchedFields.push('name')
@@ -219,7 +247,7 @@ export class OntologySearch {
 
     // Label match (high priority)
     if (searchableFields.includes('label') && entity.label) {
-      const labelScore = this.scoreField(entity.label, query, options, 8)
+      const labelScore = this.scoreField(entity.label, query, options, SCORE_WEIGHT_LABEL)
       if (labelScore > 0) {
         score += labelScore
         matchedFields.push('label')
@@ -228,7 +256,7 @@ export class OntologySearch {
 
     // Type match (medium-high priority)
     if (searchableFields.includes('type')) {
-      const typeScore = this.scoreField(entity.type, query, options, 6)
+      const typeScore = this.scoreField(entity.type, query, options, SCORE_WEIGHT_TYPE)
       if (typeScore > 0) {
         score += typeScore
         matchedFields.push('type')
@@ -237,7 +265,12 @@ export class OntologySearch {
 
     // Description match (medium priority)
     if (searchableFields.includes('description') && entity.description) {
-      const descScore = this.scoreField(entity.description, query, options, 3)
+      const descScore = this.scoreField(
+        entity.description,
+        query,
+        options,
+        SCORE_WEIGHT_DESCRIPTION
+      )
       if (descScore > 0) {
         score += descScore
         matchedFields.push('description')
@@ -249,7 +282,7 @@ export class OntologySearch {
     if (searchableFields.includes('domain')) {
       for (const domain of entity.domain || []) {
         // Search the domain ID directly
-        const domainScore = this.scoreField(domain, query, options, 2)
+        const domainScore = this.scoreField(domain, query, options, SCORE_WEIGHT_DOMAIN_RANGE)
         if (domainScore > 0) {
           score += domainScore
           matchedFields.push('domain')
@@ -259,9 +292,14 @@ export class OntologySearch {
         // Also search the resolved class name/label
         const domainClass = this.ontology.classes.get(domain)
         if (domainClass) {
-          const classNameScore = this.scoreField(domainClass.name, query, options, 2)
+          const classNameScore = this.scoreField(
+            domainClass.name,
+            query,
+            options,
+            SCORE_WEIGHT_DOMAIN_RANGE
+          )
           const classLabelScore = domainClass.label
-            ? this.scoreField(domainClass.label, query, options, 2)
+            ? this.scoreField(domainClass.label, query, options, SCORE_WEIGHT_DOMAIN_RANGE)
             : 0
 
           if (classNameScore > 0 || classLabelScore > 0) {
@@ -276,7 +314,7 @@ export class OntologySearch {
     if (searchableFields.includes('range')) {
       for (const range of entity.range || []) {
         // Search the range ID directly
-        const rangeScore = this.scoreField(range, query, options, 2)
+        const rangeScore = this.scoreField(range, query, options, SCORE_WEIGHT_DOMAIN_RANGE)
         if (rangeScore > 0) {
           score += rangeScore
           matchedFields.push('range')
@@ -286,9 +324,14 @@ export class OntologySearch {
         // Also search the resolved class name/label
         const rangeClass = this.ontology.classes.get(range)
         if (rangeClass) {
-          const classNameScore = this.scoreField(rangeClass.name, query, options, 2)
+          const classNameScore = this.scoreField(
+            rangeClass.name,
+            query,
+            options,
+            SCORE_WEIGHT_DOMAIN_RANGE
+          )
           const classLabelScore = rangeClass.label
-            ? this.scoreField(rangeClass.label, query, options, 2)
+            ? this.scoreField(rangeClass.label, query, options, SCORE_WEIGHT_DOMAIN_RANGE)
             : 0
 
           if (classNameScore > 0 || classLabelScore > 0) {
@@ -318,7 +361,7 @@ export class OntologySearch {
 
     // Name match (highest priority)
     if (searchableFields.includes('name')) {
-      const nameScore = this.scoreField(entity.name, query, options, 10)
+      const nameScore = this.scoreField(entity.name, query, options, SCORE_WEIGHT_NAME)
       if (nameScore > 0) {
         score += nameScore
         matchedFields.push('name')
@@ -327,7 +370,7 @@ export class OntologySearch {
 
     // Label match (high priority)
     if (searchableFields.includes('label') && entity.label) {
-      const labelScore = this.scoreField(entity.label, query, options, 8)
+      const labelScore = this.scoreField(entity.label, query, options, SCORE_WEIGHT_LABEL)
       if (labelScore > 0) {
         score += labelScore
         matchedFields.push('label')
@@ -339,7 +382,7 @@ export class OntologySearch {
     if (searchableFields.includes('types')) {
       for (const type of entity.types || []) {
         // Search the type ID directly
-        const typeScore = this.scoreField(type, query, options, 5)
+        const typeScore = this.scoreField(type, query, options, SCORE_WEIGHT_TYPES)
         if (typeScore > 0) {
           score += typeScore
           matchedFields.push('types')
@@ -349,9 +392,9 @@ export class OntologySearch {
         // Also search the resolved class name/label
         const typeClass = this.ontology.classes.get(type)
         if (typeClass) {
-          const classNameScore = this.scoreField(typeClass.name, query, options, 5)
+          const classNameScore = this.scoreField(typeClass.name, query, options, SCORE_WEIGHT_TYPES)
           const classLabelScore = typeClass.label
-            ? this.scoreField(typeClass.label, query, options, 5)
+            ? this.scoreField(typeClass.label, query, options, SCORE_WEIGHT_TYPES)
             : 0
 
           if (classNameScore > 0 || classLabelScore > 0) {
@@ -392,21 +435,21 @@ export class OntologySearch {
     // Exact match (highest score)
     // WHY 10x multiplier: Perfect match indicates the user knows exactly what they want
     if (normalizedField === normalizedQuery) {
-      return baseWeight * 10
+      return baseWeight * MULTIPLIER_EXACT_MATCH
     }
 
     // Starts with (high score)
     // WHY 5x multiplier: Prefix matches are common in incremental search (autocomplete)
     // and indicate the user is typing the term from the beginning
     if (normalizedField.startsWith(normalizedQuery)) {
-      return baseWeight * 5
+      return baseWeight * MULTIPLIER_PREFIX_MATCH
     }
 
     // Contains (medium score)
     // WHY 2x multiplier: Substring matches are useful but less precise than prefix matches
     // They catch acronyms, word fragments, and partial terms
     if (normalizedField.includes(normalizedQuery)) {
-      return baseWeight * 2
+      return baseWeight * MULTIPLIER_SUBSTRING_MATCH
     }
 
     // Fuzzy match (if enabled)
@@ -414,7 +457,7 @@ export class OntologySearch {
     // This catches typos ("Peson" → "Person") while avoiding unrelated terms
     if (options.fuzzyMatch) {
       const fuzzyScore = this.fuzzyScore(normalizedField, normalizedQuery)
-      if (fuzzyScore > 0.7) {
+      if (fuzzyScore > FUZZY_MATCH_THRESHOLD) {
         return baseWeight * fuzzyScore
       }
     }
