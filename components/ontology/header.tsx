@@ -2,11 +2,14 @@
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Kbd } from '@/components/ui/kbd'
 import { Save } from 'lucide-react'
 import { ImportExportDialog } from './import-export-dialog'
 import { NewEntityDialog } from './new-entity-dialog'
 import { ReasonerDialog } from './reasoner-dialog'
 import { GlobalSearch } from './global-search'
+
 import packageJson from '@/package.json'
 
 export function OntologyHeader() {
@@ -53,10 +56,19 @@ export function OntologyHeader() {
           <NewEntityDialog />
           <ReasonerDialog />
           <ImportExportDialog />
-          <Button variant="ghost" size="sm">
-            <Save className="mr-2 h-4 w-4" />
-            Save
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <Save className="mr-2 h-4 w-4" />
+                Save
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>
+                Save <Kbd>(Example + S)</Kbd> current ontology to local storage
+              </p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </header>

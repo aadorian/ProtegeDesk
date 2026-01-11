@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Kbd } from '@/components/ui/kbd'
 import { Plus } from 'lucide-react'
 import { useOntology } from '@/lib/ontology/context'
 import { useToast } from '@/hooks/use-toast'
@@ -67,7 +69,7 @@ export function NewEntityDialog({
   }, [defaultEntityType])
 
   useEffect(() => {
-    if(parentClassId) {
+    if (parentClassId) {
       setEntityType('class')
     }
   }, [parentClassId])
@@ -157,18 +159,26 @@ export function NewEntityDialog({
 
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <Plus className="mr-2 h-4 w-4" />
-          New Entity
-        </Button>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DialogTrigger asChild>
+            <Button variant="ghost" size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              New Entity
+            </Button>
+          </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>
+            Add <Kbd>(Example + N)</Kbd> new class or property to your ontology
+          </p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create New Entity</DialogTitle>
           <DialogDescription>Add a new class or property to your ontology</DialogDescription>
         </DialogHeader>
-
         <div className="space-y-4">
           <div className="space-y-2">
             <Label>Entity Type</Label>
