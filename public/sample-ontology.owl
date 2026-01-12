@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/ontology#"
+    xml:base="http://example.org/ontology#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://example.org/university">
+    </owl:Ontology>
+
+    <owl:Class rdf:about="http://example.org/ontology#Person">
+        <rdfs:label>Person</rdfs:label>
+        <rdfs:comment>A general human being in the university system.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology#Professor">
+        <rdfs:label>Professor</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://example.org/ontology#Person"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology#Student">
+        <rdfs:label>Student</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://example.org/ontology#Person"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology#Course">
+        <rdfs:label>Course</rdfs:label>
+        <rdfs:label>University Course</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/ontology#OverworkedProfessor">
+        <rdfs:label>OverworkedProfessor</rdfs:label>
+    </owl:Class>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology#teaches">
+        <rdfs:label>teaches</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/ontology#isTaughtBy">
+        <rdfs:label>isTaughtBy</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    </owl:ObjectProperty>
+
+    <owl:NamedIndividual rdf:about="http://example.org/ontology#Alan_Turing">
+        <rdfs:label>Alan_Turing</rdfs:label>
+        <rdf:type rdf:resource="http://example.org/ontology#Professor"/>
+        <teaches rdf:resource="http://example.org/ontology#Artificial_Intelligence_101"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/ontology#Artificial_Intelligence_101">
+        <rdfs:label>Artificial_Intelligence_101</rdfs:label>
+        <rdf:type rdf:resource="http://example.org/ontology#Course"/>
+    </owl:NamedIndividual>
+
+</rdf:RDF>
