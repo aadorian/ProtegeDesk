@@ -1,6 +1,5 @@
 'use client'
 
-import type React from 'react'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useOntology } from '@/lib/ontology/context'
@@ -11,10 +10,6 @@ import {
   REPULSION_STRENGTH,
   ATTRACTION_STRENGTH,
   DAMPING,
-  CLASS_LAYOUT_RADIUS,
-  PROPERTY_LAYOUT_RADIUS,
-  INDIVIDUAL_LAYOUT_RADIUS,
-  INDIVIDUAL_X_OFFSET,
   CLASS_NODE_RADIUS,
   PROPERTY_NODE_RADIUS,
   INDIVIDUAL_NODE_RADIUS,
@@ -35,7 +30,6 @@ import {
   FIT_VIEW_PADDING,
   MAX_FIT_ZOOM,
   FULL_CIRCLE_RADIANS,
-  HALF_CIRCLE_RADIANS,
   CENTER_DIVIDER,
   ARROW_OFFSET_PX,
   SELECTION_STROKE_WIDTH,
@@ -48,6 +42,7 @@ import {
   ZOOM_PERCENTAGE_MULTIPLIER,
 } from '../../lib/constants'
 
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
 import { ClassDetails } from './class-details'
@@ -55,6 +50,10 @@ import { PropertyDetails } from './property-details'
 import { IndividualDetails } from './individual-details'
 import { NodeHoverCard } from './node-hover-card'
 import { NewEntityDialog } from './new-entity-dialog'
+import {
+  calculateNodeAngle,
+  calculateCircularPosition,
+} from "@/lib/graph-utils"
 
 type Node = {
   id: string
@@ -75,6 +74,20 @@ type Edge = {
   type: 'subclass' | 'property' | 'instance'
   color: string
 }
+const findNodeAtPosition = (
+  x: number,
+  y: number,
+  map: Map<string, Node>
+): Node | null => {
+  for (const node of map.values()) {
+    const dx = x - node.x
+    const dy = y - node.y
+    if (Math.sqrt(dx * dx + dy * dy) <= node.radius) {
+      return node
+    }
+  }
+  return null
+}
 
 /**
  * Force-directed graph layout algorithm implementing a physics simulation.
@@ -94,7 +107,14 @@ type Edge = {
  *
  * Based on the Fruchterman-Reingold algorithm commonly used in graph visualization.
  */
-function applyForces(nodes: Node[], edges: Edge[]) {
+// NOTE: applyForces mutates node positions directly for performance.
+// Caller is responsible for cloning nodes before calling.
+
+function applyForces(
+  nodes: Node[],
+  edges: Edge[],
+  nodeMap: Map<string, Node>
+) {
   // PHASE 1: Apply repulsion forces between ALL node pairs
   // WHY: Prevents nodes from overlapping and creates visual separation
   // TECHNIQUE: Inverse square law (force ∝ 1/distance²) mimics electrical repulsion
@@ -127,8 +147,8 @@ function applyForces(nodes: Node[], edges: Edge[]) {
   // WHY: Pulls related nodes together to show semantic connections
   // TECHNIQUE: Spring force (force ∝ distance) like a stretched elastic band
   edges.forEach(edge => {
-    const fromNode = nodes.find(n => n.id === edge.from)
-    const toNode = nodes.find(n => n.id === edge.to)
+   const fromNode = nodeMap.get(edge.from)
+  const toNode = nodeMap.get(edge.to)
 
     if (fromNode && toNode) {
       const dx = toNode.x - fromNode.x
@@ -180,6 +200,12 @@ export function GraphView() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [nodes, setNodes] = useState<Node[]>([])
   const [edges, setEdges] = useState<Edge[]>([])
+  const nodeMap = useMemo(() => {
+  const map = new Map<string, Node>()
+  nodes.forEach(n => map.set(n.id, n))
+  return map
+}, [nodes])
+
   const [selectedNode, setSelectedNode] = useState<string | null>(null)
   const [isSimulating, setIsSimulating] = useState(true)
   const [clickPosition, setClickPosition] = useState<{ x: number; y: number } | null>(null)
@@ -226,106 +252,95 @@ export function GraphView() {
   }, [ontology, selectedNode])
 
   useEffect(() => {
-    if (!ontology) {
-      return
-    }
+  if (!ontology) return
 
-    // Convert ontology to graph data
-    const graphNodes: Node[] = []
-    const graphEdges: Edge[] = []
+  const graphNodes: Node[] = []
+  const graphEdges: Edge[] = []
 
-    // Add class nodes
-    Array.from(ontology.classes.values()).forEach((owlClass, index) => {
-      const angle = (index / ontology.classes.size) * FULL_CIRCLE_RADIANS
-      graphNodes.push({
-        id: owlClass.id,
-        x: Math.cos(angle) * CLASS_LAYOUT_RADIUS,
-        y: Math.sin(angle) * CLASS_LAYOUT_RADIUS,
-        vx: 0,
-        vy: 0,
-        label: owlClass.label || owlClass.name,
-        type: 'class',
-        radius: CLASS_NODE_RADIUS,
-        color: 'rgb(147, 112, 219)',
-      })
+  // ---------- Classes ----------
+  Array.from(ontology.classes.values()).forEach((owlClass, index) => {
+    const angle = calculateNodeAngle(index, ontology.classes.size)
+    const { x, y } = calculateCircularPosition(0, 0, 250, angle)
 
-      // Add edges for superclasses
-      owlClass.superClasses.forEach(superClass => {
-        if (superClass !== 'owl:Thing') {
-          graphEdges.push({
-            from: owlClass.id,
-            to: superClass,
-            type: 'subclass',
-            label: 'subClassOf',
-            color: 'rgba(147, 112, 219, 0.5)',
-          })
-        }
-      })
+    graphNodes.push({
+      id: owlClass.id,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      label: owlClass.label || owlClass.name,
+      type: "class",
+      radius: CLASS_NODE_RADIUS,
+      color: "rgb(147, 112, 219)",
     })
 
-    Array.from(ontology.properties.values()).forEach((prop, index) => {
-      const angle = (index / ontology.properties.size) * FULL_CIRCLE_RADIANS + HALF_CIRCLE_RADIANS
-      const color =
-        prop.type === 'ObjectProperty'
-          ? 'rgb(99, 179, 237)'
-          : prop.type === 'DataProperty'
-            ? 'rgb(129, 199, 132)'
-            : 'rgb(255, 152, 0)'
-
-      graphNodes.push({
-        id: prop.id,
-        x: Math.cos(angle) * PROPERTY_LAYOUT_RADIUS,
-        y: Math.sin(angle) * PROPERTY_LAYOUT_RADIUS,
-        vx: 0,
-        vy: 0,
-        label: prop.label || prop.name,
-        type: 'property',
-        radius: PROPERTY_NODE_RADIUS,
-        color: color,
-      })
-
-      // Add edges from properties to their domain/range
-      prop.domain.forEach(domainClass => {
+    owlClass.superClasses.forEach(superClass => {
+      if (superClass !== "owl:Thing") {
         graphEdges.push({
-          from: prop.id,
-          to: domainClass,
-          type: 'property',
-          label: 'domain',
-          color: 'rgba(99, 179, 237, 0.3)',
+          from: owlClass.id,
+          to: superClass,
+          type: "subclass",
+          label: "subClassOf",
+          color: "rgba(147, 112, 219, 0.5)",
         })
-      })
+      }
+    })
+  })
+
+  // ---------- Properties ----------
+  Array.from(ontology.properties.values()).forEach((prop, index) => {
+    const angle = calculateNodeAngle(index, ontology.properties.size) + Math.PI
+    const { x, y } = calculateCircularPosition(0, 0, 150, angle)
+
+    graphNodes.push({
+      id: prop.id,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      label: prop.label || prop.name,
+      type: "property",
+      radius: PROPERTY_NODE_RADIUS,
+      color: prop.type === "ObjectProperty"
+        ? "rgb(99, 179, 237)"
+        : prop.type === "DataProperty"
+        ? "rgb(129, 199, 132)"
+        : "rgb(255, 152, 0)",
+    })
+  })
+
+  // ---------- Individuals ----------
+  Array.from(ontology.individuals.values()).forEach((individual, index) => {
+    const angle = calculateNodeAngle(index, ontology.individuals.size)
+    const { x, y } = calculateCircularPosition(300, 0, 100, angle)
+
+    graphNodes.push({
+      id: individual.id,
+      x,
+      y,
+      vx: 0,
+      vy: 0,
+      label: individual.label || individual.name,
+      type: "individual",
+      radius: INDIVIDUAL_NODE_RADIUS,
+      color: "rgb(244, 143, 177)",
     })
 
-    Array.from(ontology.individuals.values()).forEach((individual, index) => {
-      const angle = (index / ontology.individuals.size) * FULL_CIRCLE_RADIANS
-      graphNodes.push({
-        id: individual.id,
-        x: Math.cos(angle) * INDIVIDUAL_LAYOUT_RADIUS + INDIVIDUAL_X_OFFSET,
-        y: Math.sin(angle) * INDIVIDUAL_LAYOUT_RADIUS,
-        vx: 0,
-        vy: 0,
-        label: individual.label || individual.name,
-        type: 'individual',
-        radius: INDIVIDUAL_NODE_RADIUS,
-        color: 'rgb(244, 143, 177)',
-      })
-
-      // Add edges from individuals to their types
-      individual.types.forEach(typeClass => {
-        graphEdges.push({
-          from: individual.id,
-          to: typeClass,
-          type: 'instance',
-          label: 'instanceOf',
-          color: 'rgba(244, 143, 177, 0.4)',
-        })
+    individual.types.forEach(typeClass => {
+      graphEdges.push({
+        from: individual.id,
+        to: typeClass,
+        type: "instance",
+        label: "instanceOf",
+        color: "rgba(244, 143, 177, 0.4)",
       })
     })
+  })
 
-    setNodes(graphNodes)
-    setEdges(graphEdges)
-    setIsSimulating(true)
-  }, [ontology])
+  setNodes(graphNodes)
+  setEdges(graphEdges)
+  setIsSimulating(true)
+}, [ontology])
 
   useEffect(() => {
     if (!isSimulating || nodes.length === 0) {
@@ -338,7 +353,7 @@ export function GraphView() {
       if (iterations < MAX_SIMULATION_ITERATIONS) {
         setNodes(prevNodes => {
           const newNodes = prevNodes.map(n => ({ ...n }))
-          applyForces(newNodes, edges)
+          applyForces(newNodes, edges,nodeMap)
           return newNodes
         })
         iterations++
@@ -355,6 +370,7 @@ export function GraphView() {
         cancelAnimationFrame(animationRef.current)
       }
     }
+   // nodes.length is intentional to avoid restarting simulation on every position update
   }, [isSimulating, edges, nodes.length])
 
   useEffect(() => {
@@ -388,8 +404,9 @@ export function GraphView() {
     ctx.scale(zoom, zoom)
 
     edges.forEach(edge => {
-      const fromNode = nodes.find(n => n.id === edge.from)
-      const toNode = nodes.find(n => n.id === edge.to)
+      const fromNode = nodeMap.get(edge.from)
+      const toNode = nodeMap.get(edge.to)
+
 
       if (fromNode && toNode) {
         ctx.beginPath()
@@ -467,7 +484,7 @@ export function GraphView() {
     })
 
     ctx.restore()
-  }, [nodes, edges, zoom, offset, selectedNode, hoveredNode])
+  }, [nodes, edges, zoom, offset, selectedNode,nodeMap])
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault()
@@ -684,11 +701,8 @@ export function GraphView() {
     const x = (e.clientX - rect.left - centerX - offset.x) / zoom
     const y = (e.clientY - rect.top - centerY - offset.y) / zoom
   
-    const node = nodes.find(n => {
-      const dx = x - n.x
-      const dy = y - n.y
-      return Math.sqrt(dx * dx + dy * dy) <= n.radius
-    })
+    const node = findNodeAtPosition(x, y, nodeMap)
+
   
     if (node?.type === 'class') {
       setContextNode(node)
