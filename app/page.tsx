@@ -19,10 +19,10 @@ export default function HomePage() {
 
   useEffect(() => {
     // Load sample ontology on mount
-      log("Loading sample ontology data")
-    setOntology(createSampleOntology())
-      log("Sample ontology data loaded successfully")
-  }, [setOntology])
+      log('Loading sample ontology')
+    
+      log('Loading sample ontology data loaded successfully')
+  }, [])
 
   return (
     <div className="flex h-screen flex-col">
