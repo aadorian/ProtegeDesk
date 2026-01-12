@@ -7,7 +7,7 @@ import { DetailsPanel } from "@/components/ontology/details-panel"
 import { GraphView } from "@/components/ontology/graph-view"
 import { OntologyStats } from "@/components/ontology/ontology-stats"
 import { useOntology } from "@/lib/ontology/context"
-import { createSampleOntology } from "@/lib/ontology/sample-data"
+import { parseOWLXML } from "@/lib/ontology/serializers"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const log = debug("protegedesk:homepage")
@@ -19,10 +19,20 @@ export default function HomePage() {
 
   useEffect(() => {
     // Load sample ontology on mount
-      log('Loading sample ontology')
-    
-      log('Loading sample ontology data loaded successfully')
-  }, [])
+    const loadSampleOntology = async () => {
+      try {
+        log('Loading sample ontology')
+        const response = await fetch('/sample-ontology.owl')
+        const owlContent = await response.text()
+        const ontology = parseOWLXML(owlContent)
+        setOntology(ontology)
+        log('Sample ontology loaded successfully')
+      } catch (error) {
+        log('Failed to load sample ontology:', error)
+      }
+    }
+    loadSampleOntology()
+  }, [setOntology])
 
   return (
     <div className="flex h-screen flex-col">
