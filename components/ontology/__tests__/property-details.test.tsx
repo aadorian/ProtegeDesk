@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import { renderHook, act } from '@testing-library/react'
 import { PropertyDetails } from '../property-details'
 import { OntologyProvider, useOntology } from '@/lib/ontology/context'
@@ -404,6 +404,72 @@ describe('PropertyDetails - Inverse Property Feature', () => {
       expect(screen.getByText(/Person/)).toBeInTheDocument()
       expect(screen.getByText(/Organization/)).toBeInTheDocument()
       expect(screen.getByText(/Functional/)).toBeInTheDocument()
+    })
+  })
+
+  describe('Data Property Range Editor', () => {
+    const setupDataProperty = () => {
+      const hasName = createTestProperty({
+        id: 'hasName',
+        name: 'hasName',
+        label: 'Has Name',
+        type: 'DataProperty',
+      })
+
+      const ontology = createMockOntology([hasName])
+
+      render(
+        <OntologyProvider>
+          <TestPropertyDetails ontology={ontology} selectedPropertyId="hasName" />
+        </OntologyProvider>
+      )
+    }
+
+    it('shows XSD select and custom IRI input for data properties', async () => {
+      setupDataProperty()
+
+      await waitFor(() => {
+        expect(screen.getByText('Domain and Range')).toBeInTheDocument()
+      })
+
+      expect(screen.getByText('Select XSD datatype')).toBeInTheDocument()
+      expect(screen.getByPlaceholderText('Custom datatype IRI')).toBeInTheDocument()
+      expect(screen.getByText('Add custom')).toBeInTheDocument()
+    })
+
+    it('adds a custom datatype IRI to range', async () => {
+      setupDataProperty()
+
+      await waitFor(() => {
+        expect(screen.getByText('Domain and Range')).toBeInTheDocument()
+      })
+
+      const input = screen.getByPlaceholderText('Custom datatype IRI') as HTMLInputElement
+      fireEvent.change(input, { target: { value: 'http://example.org/customDatatype' } })
+      fireEvent.click(screen.getByText('Add custom'))
+
+      expect(screen.getByText('http://example.org/customDatatype')).toBeInTheDocument()
+    })
+
+    it('adds and removes a preset XSD datatype', async () => {
+      setupDataProperty()
+
+      await waitFor(() => {
+        expect(screen.getByText('Domain and Range')).toBeInTheDocument()
+      })
+
+      const trigger = screen.getByText('Select XSD datatype')
+      fireEvent.click(trigger)
+      fireEvent.click(screen.getByText('xsd:string'))
+      fireEvent.click(screen.getByText('Add'))
+
+      const badge = screen.getByText('http://www.w3.org/2001/XMLSchema#string')
+      expect(badge).toBeInTheDocument()
+
+      const removeButton = screen.getByLabelText('Remove http://www.w3.org/2001/XMLSchema#string')
+      fireEvent.click(removeButton)
+
+      expect(screen.queryByText('http://www.w3.org/2001/XMLSchema#string')).not.toBeInTheDocument()
     })
   })
 })
