@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -7,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useOntology } from '@/lib/ontology/context'
+import { XSD_DATATYPES } from '@/lib/constants'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Select,
@@ -19,7 +21,7 @@ import { Button } from '@/components/ui/button'
 import { Copy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
-import { OntologyProperty } from '@/lib/ontology/types'
+import { OntologyProperty, PropertyCharacteristic } from '@/lib/ontology/types'
 
 interface PropertyDetailsProps {
   isModalView?: boolean
@@ -30,6 +32,38 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
   const { selectedProperty, ontology, updateProperty } = useOntology()
   const { toast } = useToast()
   const { copy } = useCopyToClipboard('')
+
+  const [selectedDatatype, setSelectedDatatype] = useState<string>('')
+  const [customDatatype, setCustomDatatype] = useState<string>('')
+
+  const currentRange =
+    (selectedProperty &&
+      (ontology?.properties.get(selectedProperty.id)?.range ?? selectedProperty.range)) ||
+    []
+
+  const addRangeValue = (value: string) => {
+    if (!selectedProperty) {
+      return
+    }
+    const trimmed = value.trim()
+    if (!trimmed) {
+      return
+    }
+    if (currentRange.includes(trimmed)) {
+      return
+    }
+
+    updateProperty(selectedProperty.id, { range: [...currentRange, trimmed] })
+    setSelectedDatatype('')
+    setCustomDatatype('')
+  }
+
+  const removeRangeValue = (value: string) => {
+    if (!selectedProperty) {
+      return
+    }
+    updateProperty(selectedProperty.id, { range: currentRange.filter(r => r !== value) })
+  }
 
   const availableProperties = ontology
     ? Array.from(ontology.properties.values()).filter(
@@ -261,17 +295,90 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
             </div>
             <div className="space-y-2">
               <Label className="text-xs">Range</Label>
-              <div className="flex flex-wrap gap-2">
-                {selectedProperty.range.length > 0 ? (
-                  selectedProperty.range.map(range => (
-                    <Badge key={range} variant="secondary" className="font-mono text-xs">
-                      {range}
-                    </Badge>
-                  ))
-                ) : (
-                  <span className="text-muted-foreground text-xs">None</span>
-                )}
-              </div>
+
+              {selectedProperty.type === 'DataProperty' ? (
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Select
+                      value={selectedDatatype || undefined}
+                      onValueChange={value => setSelectedDatatype(value)}
+                    >
+                      <SelectTrigger className="w-48 text-xs">
+                        <SelectValue placeholder="Select XSD datatype" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {XSD_DATATYPES.map(dt => (
+                          <SelectItem key={dt.value} value={dt.value} className="text-xs">
+                            {dt.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="text-xs"
+                      disabled={!selectedDatatype}
+                      onClick={() => addRangeValue(selectedDatatype)}
+                    >
+                      Add
+                    </Button>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Input
+                      value={customDatatype}
+                      onChange={e => setCustomDatatype(e.target.value)}
+                      placeholder="Custom datatype IRI"
+                      className="text-xs"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="text-xs"
+                      disabled={!customDatatype.trim()}
+                      onClick={() => addRangeValue(customDatatype)}
+                    >
+                      Add custom
+                    </Button>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {currentRange.length > 0 ? (
+                      currentRange.map(range => (
+                        <div key={range} className="flex items-center gap-1">
+                          <Badge variant="secondary" className="font-mono text-xs">
+                            {range}
+                          </Badge>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-6 px-2 text-xs"
+                            onClick={() => removeRangeValue(range)}
+                            aria-label={`Remove ${range}`}
+                          >
+                            ×
+                          </Button>
+                        </div>
+                      ))
+                    ) : (
+                      <span className="text-muted-foreground text-xs">None</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {selectedProperty.range.length > 0 ? (
+                    selectedProperty.range.map(range => (
+                      <Badge key={range} variant="secondary" className="font-mono text-xs">
+                        {range}
+                      </Badge>
+                    ))
+                  ) : (
+                    <span className="text-muted-foreground text-xs">None</span>
+                  )}
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

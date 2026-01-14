@@ -147,3 +147,15 @@ export const ARRAY_INDEX_NOT_FOUND = -1
 export const ARRAY_FIRST_ELEMENT = 0
 export const SPARQL_LIMIT_OFFSET = 3
 export const SPARQL_OFFSET_OFFSET = 2
+
+/* =========================
+    OWL / XSD Datatypes
+========================= */
+export const XSD_DATATYPES = [
+  { value: 'http://www.w3.org/2001/XMLSchema#string', label: 'xsd:string' },
+  { value: 'http://www.w3.org/2001/XMLSchema#integer', label: 'xsd:integer' },
+  { value: 'http://www.w3.org/2001/XMLSchema#decimal', label: 'xsd:decimal' },
+  { value: 'http://www.w3.org/2001/XMLSchema#boolean', label: 'xsd:boolean' },
+  { value: 'http://www.w3.org/2001/XMLSchema#dateTime', label: 'xsd:dateTime' },
+  { value: 'http://www.w3.org/2001/XMLSchema#date', label: 'xsd:date' },
+] as const
