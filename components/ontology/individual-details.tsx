@@ -7,10 +7,11 @@ import { Badge } from '@/components/ui/badge'
 import { useOntology } from '@/lib/ontology/context'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Button } from '@/components/ui/button'
-import { Copy, User, Plus, X } from 'lucide-react'
+import { Copy, Plus, X } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
 import { Individual } from '@/lib/ontology/types'
+import { CollapsibleCard } from '@/components/ontology/collapsible-card'
 
 interface IndividualDetailsProps {
   isModalView?: boolean
@@ -104,17 +105,8 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
   return (
     <ScrollArea className="h-full">
       <div className="space-y-4 p-4">
-        {/* Header Card */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <User className="h-5 w-5" />
-              <CardTitle className="text-lg">
-                {selectedIndividual.label || selectedIndividual.name}
-              </CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <CollapsibleCard title="Individual Information" storageKey="ind-info">
+          <div className="space-y-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label className="text-xs">IRI</Label>
@@ -141,22 +133,28 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
                 <Input value={selectedIndividual.label} readOnly className="text-xs" />
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        {/* Types Card */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Types</CardTitle>
-              <Button variant="ghost" size="sm" className="h-6 px-2">
+        {/* Types */}
+        <CollapsibleCard
+          title="Types"
+          storageKey="ind-types"
+          count={selectedIndividual.types.length}
+        >
+          <div className="space-y-2">
+            <div className="flex justify-end">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-foreground h-6 px-2"
+              >
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
-          </CardHeader>
-          <CardContent>
+
             {selectedIndividual.types.length === 0 ? (
-              <p className="text-muted-foreground text-xs">No types defined</p>
+              <p className="text-muted-foreground text-xs italic">No types defined</p>
             ) : (
               <div className="space-y-2">
                 {selectedIndividual.types.map((type, idx) => (
@@ -169,22 +167,28 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        {/* Property Assertions Card */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm">Property Assertions</CardTitle>
-              <Button variant="ghost" size="sm" className="h-6 px-2">
+        {/* Property Assertions */}
+        <CollapsibleCard
+          title="Property Assertions"
+          storageKey="ind-props"
+          count={selectedIndividual.propertyAssertions.length}
+        >
+          <div className="space-y-2">
+            <div className="flex justify-end">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-foreground h-6 px-2"
+              >
                 <Plus className="h-3 w-3" />
               </Button>
             </div>
-          </CardHeader>
-          <CardContent>
+
             {selectedIndividual.propertyAssertions.length === 0 ? (
-              <p className="text-muted-foreground text-xs">No property assertions</p>
+              <p className="text-muted-foreground text-xs italic">No property assertions</p>
             ) : (
               <div className="space-y-2">
                 {selectedIndividual.propertyAssertions.map((assertion, idx) => (
@@ -211,78 +215,73 @@ export function IndividualDetails({ isModalView, individual }: IndividualDetails
                 ))}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        {/* Same As Card */}
         {selectedIndividual.sameAs.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm">Same As</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {selectedIndividual.sameAs.map((same, idx) => (
-                  <div key={idx} className="bg-muted flex items-center justify-between rounded p-2">
-                    <span className="font-mono text-xs">{same}</span>
-                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                      <X className="h-3 w-3" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <CollapsibleCard
+            title="Same As"
+            storageKey="ind-sameas"
+            count={selectedIndividual.sameAs.length}
+          >
+            <div className="space-y-2">
+              {selectedIndividual.sameAs.map((same, idx) => (
+                <div key={idx} className="bg-muted flex items-center justify-between rounded p-2">
+                  <span className="font-mono text-xs">{same}</span>
+                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CollapsibleCard>
         )}
 
-        {/* Different From Card */}
         {selectedIndividual.differentFrom.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm">Different From</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {selectedIndividual.differentFrom.map((diff, idx) => (
-                  <div key={idx} className="bg-muted flex items-center justify-between rounded p-2">
-                    <span className="font-mono text-xs">{diff}</span>
+          <CollapsibleCard
+            title="Different From"
+            storageKey="ind-diff"
+            count={selectedIndividual.differentFrom.length}
+          >
+            <div className="space-y-2">
+              {selectedIndividual.differentFrom.map((diff, idx) => (
+                <div key={idx} className="bg-muted flex items-center justify-between rounded p-2">
+                  <span className="font-mono text-xs">{diff}</span>
+                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CollapsibleCard>
+        )}
+
+        {/* Annotations */}
+        {selectedIndividual.annotations.length > 0 && (
+          <CollapsibleCard
+            title="Annotations"
+            storageKey="ind-annotations"
+            count={selectedIndividual.annotations.length}
+          >
+            <div className="space-y-2">
+              {selectedIndividual.annotations.map((annotation, idx) => (
+                <div key={idx} className="bg-muted rounded p-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold">{annotation.property}</span>
                     <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
                       <X className="h-3 w-3" />
                     </Button>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Annotations Card */}
-        {selectedIndividual.annotations.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm">Annotations</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {selectedIndividual.annotations.map((annotation, idx) => (
-                  <div key={idx} className="bg-muted rounded p-2">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-semibold">{annotation.property}</span>
-                      <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                        <X className="h-3 w-3" />
-                      </Button>
-                    </div>
-                    <p className="mt-1 text-xs">{annotation.value}</p>
-                    {annotation.language && (
-                      <Badge variant="outline" className="mt-1 text-xs">
-                        @{annotation.language}
-                      </Badge>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <p className="mt-1 text-xs">{annotation.value}</p>
+                  {annotation.language && (
+                    <Badge variant="outline" className="mt-1 text-xs">
+                      @{annotation.language}
+                    </Badge>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CollapsibleCard>
         )}
       </div>
     </ScrollArea>

@@ -22,6 +22,7 @@ import { Copy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
 import { OntologyProperty, PropertyCharacteristic } from '@/lib/ontology/types'
+import { CollapsibleCard } from '@/components/ontology/collapsible-card'
 
 interface PropertyDetailsProps {
   isModalView?: boolean
@@ -147,11 +148,9 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
   return (
     <ScrollArea className="h-full">
       <div className="space-y-4 p-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Property Information</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        {/* Property Information */}
+        <CollapsibleCard title="Property Information" storageKey="prop-info">
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="property-id" className="text-xs">
                 ID
@@ -271,14 +270,12 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 </Select>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Domain and Range</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        {/* Domain and Range */}
+        <CollapsibleCard title="Domain and Range" storageKey="prop-domain-range">
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label className="text-xs">Domain</Label>
               <div className="flex flex-wrap gap-2">
@@ -380,42 +377,33 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
+        {/* Characteristics (Conditional) */}
         {selectedProperty.type === 'ObjectProperty' && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Characteristics</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {characteristics.map(characteristic => (
-                  <div key={characteristic.id} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={characteristic.id}
-                      checked={selectedProperty.characteristics.includes(
-                        characteristic.id as PropertyCharacteristic
-                      )}
-                    />
-                    <Label
-                      htmlFor={characteristic.id}
-                      className="cursor-pointer text-xs font-normal"
-                    >
-                      {characteristic.label}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <CollapsibleCard title="Characteristics" storageKey="prop-characteristics">
+            <div className="space-y-3">
+              {characteristics.map(characteristic => (
+                <div key={characteristic.id} className="flex items-center space-x-2">
+                  <Checkbox
+                    id={characteristic.id}
+                    checked={selectedProperty.characteristics.includes(
+                      characteristic.id as PropertyCharacteristic
+                    )}
+                  />
+                  <Label htmlFor={characteristic.id} className="cursor-pointer text-xs font-normal">
+                    {characteristic.label}
+                  </Label>
+                </div>
+              ))}
+            </div>
+          </CollapsibleCard>
         )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Hierarchy</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        {/* Hierarchy */}
+        <CollapsibleCard title="Hierarchy" storageKey="prop-hierarchy">
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label className="text-xs">Super Properties</Label>
               <div className="flex flex-wrap gap-2">
@@ -438,28 +426,28 @@ export function PropertyDetails({ isModalView, property }: PropertyDetailsProps)
                 </Badge>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Annotations</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {selectedProperty.annotations.length > 0 ? (
-                selectedProperty.annotations.map((annotation, index) => (
-                  <div key={index} className="flex gap-2 text-xs">
-                    <span className="text-primary font-mono">{annotation.property}:</span>
-                    <span className="text-muted-foreground">{annotation.value}</span>
-                  </div>
-                ))
-              ) : (
-                <span className="text-muted-foreground text-xs">No annotations</span>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Annotations */}
+        <CollapsibleCard
+          title="Annotations"
+          storageKey="prop-annotations"
+          count={selectedProperty.annotations.length}
+        >
+          <div className="space-y-2">
+            {selectedProperty.annotations.length > 0 ? (
+              selectedProperty.annotations.map((annotation, index) => (
+                <div key={index} className="flex gap-2 text-xs">
+                  <span className="text-primary font-mono">{annotation.property}:</span>
+                  <span className="text-muted-foreground">{annotation.value}</span>
+                </div>
+              ))
+            ) : (
+              <span className="text-muted-foreground text-xs">No annotations</span>
+            )}
+          </div>
+        </CollapsibleCard>
       </div>
     </ScrollArea>
   )
