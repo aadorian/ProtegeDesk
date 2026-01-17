@@ -20,6 +20,7 @@ import { Copy, ChevronRight, Home, Plus } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
+import { CollapsibleCard } from '@/components/ontology/collapsible-card'
 
 interface ClassElementItemProps {
   id: string
@@ -228,11 +229,8 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
         </div>
 
         {/* Class Information */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Class Information</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <CollapsibleCard title="Class Information" storageKey="class-info">
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="class-id" className="text-xs">
                 ID
@@ -250,7 +248,6 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
                   className="h-8 w-8 shrink-0"
                   onClick={async () => {
                     const success = await copy(selectedClass.id)
-
                     if (success) {
                       toast({
                         title: 'Copied',
@@ -297,16 +294,12 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
                 className="text-xs"
               />
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        {/* Class Axioms - Protégé Style */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Class Axioms</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
-            {/* Equivalent To */}
+        {/* Class Axioms */}
+        <CollapsibleCard title="Class Axioms" storageKey="class-axioms">
+          <div className="space-y-1">
             <SectionHeader title="Equivalent To" onAdd={() => {}} />
             <ItemGroup role="listbox" aria-label="Equivalent classes">
               {selectedClass.equivalentTo.length > 0 ? (
@@ -367,16 +360,13 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
             <span className="text-muted-foreground py-1 text-xs italic">
               No anonymous ancestors
             </span>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
         {/* Instances */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Instances</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
-            <SectionHeader title="Instances" count={instances.length} onAdd={() => {}} />
+        <CollapsibleCard title="Instances" storageKey="class-instances" count={instances.length}>
+          <div className="space-y-1">
+            <SectionHeader title="Instances" onAdd={() => {}} />
             <ItemGroup role="listbox" aria-label="Class instances">
               {instances.length > 0 ? (
                 instances.map(instance => (
@@ -393,26 +383,24 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
                 <span className="text-muted-foreground py-1 text-xs italic">No instances</span>
               )}
             </ItemGroup>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
         {/* Target for Key */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Target for Key</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <CollapsibleCard title="Target for Key" storageKey="class-keys">
+          <div>
             <SectionHeader title="Target for Key" onAdd={() => {}} />
             <span className="text-muted-foreground py-1 text-xs italic">No keys defined</span>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
-        {/* Disjoint With */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Relationships</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
+        {/* Relationships */}
+        <CollapsibleCard
+          title="Relationships"
+          storageKey="class-relationships"
+          count={selectedClass.disjointWith.length + selectedClass.properties.length}
+        >
+          <div className="space-y-1">
             <SectionHeader
               title="Disjoint With"
               count={selectedClass.disjointWith.length}
@@ -460,15 +448,16 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
                 <span className="text-muted-foreground py-1 text-xs italic">No properties</span>
               )}
             </ItemGroup>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
 
         {/* Annotations */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Annotations</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <CollapsibleCard
+          title="Annotations"
+          storageKey="class-annotations"
+          count={selectedClass.annotations.length}
+        >
+          <div>
             <SectionHeader
               title="Annotations"
               count={selectedClass.annotations.length}
@@ -514,8 +503,8 @@ export function ClassDetails({ isModalView }: ClassDetailsProps) {
                 <span className="text-muted-foreground py-1 text-xs italic">No annotations</span>
               )}
             </ItemGroup>
-          </CardContent>
-        </Card>
+          </div>
+        </CollapsibleCard>
       </div>
     </ScrollArea>
   )
