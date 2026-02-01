@@ -1,3 +1,26 @@
+/**
+ * Class Details Component
+ *
+ * Provides a comprehensive editor panel for viewing and modifying OWL class entities.
+ * Displays class metadata (name, label, IRI, description), hierarchy relationships
+ * (superclasses, subclasses), logical axioms (disjoint, equivalent), and restrictions.
+ *
+ * Features:
+ * - Editable class metadata fields (label, IRI, description)
+ * - Hierarchical navigation through class relationships
+ * - Management of class axioms (disjoint, equivalent classes)
+ * - Visual representation of logical restrictions
+ * - Copy-to-clipboard functionality for IRIs and axioms
+ * - Collapsible sections for better organization
+ *
+ * @component
+ * @example
+ * // Used within the details panel when a class is selected
+ * <ClassDetails />
+ *
+ * // Automatically reads the selected class from context
+ * const { selectedClass } = useOntology();
+ */
 'use client'
 
 import React, { useCallback, useMemo, useState } from 'react'

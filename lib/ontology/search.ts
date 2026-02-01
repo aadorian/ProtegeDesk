@@ -568,7 +568,23 @@ export class OntologySearch {
 }
 
 /**
- * Helper function to determine entity type
+ * Determines the type of an ontology entity based on its structure.
+ *
+ * Uses duck typing to identify whether an entity is a class, property, or individual
+ * by checking for characteristic properties that distinguish each type.
+ *
+ * @param entity - The ontology entity to classify (OntologyClass, OntologyProperty, or Individual)
+ * @returns The entity type: 'class', 'property', or 'individual'
+ *
+ * @example
+ * const entity = ontology.classes.get('Person');
+ * const type = getEntityType(entity);
+ * // Returns: 'class'
+ *
+ * @example
+ * const property = ontology.properties.get('hasAge');
+ * const type = getEntityType(property);
+ * // Returns: 'property'
  */
 export function getEntityType(entity: SearchableEntity): 'class' | 'property' | 'individual' {
   if ('superClasses' in entity) {
@@ -581,7 +597,23 @@ export function getEntityType(entity: SearchableEntity): 'class' | 'property' | 
 }
 
 /**
- * Helper function to get display name for any entity
+ * Retrieves the human-readable display name for an ontology entity.
+ *
+ * Prefers the entity's label if available, falling back to the entity's name.
+ * This ensures a consistent way to display entities in the UI.
+ *
+ * @param entity - The ontology entity (class, property, or individual) to get the display name from
+ * @returns The human-readable display name, preferring label over name
+ *
+ * @example
+ * const person = ontology.classes.get('Person');
+ * const displayName = getDisplayName(person);
+ * // Returns: "Person" (from label) or "http://example.org/Person" (from name if no label)
+ *
+ * @example
+ * // Typical usage in UI components
+ * const entities = Array.from(ontology.classes.values());
+ * const names = entities.map(e => getDisplayName(e));
  */
 export function getDisplayName(entity: SearchableEntity): string {
   return entity.label || entity.name

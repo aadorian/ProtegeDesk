@@ -382,7 +382,31 @@ function parseSPARQLQuery(query: string): {
 }
 
 /**
- * Execute a SPARQL SELECT query against the ontology
+ * Executes a SPARQL SELECT query against an in-memory ontology representation.
+ *
+ * Converts the ontology to RDF triples, parses the SPARQL query, and executes
+ * pattern matching to return results in standard SPARQL JSON format. Supports
+ * basic SPARQL SELECT queries with triple patterns and variable bindings.
+ *
+ * @param query - The SPARQL SELECT query string to execute (e.g., "SELECT ?s WHERE { ?s a owl:Class }")
+ * @param ontology - The ontology object containing classes, properties, and individuals to query
+ * @returns SPARQL result object with head (variables) and results (bindings) following W3C SPARQL JSON format
+ * @throws {Error} If the SPARQL query format is invalid or cannot be parsed
+ *
+ * @example
+ * const query = `
+ *   SELECT ?class ?label WHERE {
+ *     ?class a owl:Class .
+ *     ?class rdfs:label ?label
+ *   }`;
+ * const result = executeSPARQLQuery(query, ontology);
+ * // Returns: { head: { vars: ['class', 'label'] }, results: { bindings: [...] } }
+ *
+ * @example
+ * // Finding all individuals of a specific type
+ * const query = "SELECT ?ind WHERE { ?ind a :Person }";
+ * const result = executeSPARQLQuery(query, ontology);
+ * console.log(result.results.bindings); // Array of individual bindings
  */
 export function executeSPARQLQuery(query: string, ontology: Ontology): SPARQLResult {
   const triples = ontologyToTriples(ontology)
