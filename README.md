@@ -147,7 +147,7 @@ npm start
 - [API Reference](https://github.com/aadorian/ProtegeDesk/wiki/API-Reference) - Developer documentation
 - [Architecture](https://github.com/aadorian/ProtegeDesk/wiki/Architecture) - System design and structure
 - [Contributing](CONTRIBUTING.md) - How to contribute
-- [FAQ](https://github.com/aadorian/ProtegeDesk/wiki/FAQ) - Frequently asked questions
+- [FAQ](https://github.com/aadorian/ProtegeDesk/wiki/FAQ.md)- Frequently asked questions
 
 ---
 
