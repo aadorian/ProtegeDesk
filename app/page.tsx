@@ -9,6 +9,7 @@ import { OntologyStats } from "@/components/ontology/ontology-stats"
 import { useOntology } from "@/lib/ontology/context"
 import { parseOWLXML } from "@/lib/ontology/serializers"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ErrorBoundary, OntologyErrorFallback } from "@/components/error-boundary"
 
 const log = debug("protegedesk:homepage")
 
@@ -35,34 +36,38 @@ export default function HomePage() {
   }, [setOntology])
 
   return (
-    <div className="flex h-screen flex-col">
-      <OntologyHeader />
-      <main className="flex flex-1 overflow-hidden">
-        <aside className="w-64 border-r border-border bg-card">
-          <TabsNavigation />
-        </aside>
-        <div className="flex-1 overflow-hidden flex flex-col">
-          <div className="border-b border-border">
-            <Tabs value={ontologyViewMode} onValueChange={(newOntologyViewMode) => {
-              log("Ontology view mode changed to %s", newOntologyViewMode)
-              setOntologyViewMode(newOntologyViewMode)
-            }} className="w-full">
-              <TabsList className="mx-4 mt-2">
-                <TabsTrigger value="details" className="text-xs">
-                  Details View
-                </TabsTrigger>
-                <TabsTrigger value="graph" className="text-xs">
-                  Graph View
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+    <ErrorBoundary fallback={<OntologyErrorFallback />}>
+      <div className="flex h-screen flex-col">
+        <OntologyHeader />
+        <main className="flex flex-1 overflow-hidden">
+          <aside className="w-64 border-r border-border bg-card">
+            <TabsNavigation />
+          </aside>
+          <div className="flex-1 overflow-hidden flex flex-col">
+            <div className="border-b border-border">
+              <Tabs value={ontologyViewMode} onValueChange={(newOntologyViewMode) => {
+                if (newOntologyViewMode === 'details' || newOntologyViewMode === 'graph') {
+                  log("Ontology view mode changed to %s", newOntologyViewMode)
+                  setOntologyViewMode(newOntologyViewMode)
+                }
+              }} className="w-full">
+                <TabsList className="mx-4 mt-2">
+                  <TabsTrigger value="details" className="text-xs">
+                    Details View
+                  </TabsTrigger>
+                  <TabsTrigger value="graph" className="text-xs">
+                    Graph View
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            <div className="flex-1 overflow-hidden">{ontologyViewMode === "details" ? <DetailsPanel /> : <GraphView />}</div>
           </div>
-          <div className="flex-1 overflow-hidden">{ontologyViewMode === "details" ? <DetailsPanel /> : <GraphView />}</div>
-        </div>
-        <aside className="w-80 border-l border-border bg-card p-4 overflow-y-auto">
-          <OntologyStats />
-        </aside>
-      </main>
-    </div>
+          <aside className="w-80 border-l border-border bg-card p-4 overflow-y-auto">
+            <OntologyStats />
+          </aside>
+        </main>
+      </div>
+    </ErrorBoundary>
   )
 }
