@@ -1,6 +1,6 @@
 'use client'
 
-import { Component, type ErrorInfo, type ReactNode } from 'react'
+import {cloneElement,Component,isValidElement,type ErrorInfo,type ReactElement,type ReactNode,} from 'react'
 import { AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -36,6 +36,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
+        if (
+          isValidElement<Partial<OntologyErrorFallbackProps>>(this.props.fallback) &&
+          typeof this.props.fallback.type !== 'string'
+        ) {
+          return cloneElement(this.props.fallback as ReactElement<Partial<OntologyErrorFallbackProps>>, {
+            error: this.state.error,
+            onRetry: this.handleReset,
+          })
+        }
+
         return this.props.fallback
       }
 

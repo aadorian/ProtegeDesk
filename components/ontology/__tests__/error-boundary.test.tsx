@@ -44,12 +44,29 @@ describe('ErrorBoundary', () => {
 
   it('renders custom fallback when provided', () => {
     render(
-      <ErrorBoundary fallback={<OntologyErrorFallback error={new Error('Custom fallback error')} />}>
+      <ErrorBoundary fallback={<div>Custom fallback content</div>}>
         <ThrowError shouldThrow />
       </ErrorBoundary>
     )
 
-    expect(screen.getByText('Custom fallback error')).toBeInTheDocument()
+    expect(screen.getByText('Custom fallback content')).toBeInTheDocument()
+  })
+
+  it('passes retry and error props to a provided OntologyErrorFallback element', () => {
+    const App = ({ shouldThrow }: { shouldThrow: boolean }) => (
+      <ErrorBoundary fallback={<OntologyErrorFallback />}>
+        <ThrowError shouldThrow={shouldThrow} />
+      </ErrorBoundary>
+    )
+
+    const { rerender } = render(<App shouldThrow />)
+
+    expect(screen.getByText('Boundary test error')).toBeInTheDocument()
+
+    rerender(<App shouldThrow={false} />)
+    fireEvent.click(screen.getByRole('button', { name: /try again/i }))
+
+    expect(screen.getByText('Editor Content')).toBeInTheDocument()
   })
 
   it('resets boundary when retry is clicked and children stop throwing', () => {
