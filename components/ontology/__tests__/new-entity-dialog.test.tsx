@@ -188,10 +188,14 @@ describe('NewEntityDialog - Validation Tests', () => {
       const createButton = screen.getByRole('button', { name: /create class/i })
       await userEvent.click(createButton)
 
+      expect(
+        screen.getByText('Invalid IRI format. Use a full IRI or a simple identifier.')
+      ).toBeInTheDocument()
+
       expect(mockToast).toHaveBeenCalledWith(
         expect.objectContaining({
-          title: 'Invalid ID format',
-          description: 'ID must be a valid IRI or a simple identifier',
+          title: 'Validation error',
+          description: 'Invalid IRI format. Use a full IRI or a simple identifier.',
           variant: 'destructive',
         })
       )
@@ -210,9 +214,13 @@ describe('NewEntityDialog - Validation Tests', () => {
       const createButton = screen.getByRole('button', { name: /create class/i })
       await userEvent.click(createButton)
 
+      expect(
+        screen.getByText('Invalid IRI format. Use a full IRI or a simple identifier.')
+      ).toBeInTheDocument()
+
       expect(mockToast).toHaveBeenCalledWith(
         expect.objectContaining({
-          title: 'Invalid ID format',
+          title: 'Validation error',
           variant: 'destructive',
         })
       )
@@ -231,9 +239,13 @@ describe('NewEntityDialog - Validation Tests', () => {
       const createButton = screen.getByRole('button', { name: /create class/i })
       await userEvent.click(createButton)
 
+      expect(
+        screen.getByText('Invalid IRI format. Use a full IRI or a simple identifier.')
+      ).toBeInTheDocument()
+
       expect(mockToast).toHaveBeenCalledWith(
         expect.objectContaining({
-          title: 'Invalid ID format',
+          title: 'Validation error',
           variant: 'destructive',
         })
       )
@@ -272,6 +284,8 @@ describe('NewEntityDialog - Validation Tests', () => {
 
       const createButton = screen.getByRole('button', { name: /create class/i })
       await userEvent.click(createButton)
+
+      expect(screen.getByText('Entity already exists')).toBeInTheDocument()
 
       expect(mockToast).toHaveBeenCalledWith(
         expect.objectContaining({
