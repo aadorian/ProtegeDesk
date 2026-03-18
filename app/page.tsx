@@ -1,21 +1,21 @@
-"use client"
-import debug from "debug"
-import { useEffect, useState } from "react"
-import { OntologyHeader } from "@/components/ontology/header"
-import { TabsNavigation } from "@/components/ontology/tabs-navigation"
-import { DetailsPanel } from "@/components/ontology/details-panel"
-import { GraphView } from "@/components/ontology/graph-view"
-import { OntologyStats } from "@/components/ontology/ontology-stats"
-import { useOntology } from "@/lib/ontology/context"
-import { parseOWLXML } from "@/lib/ontology/serializers"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+'use client'
+import debug from 'debug'
+import { useEffect, useState } from 'react'
+import { OntologyHeader } from '@/components/ontology/header'
+import { TabsNavigation } from '@/components/ontology/tabs-navigation'
+import { DetailsPanel } from '@/components/ontology/details-panel'
+import { GraphView } from '@/components/ontology/graph-view'
+import { OntologyStats } from '@/components/ontology/ontology-stats'
+import { useOntology } from '@/lib/ontology/context'
+import { parseOWLXML } from '@/lib/ontology/serializers'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
-const log = debug("protegedesk:homepage")
-
+const log = debug('protegedesk:homepage')
 
 export default function HomePage() {
   const { setOntology } = useOntology()
-  const [ontologyViewMode, setOntologyViewMode] = useState<"details" | "graph">("details")
+  const [ontologyViewMode, setOntologyViewMode] = useState<'details' | 'graph'>('details')
 
   useEffect(() => {
     // Load sample ontology on mount
@@ -38,15 +38,22 @@ export default function HomePage() {
     <div className="flex h-screen flex-col">
       <OntologyHeader />
       <main className="flex flex-1 overflow-hidden">
-        <aside className="w-64 border-r border-border bg-card">
-          <TabsNavigation />
+        <aside className="border-border bg-card w-64 border-r">
+          <ErrorBoundary>
+            <TabsNavigation />
+          </ErrorBoundary>
         </aside>
-        <div className="flex-1 overflow-hidden flex flex-col">
-          <div className="border-b border-border">
-            <Tabs value={ontologyViewMode} onValueChange={(newOntologyViewMode) => {
-              log("Ontology view mode changed to %s", newOntologyViewMode)
-              setOntologyViewMode(newOntologyViewMode)
-            }} className="w-full">
+        <div className="flex flex-1 flex-col overflow-hidden">
+          <div className="border-border border-b">
+            <Tabs
+              value={ontologyViewMode}
+              onValueChange={newOntologyViewMode => {
+                const mode = newOntologyViewMode as 'details' | 'graph'
+                log('Ontology view mode changed to %s', mode)
+                setOntologyViewMode(mode)
+              }}
+              className="w-full"
+            >
               <TabsList className="mx-4 mt-2">
                 <TabsTrigger value="details" className="text-xs">
                   Details View
@@ -57,10 +64,16 @@ export default function HomePage() {
               </TabsList>
             </Tabs>
           </div>
-          <div className="flex-1 overflow-hidden">{ontologyViewMode === "details" ? <DetailsPanel /> : <GraphView />}</div>
+          <div className="flex-1 overflow-hidden">
+            <ErrorBoundary>
+              {ontologyViewMode === 'details' ? <DetailsPanel /> : <GraphView />}
+            </ErrorBoundary>
+          </div>
         </div>
-        <aside className="w-80 border-l border-border bg-card p-4 overflow-y-auto">
-          <OntologyStats />
+        <aside className="border-border bg-card w-80 overflow-y-auto border-l p-4">
+          <ErrorBoundary>
+            <OntologyStats />
+          </ErrorBoundary>
         </aside>
       </main>
     </div>
