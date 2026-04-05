@@ -24,18 +24,16 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Kbd } from '@/components/ui/kbd'
 import { Plus } from 'lucide-react'
 import { useOntology } from '@/lib/ontology/context'
+import { isDuplicateEntityId, isValidIRI } from '@/lib/ontology/validation'
 import { useToast } from '@/hooks/use-toast'
-import type { Ontology } from '@/lib/ontology/types'
 
-// Validate IRI format - accepts full IRIs or simple identifiers
-function isValidIRI(value: string): boolean {
-  const iriPattern = /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\/[^\s]+$/
-  return iriPattern.test(value) || /^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(value)
+interface ValidationErrors {
+  id?: string
+  name?: string
 }
 
-// Check if ID already exists in the ontology
-function isDuplicate(id: string, ontology: Ontology): boolean {
-  return ontology.classes.has(id) || ontology.properties.has(id) || ontology.individuals.has(id)
+interface IdValidationOptions {
+  checkDuplicate?: boolean
 }
 
 export function NewEntityDialog({
@@ -60,6 +58,7 @@ export function NewEntityDialog({
   const [name, setName] = useState('')
   const [label, setLabel] = useState('')
   const [description, setDescription] = useState('')
+  const [errors, setErrors] = useState<ValidationErrors>({})
   const [propertyType, setPropertyType] = useState<'ObjectProperty' | 'DataProperty'>(
     'ObjectProperty'
   )
@@ -74,22 +73,44 @@ export function NewEntityDialog({
     }
   }, [parentClassId])
 
+  const validateId = (rawId: string, options?: IdValidationOptions): string | undefined => {
+    const checkDuplicate = options?.checkDuplicate ?? true
+    const normalizedId = rawId.trim()
+    if (!normalizedId) {
+      return 'ID is required'
+    }
+    if (!isValidIRI(normalizedId)) {
+      return 'Invalid IRI format. Use a full IRI or a simple identifier.'
+    }
+    if (checkDuplicate && ontology && isDuplicateEntityId(normalizedId, ontology)) {
+      return 'Entity already exists'
+    }
+    return undefined
+  }
+
+  const validateName = (rawName: string): string | undefined => {
+    if (!rawName.trim()) {
+      return 'Name is required'
+    }
+    return undefined
+  }
+
   const handleCreate = () => {
-    // Validate required fields
-    if (!id.trim() || !name.trim()) {
-      toast({
-        title: 'Validation error',
-        description: 'ID and Name are required',
-        variant: 'destructive',
-      })
-      return
+    const normalizedId = id.trim()
+    const normalizedName = name.trim()
+
+    const nextErrors: ValidationErrors = {
+      id: validateId(normalizedId, { checkDuplicate: false }),
+      name: validateName(normalizedName),
     }
 
-    // Validate IRI format
-    if (!isValidIRI(id)) {
+    setErrors(nextErrors)
+
+    // Validate required fields
+    if (nextErrors.id || nextErrors.name) {
       toast({
-        title: 'Invalid ID format',
-        description: 'ID must be a valid IRI or a simple identifier',
+        title: 'Validation error',
+        description: nextErrors.id ?? nextErrors.name ?? 'Please fix validation errors',
         variant: 'destructive',
       })
       return
@@ -105,10 +126,11 @@ export function NewEntityDialog({
       return
     }
 
-    if (isDuplicate(id, ontology)) {
+    if (isDuplicateEntityId(normalizedId, ontology)) {
+      setErrors(prev => ({ ...prev, id: 'Entity already exists' }))
       toast({
         title: 'Duplicate ID',
-        description: `An entity with ID "${id}" already exists in the ontology`,
+        description: `An entity with ID "${normalizedId}" already exists in the ontology`,
         variant: 'destructive',
       })
       return
@@ -116,8 +138,8 @@ export function NewEntityDialog({
 
     if (entityType === 'class') {
       addClass({
-        id,
-        name,
+        id: normalizedId,
+        name: normalizedName,
         label,
         description,
         superClasses: parentClassId ? [parentClassId] : ['owl:Thing'],
@@ -128,12 +150,12 @@ export function NewEntityDialog({
       })
       toast({
         title: 'Class created',
-        description: `Created class: ${name}`,
+        description: `Created class: ${normalizedName}`,
       })
     } else {
       addProperty({
-        id,
-        name,
+        id: normalizedId,
+        name: normalizedName,
         label,
         description,
         type: propertyType,
@@ -145,7 +167,7 @@ export function NewEntityDialog({
       })
       toast({
         title: 'Property created',
-        description: `Created property: ${name}`,
+        description: `Created property: ${normalizedName}`,
       })
     }
 
@@ -154,6 +176,7 @@ export function NewEntityDialog({
     setName('')
     setLabel('')
     setDescription('')
+    setErrors({})
     setDialogOpen(false)
   }
 
@@ -205,9 +228,20 @@ export function NewEntityDialog({
               id="entity-id"
               placeholder="e.g., Person, hasName"
               value={id}
-              onChange={e => setId(e.target.value)}
+              onChange={e => {
+                const nextId = e.target.value
+                setId(nextId)
+                if (errors.id) {
+                  setErrors(prev => ({ ...prev, id: validateId(nextId) }))
+                }
+              }}
+              onBlur={() => {
+                setErrors(prev => ({ ...prev, id: validateId(id) }))
+              }}
+              aria-invalid={!!errors.id}
               className="font-mono text-xs"
             />
+            {errors.id && <p className="text-destructive text-sm">{errors.id}</p>}
           </div>
 
           <div className="space-y-2">
@@ -218,8 +252,19 @@ export function NewEntityDialog({
               id="entity-name"
               placeholder="e.g., Person, hasName"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={e => {
+                const nextName = e.target.value
+                setName(nextName)
+                if (errors.name) {
+                  setErrors(prev => ({ ...prev, name: validateName(nextName) }))
+                }
+              }}
+              onBlur={() => {
+                setErrors(prev => ({ ...prev, name: validateName(name) }))
+              }}
+              aria-invalid={!!errors.name}
             />
+            {errors.name && <p className="text-destructive text-sm">{errors.name}</p>}
           </div>
 
           <div className="space-y-2">
