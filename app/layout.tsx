@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OntologyProvider } from '@/lib/ontology/context'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import './globals.css'
 
 const _geist = Geist({ subsets: ['latin'] })
@@ -39,7 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`font-sans antialiased`} suppressHydrationWarning>
-        <OntologyProvider>{children}</OntologyProvider>
+        <OntologyProvider>
+          <ErrorBoundary>{children}</ErrorBoundary>
+        </OntologyProvider>
         <Analytics />
       </body>
     </html>

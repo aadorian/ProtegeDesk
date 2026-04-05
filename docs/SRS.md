@@ -1783,12 +1783,12 @@ Individual: i
 
 **Document Approval:**
 
-| Role            | Name   | Signature    | Date         |
-| --------------- | ------ | ------------ | ------------ |
-| Product Owner   | [Name] | ****\_\_**** | **\_\_\_\_** |
-| Lead Developer  | [Name] | ****\_\_**** | **\_\_\_\_** |
-| QA Manager      | [Name] | ****\_\_**** | **\_\_\_\_** |
-| Project Manager | [Name] | ****\_\_**** | **\_\_\_\_** |
+| Role            | Name   | Signature        | Date         |
+| --------------- | ------ | ---------------- | ------------ |
+| Product Owner   | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| Lead Developer  | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| QA Manager      | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| Project Manager | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
 
 ---
 

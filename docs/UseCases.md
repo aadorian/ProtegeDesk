@@ -3323,12 +3323,12 @@ See main SRS document Section 1.3 for comprehensive glossary.
 
 **Document Approval**:
 
-| Role             | Name   | Signature    | Date         |
-| ---------------- | ------ | ------------ | ------------ |
-| Product Owner    | [Name] | ****\_\_**** | **\_\_\_\_** |
-| UX Lead          | [Name] | ****\_\_**** | **\_\_\_\_** |
-| Development Lead | [Name] | ****\_\_**** | **\_\_\_\_** |
-| QA Lead          | [Name] | ****\_\_**** | **\_\_\_\_** |
+| Role             | Name   | Signature        | Date         |
+| ---------------- | ------ | ---------------- | ------------ |
+| Product Owner    | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| UX Lead          | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| Development Lead | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
+| QA Lead          | [Name] | \***\*\_\_\*\*** | **\_\_\_\_** |
 
 ---
 
