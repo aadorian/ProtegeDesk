@@ -10,6 +10,7 @@ import { Button } from '../ui/button'
 import { useCopyToClipboard } from '@/hooks/copy-to-clipboard'
 import { formatRelativeTime, formatAbsoluteTime } from '@/lib/utils'
 import { OntologyMetrics } from './ontology-metrics'
+import { ImportedOntologies } from './imported-ontologies'
 
 export function OntologyStats() {
   const { ontology } = useOntology()
@@ -123,6 +124,8 @@ export function OntologyStats() {
       </div>
 
       <OntologyMetrics />
+      
+      <ImportedOntologies />
     </div>
   )
 }
