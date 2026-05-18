@@ -43,6 +43,34 @@ type OntologyContextType = {
  */
 const OntologyContext = createContext<OntologyContextType | undefined>(undefined)
 
+/**
+ * Context provider that manages the full ontology lifecycle including
+ * entity state, selection tracking, and CRUD operations for classes,
+ * properties, and individuals.
+ *
+ * Wrap your component tree with this provider to grant child components
+ * access to ontology state via the {@link useOntology} hook.
+ *
+ * @param props - Component properties
+ * @param props.children - Child components that require ontology context access
+ * @returns A React context provider populated with ontology state and mutators
+ *
+ * @example
+ * ```tsx
+ * function App() {
+ *   return (
+ *     <OntologyProvider>
+ *       <OntologyEditor />
+ *     </OntologyProvider>
+ *   )
+ * }
+ *
+ * function OntologyEditor() {
+ *   const { ontology, addClass, selectClass } = useOntology()
+ *   // ...
+ * }
+ * ```
+ */
 export function OntologyProvider({ children }: { children: React.ReactNode }): JSX.Element {
   /**
    * The full ontology object is stored as a single state value.
@@ -265,6 +293,14 @@ export function OntologyProvider({ children }: { children: React.ReactNode }): J
  *
  * Throwing here provides a fast, clear failure mode during development
  * instead of silently returning undefined behavior.
+ *
+ * @returns The current ontology context including state and mutators
+ * @throws {Error} When used outside of an OntologyProvider
+ *
+ * @example
+ * ```tsx
+ * const { ontology, addClass } = useOntology()
+ * ```
  */
 export function useOntology(): OntologyContextType {
   const context = useContext(OntologyContext)

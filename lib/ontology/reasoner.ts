@@ -1,5 +1,15 @@
 import type { Ontology } from './types'
 
+/**
+ * The result of running the reasoner on an ontology.
+ *
+ * @property consistent - `true` if no logical errors were found
+ * @property errors - Fatal issues that indicate an invalid ontology
+ * @property warnings - Non-fatal issues that suggest possible improvements
+ * @property inferredHierarchy - Transitive closure of superclass relationships, keyed by class ID
+ * @property unsatisfiableClasses - IDs of classes that can never have valid instances
+ * @property duration - Wall-clock time of reasoning in milliseconds
+ */
 export type ReasoningResult = {
   consistent: boolean
   errors: ReasoningError[]
@@ -9,35 +19,79 @@ export type ReasoningResult = {
   duration: number
 }
 
+/**
+ * A fatal reasoning error that indicates a logically invalid ontology.
+ *
+ * @property type - The category of error: disjoint-class `inconsistency`, an `unsatisfiable` class, or `circular` inheritance
+ * @property message - A human-readable description of the problem
+ * @property affectedEntities - IDs of the ontology entities involved in the error
+ */
 export type ReasoningError = {
   type: 'inconsistency' | 'unsatisfiable' | 'circular'
   message: string
   affectedEntities: string[]
 }
 
+/**
+ * A non-fatal reasoning warning that suggests a possible improvement.
+ *
+ * @property type - The category of warning: `missing-domain`, `missing-range`, `unused-class`, or `redundant`
+ * @property message - A human-readable description of the issue
+ * @property affectedEntities - IDs of the ontology entities involved in the warning
+ */
 export type ReasoningWarning = {
   type: 'missing-domain' | 'missing-range' | 'unused-class' | 'redundant'
   message: string
   affectedEntities: string[]
 }
 
+/**
+ * Reasoner class implementing validation and reasoning for an ontology model.
+ * It checks for logical consistency, unsatisfiable classes, circular dependencies,
+ * and generates warnings for missing domains/ranges or unused classes.
+ * 
+ * @example
+ * ```ts
+ * const reasoner = new HermiTReasoner(myOntology)
+ * const result = reasoner.reason()
+ * ```
+ */
 export class HermiTReasoner {
   private ontology: Ontology
 
+  /**
+   * Create a new reasoner instance bound to the given ontology.
+   *
+   * @param ontology - The ontology model to reason over
+   */
   constructor(ontology: Ontology) {
     this.ontology = ontology
   }
 
-  // Main reasoning entry point
-  // This method orchestrates all reasoning steps in a fixed order:
-  // 1. Validate logical consistency
-  // 2. Detect unsatisfiable classes
-  // 3. Detect circular inheritance
-  // 4. Compute inferred hierarchy
-  // 5. Emit non-fatal warnings
-  //
-  // The order matters: errors that invalidate the ontology (e.g. inconsistencies)
-  // are detected before running inference, while warnings do not affect consistency.
+  /**
+   * Run all reasoning steps on the bound ontology.
+   *
+   * Steps are executed in a fixed order:
+   * 1. Validate logical consistency (disjoint-class violations)
+   * 2. Detect unsatisfiable classes (inheriting from disjoint superclasses)
+   * 3. Detect circular inheritance (cycles in the class hierarchy)
+   * 4. Compute inferred hierarchy (transitive closure of superclasses)
+   * 5. Emit non-fatal warnings (missing domain/range, unused classes)
+   *
+   * The order matters: errors that invalidate the ontology are detected
+   * before running inference, while warnings do not affect consistency.
+   *
+   * @returns A {@link ReasoningResult} containing errors, warnings, inferred hierarchy, and timing
+   *
+   * @example
+   * ```ts
+   * const reasoner = new HermiTReasoner(ontology)
+   * const { consistent, errors, warnings } = reasoner.reason()
+   * if (!consistent) {
+   *   errors.forEach(e => console.error(e.message))
+   * }
+   * ```
+   */
   reason(): ReasoningResult {
     const startTime = performance.now()
     const errors: ReasoningError[] = []
@@ -333,7 +387,20 @@ export class HermiTReasoner {
   }
 }
 
-// Convenience function to run reasoner
+/**
+ * Convenience function to run reasoner on an ontology.
+ * 
+ * @param ontology - The ontology to be reasoned over
+ * @returns The reasoning result including consistency status, errors, warnings, inferred hierarchy, and unsatisfiable classes
+ * 
+ * @example
+ * ```ts
+ * const result = runReasoner(myOntology)
+ * if (result.consistent) {
+ *   console.log("Ontology is consistent")
+ * }
+ * ```
+ */
 export function runReasoner(ontology: Ontology): ReasoningResult {
   const reasoner = new HermiTReasoner(ontology)
   return reasoner.reason()
