@@ -24,6 +24,14 @@ function escapeXML(text: string): string {
  * - Ontology metadata at the root
  * - All entities flattened into @graph
  * - Relationships expressed as @id references
+ * 
+ * @param ontology - The ontology model to serialize
+ * @returns A JSON-LD string representation of the ontology
+ * 
+ * @example
+ * ```ts
+ * const jsonLdStr = serializeToJSONLD(myOntology)
+ * ```
  */
 export function serializeToJSONLD(ontology: Ontology): string {
   /**
@@ -120,6 +128,14 @@ export function serializeToJSONLD(ontology: Ontology): string {
  * Serialize an ontology to Turtle.
  * This is a lightweight, human-readable implementation and does not aim
  * to cover the full Turtle specification.
+ * 
+ * @param ontology - The ontology model to serialize
+ * @returns A Turtle string representation of the ontology
+ * 
+ * @example
+ * ```ts
+ * const turtleStr = serializeToTurtle(myOntology)
+ * ```
  */
 export function serializeToTurtle(ontology: Ontology): string {
   let turtle = `@prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -186,6 +202,14 @@ export function serializeToTurtle(ontology: Ontology): string {
 /**
  * Serialize an ontology to OWL/XML (RDF/XML).
  * This implementation focuses on interoperability rather than full OWL coverage.
+ * 
+ * @param ontology - The ontology model to serialize
+ * @returns An OWL/XML string representation of the ontology
+ * 
+ * @example
+ * ```ts
+ * const xmlStr = serializeToOWLXML(myOntology)
+ * ```
  */
 export function serializeToOWLXML(ontology: Ontology): string {
   // Extract base URI from ontology ID for proper IRI resolution
@@ -392,6 +416,15 @@ function resolveIRI(iri: string, xmlBase: string): string {
  * STANDARDS COMPLIANCE:
  * Follows W3C RDF Syntax Grammar: https://www.w3.org/TR/rdf-syntax-grammar/
  * and OWL 2 XML Serialization: https://www.w3.org/TR/owl2-xml-serialization/
+ * 
+ * @param content - The OWL/XML string to parse
+ * @returns The parsed ontology model
+ * @throws {Error} If the XML is invalid and cannot be parsed
+ * 
+ * @example
+ * ```ts
+ * const ontology = parseOWLXML(xmlString)
+ * ```
  */
 export function parseOWLXML(content: string): Ontology {
   /**
@@ -714,6 +747,14 @@ export function parseOWLXML(content: string): Ontology {
 
 /**
  * RDF/XML is treated as equivalent to OWL/XML for parsing purposes.
+ * 
+ * @param content - The RDF/XML string to parse
+ * @returns The parsed ontology model
+ * 
+ * @example
+ * ```ts
+ * const ontology = parseRDFXML(rdfXmlString)
+ * ```
  */
 export function parseRDFXML(content: string): Ontology {
   return parseOWLXML(content)
@@ -742,6 +783,14 @@ export function parseRDFXML(content: string): Ontology {
  *
  * For production use with arbitrary Turtle files, consider integrating a full
  * Turtle parser library like N3.js.
+ * 
+ * @param content - The Turtle string to parse
+ * @returns The parsed ontology model
+ * 
+ * @example
+ * ```ts
+ * const ontology = parseTurtle(turtleString)
+ * ```
  */
 export function parseTurtle(content: string): Ontology {
   const classes = new Map<string, OntologyClass>()
@@ -863,6 +912,15 @@ export function parseTurtle(content: string): Ontology {
  * - Array of either: "rdfs:domain": ["#Person", { "@id": "#Organization" }]
  *
  * extractIds() normalizes all three forms into a string array for consistent processing.
+ * 
+ * @param content - The JSON-LD string to parse
+ * @returns The parsed ontology model
+ * @throws {Error} If the JSON-LD content is invalid
+ * 
+ * @example
+ * ```ts
+ * const ontology = parseJSONLD(jsonLdString)
+ * ```
  */
 export function parseJSONLD(content: string): Ontology {
   const data: unknown = JSON.parse(content)
@@ -995,6 +1053,17 @@ export function parseJSONLD(content: string): Ontology {
 /**
  * Validate that an ontology conforms to W3C RDF/OWL standards.
  * Returns an array of validation errors, empty if valid.
+ * 
+ * @param ontology - The ontology model to validate
+ * @returns An array of validation error messages, or an empty array if valid
+ * 
+ * @example
+ * ```ts
+ * const errors = validateOntology(myOntology)
+ * if (errors.length > 0) {
+ *   console.error("Validation errors:", errors)
+ * }
+ * ```
  */
 export function validateOntology(ontology: Ontology): string[] {
   const errors: string[] = []
@@ -1068,6 +1137,9 @@ export function validateOntology(ontology: Ontology): string[] {
   return errors
 }
 
+/** Alias for {@link parseJSONLD}. */
 export const parseFromJSONLD = parseJSONLD
+/** Alias for {@link parseOWLXML}. */
 export const parseFromOWLXML = parseOWLXML
+/** Alias for {@link parseTurtle}. */
 export const parseFromTurtle = parseTurtle
