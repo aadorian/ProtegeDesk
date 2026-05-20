@@ -2,7 +2,7 @@
 
 A next-generation, web-based ontology engineering platform built with TypeScript, React, and AI assistance.
 
-[![CI](https://github.com/yourusername/modern-ontology-editor/workflows/CI/badge.svg)](https://github.com/yourusername/modern-ontology-editor/actions)
+[![CI](https://github.com/aadorian/ProtegeDesk/workflows/CI/badge.svg)](https://github.com/aadorian/ProtegeDesk/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB.svg)](https://reactjs.org/)
@@ -17,7 +17,7 @@ A next-generation, web-based ontology engineering platform built with TypeScript
 
 ### Core Ontology Engineering
 
-- ✨ **Advanced Axiom Editor** with Monaco-powered Manchester Syntax editing
+- ✨ **Advanced Axiom Editor** with CodeMirror-powered Manchester Syntax editing
 - 🌳 **Hierarchical Visualization** with automatic layout and incremental loading
 - 📁 **Multiple Format Support** (Turtle, RDF/XML, OWL/XML, N-Triples)
 - 🔍 **Intelligent Autocomplete** with context-aware suggestions
@@ -71,15 +71,11 @@ A next-generation, web-based ontology engineering platform built with TypeScript
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/modern-ontology-editor.git
-cd modern-ontology-editor
+git clone https://github.com/aadorian/ProtegeDesk.git
+cd ProtegeDesk
 
 # Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your API keys
 
 # Run development server
 npm run dev
@@ -164,7 +160,7 @@ npm start
 - [ ] Sprint 4: Graph Visualization
 - [ ] Sprint 5-12: Advanced Features
 
-See [Project Board](https://github.com/yourusername/modern-ontology-editor/projects/1) for detailed progress.
+See [Project Board](https://github.com/aadorian/ProtegeDesk/projects/1) for detailed progress.
 
 ### Roadmap
 
@@ -323,8 +319,8 @@ See [LINTING.md](LINTING.md) for detailed configuration and IDE setup.
 
 Found a bug or have a feature request? Please open an issue!
 
-- [Report a Bug](https://github.com/yourusername/modern-ontology-editor/issues/new?template=bug_report.md)
-- [Request a Feature](https://github.com/yourusername/modern-ontology-editor/issues/new?template=feature_request.md)
+- [Report a Bug](https://github.com/aadorian/ProtegeDesk/issues/new?template=bug_report.md)
+- [Request a Feature](https://github.com/aadorian/ProtegeDesk/issues/new?template=feature_request.md)
 
 ---
 
@@ -402,7 +398,7 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and detailed contri
 ## 🙏 Acknowledgments
 
 - [Protege](https://protege.stanford.edu/) - Inspiration for ontology editing
-- [Monaco Editor](https://microsoft.github.io/monaco-editor/) - Code editing
+- [CodeMirror](https://codemirror.net/) - Code editing
 - [React Flow](https://reactflow.dev/) - Graph visualization
 - [N3.js](https://github.com/rdfjs/N3.js) - RDF parsing
 - [Vercel](https://vercel.com/) - Deployment platform
@@ -423,7 +419,7 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the complete list and detailed contri
 
 If you find this project useful, please consider giving it a star! ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/modern-ontology-editor&type=Date)](https://star-history.com/#yourusername/modern-ontology-editor&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=aadorian/ProtegeDesk&type=Date)](https://star-history.com/#aadorian/ProtegeDesk&Date)
 
 ---
 

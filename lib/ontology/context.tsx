@@ -32,6 +32,8 @@ type OntologyContextType = {
   deleteClass: (classId: string) => void
   deleteProperty: (propertyId: string) => void
   deleteIndividual: (individualId: string) => void
+  addImport: (importIri: string) => void
+  removeImport: (importIri: string) => void
 }
 
 /**
@@ -261,6 +263,35 @@ export function OntologyProvider({ children }: { children: React.ReactNode }): J
     })
   }, [])
 
+  const addImport = useCallback((importIri: string) => {
+    setOntology(prev => {
+      if (!prev) {
+        return prev
+      }
+      if (prev.imports.includes(importIri)) {
+        return prev
+      }
+      return {
+        ...prev,
+        imports: [...prev.imports, importIri],
+        lastModified: new Date(),
+      }
+    })
+  }, [])
+
+  const removeImport = useCallback((importIri: string) => {
+    setOntology(prev => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        imports: prev.imports.filter(iri => iri !== importIri),
+        lastModified: new Date(),
+      }
+    })
+  }, [])
+
   return (
     <OntologyContext.Provider
       value={{
@@ -281,6 +312,8 @@ export function OntologyProvider({ children }: { children: React.ReactNode }): J
         deleteClass,
         deleteProperty,
         deleteIndividual,
+        addImport,
+        removeImport,
       }}
     >
       {children}
