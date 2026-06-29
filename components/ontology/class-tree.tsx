@@ -18,7 +18,7 @@ type ClassTreeNodeProps = {
   classId: string
   owlClass: OntologyClass
   level: number
-  // Nuevas props:
+  // Additional props:
   expandedIds: Set<string>
   onToggle: (id: string) => void
 }
@@ -66,7 +66,7 @@ function ClassTreeNode({ classId, owlClass, level, expandedIds, onToggle }: Clas
           <button
             onClick={e => {
               e.stopPropagation()
-              // AHORA: Llamamos a la función del padre en lugar de set local
+              // Delegate expand/collapse state to the parent component.
               onToggle(classId)
             }}
             className="flex h-4 w-4 items-center justify-center"
@@ -137,7 +137,7 @@ export function ClassTree() {
     }
   }, [expandedIds, isMounted])
 
-  //Handlers
+  // Handlers
   const handleToggle = (id: string) => {
     const newSet = new Set(expandedIds)
     if (newSet.has(id)) {
